@@ -6,22 +6,26 @@
 <title>EZWorks</title>
 <meta name="description" content="EZWorks builds software that does the boring parts of your work.">
 <style>
-  :root { --blue: #0063F9; --ink: #16202B; --soft: #5A6B7E; --line: #E3E9F0; --bg: #FFFFFF; }
+  :root { --blue: #0063F9; --ink: #16202B; --soft: #5A6B7E; --line: #E3E9F0; --tint: #F0F5FF; }
   * { box-sizing: border-box; margin: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink); background: #fff; line-height: 1.65; }
   .wrap { max-width: 720px; margin: 0 auto; padding: 56px 24px 80px; }
-  header { display: flex; align-items: center; gap: 12px; margin-bottom: 64px; }
-  .mark { width: 36px; height: 36px; border-radius: 9px; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; letter-spacing: -0.5px; }
+  header { display: flex; align-items: center; gap: 12px; margin-bottom: 60px; }
+  .mark { width: 36px; height: 36px; border-radius: 9px; background: var(--blue); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; letter-spacing: -0.5px; }
   .brand { font-weight: 700; font-size: 18px; }
-  h1 { font-size: 34px; line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 14px; }
-  .sub { color: var(--soft); font-size: 18px; margin-bottom: 56px; }
-  h2 { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); margin-bottom: 16px; }
-  .card { border: 1px solid var(--line); border-radius: 14px; padding: 24px; display: block; text-decoration: none; color: inherit; transition: border-color .15s; }
-  .card:hover { border-color: var(--blue); }
-  .card h3 { font-size: 20px; margin-bottom: 6px; }
-  .card p { color: var(--soft); font-size: 15px; }
-  .tag { display: inline-block; font-size: 12px; font-weight: 700; color: var(--blue); border: 1px solid var(--blue); border-radius: 20px; padding: 1px 10px; margin-bottom: 12px; }
-  footer { margin-top: 72px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--soft); font-size: 14px; }
+  h1 { font-size: 33px; line-height: 1.25; letter-spacing: -0.02em; margin-bottom: 14px; }
+  .sub { color: var(--soft); font-size: 17.5px; margin-bottom: 52px; max-width: 58ch; }
+  h2 { font-size: 12.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--soft); margin-bottom: 18px; }
+  .product { border: 1px solid var(--line); border-radius: 16px; padding: 28px; }
+  .product .tag { display: inline-block; font-size: 11.5px; font-weight: 700; color: var(--blue); background: var(--tint); border-radius: 20px; padding: 3px 11px; margin-bottom: 14px; letter-spacing: .02em; }
+  .product h3 { font-size: 23px; letter-spacing: -0.01em; margin-bottom: 8px; }
+  .product .lede { color: var(--soft); font-size: 16px; margin-bottom: 18px; }
+  .product ul { list-style: none; padding: 0; margin-bottom: 22px; }
+  .product li { font-size: 15px; color: var(--ink); padding-left: 20px; position: relative; margin: 7px 0; }
+  .product li::before { content: "—"; position: absolute; left: 0; color: var(--blue); }
+  .go { display: inline-block; font-weight: 700; font-size: 15px; color: var(--blue); text-decoration: none; }
+  .go:hover { text-decoration: underline; }
+  footer { margin-top: 68px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--soft); font-size: 14px; }
   footer a { color: var(--soft); }
 </style>
 </head>
@@ -33,14 +37,21 @@
   </header>
 
   <h1>Software that does the boring parts of your work.</h1>
-  <p class="sub">Small, focused tools that automate the tedious middle of everyday work — and leave your data where it belongs: with you.</p>
+  <p class="sub">We build small, focused tools that automate the tedious middle of everyday work — and leave your data where it belongs: with you.</p>
 
-  <h2>Products</h2>
-  <a class="card" href="/voice/">
-    <span class="tag">Private alpha</span>
-    <h3>EZVoice</h3>
-    <p>An AI voice recorder that files itself. Record a meeting — the transcript, summary, and notes appear in your own cloud, organized by category. Your keys, your storage, your data.</p>
-  </a>
+  <h2>Our products</h2>
+  <div class="product">
+    <span class="tag">Private alpha · Android</span>
+    <h3>EZHaru</h3>
+    <p class="lede">An AI voice recorder that files itself. Tap a category and record — the transcript, the summary, and a tidy note file appear in your own cloud, already in the right folder.</p>
+    <ul>
+      <li>Automatic transcription and summaries with key points</li>
+      <li>Routes each recording to the folder you chose for that category</li>
+      <li>Learns your vocabulary, so your terms stay right</li>
+      <li>No server of ours: your keys, your storage, your data</li>
+    </ul>
+    <a class="go" href="/haru/">See EZHaru →</a>
+  </div>
 
   <footer>
     © 2026 EZWorks · <a href="mailto:Help@ezworks.co">Help@ezworks.co</a>
