@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EZVoice Privacy Policy</title>
+<meta name="robots" content="index, follow">
+<style>
+  :root { --blue: #0063F9; --ink: #16202B; --soft: #5A6B7E; --line: #E3E9F0; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: var(--ink); line-height: 1.7; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+  nav { margin-bottom: 40px; font-size: 15px; } nav a { color: var(--soft); text-decoration: none; }
+  h1 { font-size: 30px; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .date { color: var(--soft); font-size: 14px; margin-bottom: 32px; }
+  h2 { font-size: 20px; margin: 36px 0 10px; }
+  p, li { font-size: 15.5px; } ul { padding-left: 22px; } li { margin: 6px 0; }
+  .tldr { background: #F0F5FF; border-radius: 12px; padding: 18px 20px; margin-bottom: 8px; }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0; font-size: 14.5px; }
+  th, td { text-align: left; border: 1px solid var(--line); padding: 8px 12px; vertical-align: top; }
+  th { background: #F7FAFD; }
+  .tablewrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav><a href="/voice/">← EZVoice</a></nav>
+  <h1>EZVoice Privacy Policy</h1>
+  <p class="date">Effective date: August 14, 2026</p>
+
+  <div class="tldr">
+    <p><b>The short version:</b> EZVoice records audio on your phone and turns it into transcripts and summaries. <b>We do not operate any server, and we never receive your recordings, transcripts, or personal data.</b> Your data goes only to places you own or choose: your device, your own Microsoft OneDrive account, and the AI service you connect with your own API key.</p>
+  </div>
+
+  <h2>What data the app handles, and where it goes</h2>
+  <div class="tablewrap">
+  <table>
+    <tr><th>Data</th><th>Where it goes</th><th>Who can access it</th></tr>
+    <tr><td>Voice recordings</td><td>Your device → your own OneDrive (if you connect it) → the transcription service you configured with your own API key</td><td>Only you, via your own accounts</td></tr>
+    <tr><td>Transcripts &amp; summaries (.md notes)</td><td>Your device → your own OneDrive / OneNote (optional)</td><td>Only you</td></tr>
+    <tr><td>Location (optional)</td><td>Stored on your device to label where a recording was made. Never sent to us. You can deny the permission; recording works without it</td><td>Only you</td></tr>
+    <tr><td>Microsoft account sign-in</td><td>An access token is stored encrypted on your device to upload to your own OneDrive. We never see your password or token</td><td>Only you</td></tr>
+    <tr><td>API keys you enter</td><td>Stored encrypted on your device. Sent only to the AI vendor you chose</td><td>Only you and your chosen vendor</td></tr>
+  </table>
+  </div>
+
+  <h2>What we do NOT do</h2>
+  <ul>
+    <li>We do <b>not</b> operate servers that receive your audio, text, or usage data.</li>
+    <li>We do <b>not</b> collect analytics, advertising identifiers, or crash reports.</li>
+    <li>We do <b>not</b> sell, share, or have access to any of your data.</li>
+    <li>The app creates <b>no developer-side account</b> — there is nothing for us to delete because we hold nothing.</li>
+  </ul>
+
+  <h2>Third-party services you may connect</h2>
+  <p>When you connect a service, your data is handled under that service's terms with you: Microsoft OneDrive/OneNote (storage you own) and the transcription/summary AI vendor you configure (for example Groq or Anthropic — using your own API key, under your own agreement with them). Choose vendors whose data-retention terms you are comfortable with; the app works with any compatible provider, including self-hosted ones.</p>
+
+  <h2>Data deletion</h2>
+  <p>Delete recordings in the app (you choose whether the OneDrive copy is deleted too). Disconnect OneDrive in Settings to revoke the app's access instantly. Uninstalling the app removes all local data. Files in your OneDrive and any data held by your chosen AI vendor are under your own control through those accounts.</p>
+
+  <h2>Recording consent</h2>
+  <p>You are responsible for complying with the recording-consent laws of your location and the policies of your institution when you record other people.</p>
+
+  <h2>Children</h2>
+  <p>This app is not directed to children under 13.</p>
+
+  <h2>Changes</h2>
+  <p>If the app's architecture ever changes in a way that affects this policy (for example, introducing an optional server-based plan), we will update this policy and note the change here before it takes effect.</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:Help@ezworks.co">Help@ezworks.co</a></p>
+</div>
+</body>
+</html>
