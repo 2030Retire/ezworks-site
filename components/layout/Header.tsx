@@ -4,11 +4,37 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-import { primaryNav, site } from '@/content/site';
 import { Button } from '@/components/ui/Button';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import { cn } from '@/lib/cn';
+import type { Lang, NavItem } from '@/content/types';
 
-export function Header() {
+export type HeaderStrings = {
+  homeAriaLabel: string;
+  primaryNavLabel: string;
+  openMenu: string;
+  closeMenu: string;
+  headerCta: string;
+  languageLabel: string;
+};
+
+/**
+ * Site header. Strings and nav come from the locale dictionary via the root
+ * layout — this component holds no copy of its own.
+ */
+export function Header({
+  lang,
+  siteName,
+  nav,
+  ctaHref,
+  strings,
+}: {
+  lang: Lang;
+  siteName: string;
+  nav: NavItem[];
+  ctaHref: string;
+  strings: HeaderStrings;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -19,11 +45,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
-      <div className="mx-auto flex max-w-content items-center gap-4 px-5 py-3.5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-content items-center gap-2 px-5 py-3.5 sm:gap-4 sm:px-6 lg:px-8">
         <Link
-          href="/"
+          href={lang === 'en' ? '/' : `/${lang}/`}
           className="flex shrink-0 items-center gap-2.5"
-          aria-label={`${site.name} home`}
+          aria-label={strings.homeAriaLabel}
         >
           <Image
             src="/ezworks-symbol.png"
@@ -34,13 +60,13 @@ export function Header() {
             priority
           />
           <span className="text-[1.0625rem] font-bold tracking-tight text-ink">
-            {site.name}
+            {siteName}
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="ml-auto hidden md:block">
+        <nav aria-label={strings.primaryNavLabel} className="ml-auto hidden md:block">
           <ul className="flex items-center gap-1">
-            {primaryNav.map((item) => {
+            {nav.map((item) => {
               const active = pathname?.startsWith(item.href);
               return (
                 <li key={item.href}>
@@ -60,9 +86,15 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="ml-auto hidden md:ml-4 md:block">
-          <Button href="/contact/" className="px-4 py-2.5">
-            Talk to us
+        <LanguageSwitcher
+          lang={lang}
+          label={strings.languageLabel}
+          className="ml-auto md:ml-3"
+        />
+
+        <div className="hidden md:block">
+          <Button href={ctaHref} className="px-4 py-2.5">
+            {strings.headerCta}
           </Button>
         </div>
 
@@ -71,9 +103,9 @@ export function Header() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-nav"
-          className="ml-auto inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line text-ink md:hidden"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border border-line text-ink md:hidden"
         >
-          <span className="sr-only">{open ? 'Close menu' : 'Open menu'}</span>
+          <span className="sr-only">{open ? strings.closeMenu : strings.openMenu}</span>
           <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round">
             {open ? (
               <>
@@ -94,11 +126,11 @@ export function Header() {
       {open ? (
         <nav
           id="mobile-nav"
-          aria-label="Primary"
+          aria-label={strings.primaryNavLabel}
           className="border-t border-line bg-white md:hidden"
         >
           <ul className="mx-auto flex max-w-content flex-col px-5 py-2 sm:px-6">
-            {primaryNav.map((item) => (
+            {nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
@@ -109,8 +141,8 @@ export function Header() {
               </li>
             ))}
             <li className="py-3">
-              <Button href="/contact/" className="w-full">
-                Talk to us
+              <Button href={ctaHref} className="w-full">
+                {strings.headerCta}
               </Button>
             </li>
           </ul>

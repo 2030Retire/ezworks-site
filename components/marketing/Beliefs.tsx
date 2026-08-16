@@ -1,8 +1,11 @@
 import { Section, SectionHeading } from '@/components/layout/Section';
 import { Reveal } from '@/components/ui/Reveal';
-import { beliefs } from '@/content/home';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
 
-export function Beliefs() {
+export function Beliefs({ lang }: { lang: Lang }) {
+  const { beliefs } = getContent(lang).home;
+
   return (
     <Section>
       <SectionHeading eyebrow={beliefs.eyebrow} heading={beliefs.heading} />

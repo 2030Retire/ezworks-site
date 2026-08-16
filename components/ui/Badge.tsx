@@ -1,16 +1,18 @@
 import { cn } from '@/lib/cn';
-import { productStatusLabels, type ProductStatus } from '@/content/products';
+import type { ProductStatus } from '@/content/types';
 
 /**
  * Status badge. Every unreleased product must carry one so nothing on the
- * site reads as purchasable.
+ * site reads as purchasable. Labels are passed in from the locale dictionary.
  */
 export function StatusBadge({
   status,
+  labels,
   note,
   className,
 }: {
   status: ProductStatus;
+  labels: Record<ProductStatus, string>;
   note?: string;
   className?: string;
 }) {
@@ -22,7 +24,7 @@ export function StatusBadge({
       )}
     >
       <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-brand" />
-      {productStatusLabels[status]}
+      {labels[status]}
       {note ? <span className="font-medium text-soft">· {note}</span> : null}
     </span>
   );

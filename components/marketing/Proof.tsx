@@ -1,12 +1,15 @@
 import { Section, SectionHeading } from '@/components/layout/Section';
 import { Reveal } from '@/components/ui/Reveal';
-import { proof } from '@/content/home';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
 
 /**
  * Capability evidence. Anonymous by design — no client names, no logos, no
  * testimonials, no user or revenue numbers.
  */
-export function Proof() {
+export function Proof({ lang }: { lang: Lang }) {
+  const { proof } = getContent(lang).home;
+
   return (
     <Section tone="deep">
       <SectionHeading

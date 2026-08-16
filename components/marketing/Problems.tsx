@@ -1,9 +1,12 @@
 import { Section, SectionHeading } from '@/components/layout/Section';
 import { SeamGrid } from '@/components/layout/SeamGrid';
 import { Reveal } from '@/components/ui/Reveal';
-import { problems } from '@/content/home';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
 
-export function Problems() {
+export function Problems({ lang }: { lang: Lang }) {
+  const { problems } = getContent(lang).home;
+
   return (
     <Section tone="surface">
       <SectionHeading

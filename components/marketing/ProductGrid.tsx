@@ -2,40 +2,50 @@ import { Section, SectionHeading } from '@/components/layout/Section';
 import { ProductCard } from '@/components/product/ProductCard';
 import { Reveal } from '@/components/ui/Reveal';
 import { ArrowLink } from '@/components/ui/Button';
-import { products } from '@/content/products';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
+import { localizePath } from '@/lib/routes';
 
 /**
- * Renders every entry in `content/products.ts`. The column count adapts, so
- * adding a third or fourth product needs no change here.
+ * Renders every entry in the locale's product catalogue. The column count
+ * adapts, so adding a third or fourth product needs no change here — in either
+ * language.
  */
 export function ProductGrid({
-  eyebrow = 'What we build',
-  heading = 'Products we make ourselves.',
-  lede,
+  lang,
   showAllLink = false,
   tone = 'default',
 }: {
-  eyebrow?: string;
-  heading?: string;
-  lede?: string;
+  lang: Lang;
   showAllLink?: boolean;
   tone?: 'default' | 'surface';
 }) {
+  const content = getContent(lang);
+  const section = content.home.productsSection;
+
   return (
     <Section tone={tone}>
-      <SectionHeading eyebrow={eyebrow} heading={heading} lede={lede} />
+      <SectionHeading
+        eyebrow={section.eyebrow}
+        heading={section.heading}
+        lede={section.lede}
+      />
 
       <div className="mt-12 grid gap-6 md:grid-cols-2">
-        {products.map((product, i) => (
+        {content.products.map((product, i) => (
           <Reveal key={product.slug} delay={i * 80} className="h-full">
-            <ProductCard product={product} />
+            <ProductCard
+              product={product}
+              statusLabels={content.productStatusLabels}
+              exploreLabel={content.productExploreLabel}
+            />
           </Reveal>
         ))}
       </div>
 
       {showAllLink ? (
         <div className="mt-8">
-          <ArrowLink href="/products/">See all products</ArrowLink>
+          <ArrowLink href={localizePath(lang, '/products/')}>{section.allLink}</ArrowLink>
         </div>
       ) : null}
     </Section>

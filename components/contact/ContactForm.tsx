@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { analyticsEvents, track } from '@/lib/analytics';
-import { site } from '@/content/site';
+import type { Dictionary } from '@/content/en';
 
 /**
  * Contact form for a site with no backend.
@@ -10,66 +10,38 @@ import { site } from '@/content/site';
  * If NEXT_PUBLIC_CONTACT_ENDPOINT is set at build time, the form POSTs JSON
  * there. If it is not, it falls back to opening a prefilled mail draft. No
  * third-party form service is embedded either way.
+ *
+ * All copy arrives as props so the client bundle carries one locale, not both.
  */
 const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT;
 
-export const interests = [
-  { value: 'services', label: 'Services — automation, integration or implementation' },
-  { value: 'haru', label: 'EZHaru — request an alpha invite' },
-  { value: 'expense', label: 'EZWorks Expense — early access' },
-  { value: 'other', label: 'Something else' },
-] as const;
+export type ContactStrings = Dictionary['contactForm'];
 
-type InterestValue = (typeof interests)[number]['value'];
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 type Fields = {
   name: string;
   email: string;
   company: string;
-  interest: InterestValue;
+  interest: string;
   message: string;
 };
 
-const emptyFields: Fields = {
-  name: '',
-  email: '',
-  company: '',
-  interest: 'services',
-  message: '',
-};
-
-function validate(fields: Fields): Partial<Record<keyof Fields, string>> {
-  const errors: Partial<Record<keyof Fields, string>> = {};
-  if (!fields.name.trim()) errors.name = 'Please tell us your name.';
+function validate(
+  fields: Fields,
+  errors: ContactStrings['errors'],
+): Partial<Record<keyof Fields, string>> {
+  const found: Partial<Record<keyof Fields, string>> = {};
+  if (!fields.name.trim()) found.name = errors.name;
   if (!fields.email.trim()) {
-    errors.email = 'We need an email address to reply to.';
+    found.email = errors.emailMissing;
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.trim())) {
-    errors.email = 'That does not look like an email address.';
+    found.email = errors.emailInvalid;
   }
   if (fields.message.trim().length < 10) {
-    errors.message = 'A sentence or two about what you need, please.';
+    found.message = errors.message;
   }
-  return errors;
-}
-
-function buildMailto(fields: Fields): string {
-  const interestLabel =
-    interests.find((i) => i.value === fields.interest)?.label ?? fields.interest;
-  const body = [
-    `Name: ${fields.name}`,
-    fields.company ? `Company: ${fields.company}` : null,
-    `Email: ${fields.email}`,
-    `Interest: ${interestLabel}`,
-    '',
-    fields.message,
-  ]
-    .filter(Boolean)
-    .join('\n');
-
-  return `mailto:${site.email}?subject=${encodeURIComponent(
-    `Website enquiry — ${interestLabel}`,
-  )}&body=${encodeURIComponent(body)}`;
+  return found;
 }
 
 const fieldClass =
@@ -77,7 +49,21 @@ const fieldClass =
 
 const labelClass = 'block text-sm font-semibold text-ink';
 
-export function ContactForm() {
+export function ContactForm({
+  strings,
+  email,
+}: {
+  strings: ContactStrings;
+  email: string;
+}) {
+  const emptyFields: Fields = {
+    name: '',
+    email: '',
+    company: '',
+    interest: strings.interests[0].value,
+    message: '',
+  };
+
   const [fields, setFields] = useState<Fields>(emptyFields);
   const [errors, setErrors] = useState<Partial<Record<keyof Fields, string>>>({});
   const [status, setStatus] = useState<Status>('idle');
@@ -87,10 +73,29 @@ export function ContactForm() {
   // useSearchParams so the page stays fully static.
   useEffect(() => {
     const requested = new URLSearchParams(window.location.search).get('interest');
-    if (requested && interests.some((i) => i.value === requested)) {
-      setFields((f) => ({ ...f, interest: requested as InterestValue }));
+    if (requested && strings.interests.some((i) => i.value === requested)) {
+      setFields((f) => ({ ...f, interest: requested }));
     }
-  }, []);
+  }, [strings.interests]);
+
+  function buildMailto(values: Fields): string {
+    const interestLabel =
+      strings.interests.find((i) => i.value === values.interest)?.label ?? values.interest;
+    const body = [
+      `${strings.mailName}: ${values.name}`,
+      values.company ? `${strings.mailCompany}: ${values.company}` : null,
+      `${strings.mailEmail}: ${values.email}`,
+      `${strings.mailInterest}: ${interestLabel}`,
+      '',
+      values.message,
+    ]
+      .filter(Boolean)
+      .join('\n');
+
+    return `mailto:${email}?subject=${encodeURIComponent(
+      `${strings.mailSubject} ${interestLabel}`,
+    )}&body=${encodeURIComponent(body)}`;
+  }
 
   function update<K extends keyof Fields>(key: K, value: Fields[K]) {
     setFields((f) => ({ ...f, [key]: value }));
@@ -99,7 +104,7 @@ export function ContactForm() {
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const found = validate(fields);
+    const found = validate(fields, strings.errors);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
@@ -134,23 +139,19 @@ export function ContactForm() {
         className="rounded-2xl border border-line bg-surface p-6 sm:p-8"
       >
         <h2 className="text-xl font-bold tracking-tight text-ink">
-          {usedMailto ? 'Your mail app should be open.' : 'Thank you — that reached us.'}
+          {usedMailto ? strings.successMailtoTitle : strings.successTitle}
         </h2>
         <p className="mt-3 text-[0.9375rem] leading-relaxed text-soft">
           {usedMailto ? (
             <>
-              We drafted the message for you; send it and it comes straight to
-              us. If nothing opened, email{' '}
-              <a href={`mailto:${site.email}`} className="font-medium text-brand underline underline-offset-4">
-                {site.email}
-              </a>{' '}
-              directly.
+              {strings.successMailtoBodyLead}{' '}
+              <a href={`mailto:${email}`} className="font-medium text-brand underline underline-offset-4">
+                {email}
+              </a>
+              {strings.successMailtoBodyTail}
             </>
           ) : (
-            <>
-              We read every message ourselves and normally reply within a
-              business day.
-            </>
+            strings.successBody
           )}
         </p>
         <button
@@ -161,7 +162,7 @@ export function ContactForm() {
           }}
           className="mt-6 text-[0.9375rem] font-semibold text-brand hover:text-brand-hover"
         >
-          Send another message
+          {strings.sendAnother}
         </button>
       </div>
     );
@@ -170,7 +171,7 @@ export function ContactForm() {
   return (
     <form noValidate onSubmit={onSubmit} className="space-y-5">
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="name" label="Your name" error={errors.name}>
+        <Field id="name" label={strings.nameLabel} error={errors.name}>
           <input
             id="name"
             name="name"
@@ -184,7 +185,7 @@ export function ContactForm() {
           />
         </Field>
 
-        <Field id="email" label="Email" error={errors.email}>
+        <Field id="email" label={strings.emailLabel} error={errors.email}>
           <input
             id="email"
             name="email"
@@ -199,7 +200,7 @@ export function ContactForm() {
         </Field>
       </div>
 
-      <Field id="company" label="Company" hint="Optional">
+      <Field id="company" label={strings.companyLabel} hint={strings.companyHint}>
         <input
           id="company"
           name="company"
@@ -211,15 +212,15 @@ export function ContactForm() {
         />
       </Field>
 
-      <Field id="interest" label="What is this about?">
+      <Field id="interest" label={strings.interestLabel}>
         <select
           id="interest"
           name="interest"
           value={fields.interest}
-          onChange={(e) => update('interest', e.target.value as InterestValue)}
+          onChange={(e) => update('interest', e.target.value)}
           className={fieldClass}
         >
-          {interests.map((option) => (
+          {strings.interests.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -229,9 +230,9 @@ export function ContactForm() {
 
       <Field
         id="message"
-        label="What would you like to change?"
+        label={strings.messageLabel}
         error={errors.message}
-        hint="The process that costs you the most time is a good place to start."
+        hint={strings.messageHint}
       >
         <textarea
           id="message"
@@ -247,11 +248,11 @@ export function ContactForm() {
 
       {status === 'error' ? (
         <p role="alert" className="rounded-xl border border-[#E0B4B4] bg-[#FCF2F2] px-4 py-3 text-[0.9375rem] text-[#8A2020]">
-          That did not go through. Please try again, or email{' '}
-          <a href={`mailto:${site.email}`} className="font-semibold underline underline-offset-4">
-            {site.email}
+          {strings.sendFailedLead}{' '}
+          <a href={`mailto:${email}`} className="font-semibold underline underline-offset-4">
+            {email}
           </a>
-          .
+          {strings.sendFailedTail}
         </p>
       ) : null}
 
@@ -261,13 +262,14 @@ export function ContactForm() {
           disabled={status === 'submitting'}
           className="inline-flex min-h-[44px] items-center justify-center rounded-xl bg-brand px-5 py-3 text-[0.9375rem] font-semibold text-white shadow-sm transition duration-200 hover:bg-brand-hover hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {status === 'submitting' ? 'Sending…' : 'Send message'}
+          {status === 'submitting' ? strings.submitting : strings.submit}
         </button>
         <p className="text-sm text-soft">
-          Or email{' '}
-          <a href={`mailto:${site.email}`} className="font-medium text-brand underline underline-offset-4 hover:text-brand-hover">
-            {site.email}
+          {strings.orEmail}{' '}
+          <a href={`mailto:${email}`} className="font-medium text-brand underline underline-offset-4 hover:text-brand-hover">
+            {email}
           </a>
+          {strings.orEmailTail}
         </p>
       </div>
     </form>

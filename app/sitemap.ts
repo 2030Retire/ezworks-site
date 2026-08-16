@@ -1,7 +1,15 @@
 import type { MetadataRoute } from 'next';
-import { site } from '@/content/site';
+import { getContent } from '@/content';
+import { locales } from '@/content/types';
+import { localizePath } from '@/lib/routes';
 
-/** All eight published routes. Static export writes this to /sitemap.xml. */
+/**
+ * All eight published routes, in both locales — 16 URLs. Static export writes
+ * this to /sitemap.xml.
+ *
+ * Each entry carries `alternates.languages` so search engines see the pair
+ * rather than two unrelated pages.
+ */
 const routes: { path: string; priority: number }[] = [
   { path: '/', priority: 1 },
   { path: '/services/', priority: 0.9 },
@@ -16,9 +24,20 @@ const routes: { path: string; priority: number }[] = [
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map(({ path, priority }) => ({
-    url: `${site.url}${path}`,
-    priority,
-    changeFrequency: 'monthly',
-  }));
+  const { url } = getContent('en').site;
+
+  return routes.flatMap(({ path, priority }) =>
+    locales.map((lang) => ({
+      url: `${url}${localizePath(lang, path)}`,
+      priority,
+      changeFrequency: 'monthly' as const,
+      alternates: {
+        languages: {
+          en: `${url}${path}`,
+          ko: `${url}${localizePath('ko', path)}`,
+          'x-default': `${url}${path}`,
+        },
+      },
+    })),
+  );
 }

@@ -1,11 +1,12 @@
 import type { MetadataRoute } from 'next';
-import { site } from '@/content/site';
+import { getContent } from '@/content';
 
 export const dynamic = 'force-static';
 
 export default function robots(): MetadataRoute.Robots {
+  const { url } = getContent('en').site;
   return {
     rules: [{ userAgent: '*', allow: '/' }],
-    sitemap: `${site.url}/sitemap.xml`,
+    sitemap: `${url}/sitemap.xml`,
   };
 }

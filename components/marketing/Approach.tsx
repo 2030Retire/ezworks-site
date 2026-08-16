@@ -1,10 +1,13 @@
 import { Section, SectionHeading } from '@/components/layout/Section';
 import { ArrowLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
-import { approach } from '@/content/home';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
 
 /** The three-part definition of the company: software / automation / implementation. */
-export function Approach() {
+export function Approach({ lang }: { lang: Lang }) {
+  const { approach } = getContent(lang).home;
+
   return (
     <Section>
       <SectionHeading eyebrow={approach.eyebrow} heading={approach.heading} />

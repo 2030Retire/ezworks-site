@@ -1,8 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { footerNav, site } from '@/content/site';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
-export function Footer() {
+export function Footer({ lang }: { lang: Lang }) {
+  const { site, nav, ui } = getContent(lang);
+
   return (
     <footer className="border-t border-line bg-surface">
       <div className="mx-auto max-w-content px-5 py-14 sm:px-6 lg:px-8">
@@ -16,12 +20,12 @@ export function Footer() {
               className="h-11 w-auto"
             />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-soft">
-              Practical software and automation for small companies — and the
-              people who run them.
+              {ui.footerBlurb}
             </p>
+            <LanguageSwitcher lang={lang} label={ui.languageLabel} className="mt-5 -ml-2.5" />
           </div>
 
-          {footerNav.map((group) => (
+          {nav.footer.map((group) => (
             <div key={group.title}>
               <h2 className="text-xs font-semibold uppercase tracking-[0.14em] text-ink">
                 {group.title}

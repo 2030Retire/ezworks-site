@@ -24,7 +24,13 @@ function exists(src: string): boolean {
   }
 }
 
-export function Screenshots({ items }: { items: Screenshot[] }) {
+export function Screenshots({
+  items,
+  placeholderLabel,
+}: {
+  items: readonly Screenshot[];
+  placeholderLabel: string;
+}) {
   return (
     <ul className="grid gap-6 sm:grid-cols-3">
       {items.map((shot) => {
@@ -48,7 +54,7 @@ export function Screenshots({ items }: { items: Screenshot[] }) {
                     <path d="M21 15l-5-4-4.5 5-2-1.5L3 19" />
                   </svg>
                   <span className="text-xs font-medium text-soft">
-                    Screenshot coming soon
+                    {placeholderLabel}
                   </span>
                 </div>
               )}

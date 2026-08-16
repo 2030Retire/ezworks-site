@@ -2,16 +2,21 @@ import { Section, SectionHeading } from '@/components/layout/Section';
 import { SeamGrid } from '@/components/layout/SeamGrid';
 import { ArrowLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
-import { services } from '@/content/services';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
+import { localizePath } from '@/lib/routes';
 
-/** Home-page summary of every entry in `content/services.ts`. */
-export function ServicesPreview() {
+/** Home-page summary of every entry in the locale's service catalogue. */
+export function ServicesPreview({ lang }: { lang: Lang }) {
+  const { services, home } = getContent(lang);
+  const section = home.servicesSection;
+
   return (
     <Section tone="surface">
       <SectionHeading
-        eyebrow="Services"
-        heading="Or we build it around how you already work."
-        lede="Most of what we do day to day is this: looking at a process a company already runs, and taking the manual parts out of it."
+        eyebrow={section.eyebrow}
+        heading={section.heading}
+        lede={section.lede}
       />
 
       <SeamGrid columns={3} className="mt-12">
@@ -26,7 +31,7 @@ export function ServicesPreview() {
           </Reveal>
         ))}
         <div className="flex items-center bg-white p-6 sm:p-7">
-          <ArrowLink href="/services/">See how engagements work</ArrowLink>
+          <ArrowLink href={localizePath(lang, '/services/')}>{section.allLink}</ArrowLink>
         </div>
       </SeamGrid>
     </Section>

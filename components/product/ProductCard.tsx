@@ -1,22 +1,33 @@
 import Link from 'next/link';
 import { StatusBadge } from '@/components/ui/Badge';
-import type { Product } from '@/content/products';
+import type { Product, ProductStatus } from '@/content/types';
 
 /**
- * Card for one product. Driven entirely by the `content/products.ts` entry, so
- * a new product appears here without touching any page component.
+ * Card for one product. Driven entirely by the locale's catalogue entry, so a
+ * new product appears here without touching any page component.
  *
  * The whole card is clickable via a stretched link overlay; the visible link
  * text is what screen readers announce.
  */
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  statusLabels,
+  exploreLabel,
+}: {
+  product: Product;
+  statusLabels: Record<ProductStatus, string>;
+  /** Template containing `{name}`, e.g. "Explore {name}". */
+  exploreLabel: string;
+}) {
   const target = product.href ?? product.cta.href;
-  const linkLabel = product.href ? `Explore ${product.name}` : product.cta.label;
+  const linkLabel = product.href
+    ? exploreLabel.replace('{name}', product.name)
+    : product.cta.label;
 
   return (
     <article className="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-[0_16px_40px_-18px_rgba(22,32,43,0.28)] sm:p-8">
       <div className="flex flex-wrap items-center gap-3">
-        <StatusBadge status={product.status} note={product.statusNote} />
+        <StatusBadge status={product.status} labels={statusLabels} note={product.statusNote} />
       </div>
 
       <h3 className="mt-5 text-2xl font-bold tracking-tight text-ink">

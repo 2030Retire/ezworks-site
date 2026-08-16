@@ -1,9 +1,12 @@
 import { Container } from '@/components/layout/Container';
 import { Button } from '@/components/ui/Button';
 import { HeroDiagram } from './HeroDiagram';
-import { hero } from '@/content/home';
+import { getContent } from '@/content';
+import type { Lang } from '@/content/types';
 
-export function Hero() {
+export function Hero({ lang }: { lang: Lang }) {
+  const { hero } = getContent(lang).home;
+
   return (
     <section className="border-b border-line bg-gradient-to-b from-tint/60 to-white">
       <Container className="py-14 sm:py-20 lg:py-24">
@@ -21,13 +24,11 @@ export function Hero() {
                 {hero.secondaryCta.label}
               </Button>
             </div>
-            <p className="mt-6 text-sm text-soft">
-              For companies under 100 people, with no IT department to lean on.
-            </p>
+            <p className="mt-6 text-sm text-soft">{hero.footnote}</p>
           </div>
 
           <div className="min-w-0 lg:pl-4">
-            <HeroDiagram />
+            <HeroDiagram lang={lang} />
           </div>
         </div>
       </Container>

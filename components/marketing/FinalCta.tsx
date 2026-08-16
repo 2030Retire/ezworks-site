@@ -1,16 +1,20 @@
 import { Section } from '@/components/layout/Section';
 import { Button } from '@/components/ui/Button';
 
+/**
+ * Closing call to action. Every string is required — there are no English
+ * defaults here, so a page cannot silently render English inside a Korean one.
+ */
 export function FinalCta({
   heading,
   body,
-  ctaLabel = 'Talk to us',
-  ctaHref = '/contact/',
+  ctaLabel,
+  ctaHref,
 }: {
   heading: string;
   body: string;
-  ctaLabel?: string;
-  ctaHref?: string;
+  ctaLabel: string;
+  ctaHref: string;
 }) {
   return (
     <Section tone="surface" className="border-t border-line">
