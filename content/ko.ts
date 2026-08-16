@@ -33,6 +33,7 @@ export const ko: Dictionary = {
     closeMenu: '메뉴 닫기',
     headerCta: '문의하기',
     languageLabel: '언어',
+    switchLanguageLabel: '이 페이지를 영어로 보기',
     effectiveDateLabel: '시행일:',
     footerBlurb:
       '작은 회사를 위한 실용적인 소프트웨어와 자동화, 그리고 그것이 자리 잡을 때까지의 손길.',
@@ -730,7 +731,7 @@ export const ko: Dictionary = {
 
     haru: {
       title: 'EZHaru 개인정보처리방침',
-      effectiveDate: '2026년 8월 14일',
+      effectiveDate: '2026년 8월 15일',
       backHref: '/haru/',
       backLabel: 'EZHaru',
       blocks: [
@@ -740,7 +741,7 @@ export const ko: Dictionary = {
         },
         {
           kind: 'callout',
-          text: '**요약하면:** EZHaru는 휴대폰에서 음성을 녹음해 전사본과 요약으로 만들어 줍니다. **저희는 어떤 서버도 운영하지 않으며, 사용자의 녹음·전사본·개인정보를 받지 않습니다.** 데이터는 사용자가 소유하거나 직접 선택한 곳으로만 갑니다. 사용자의 기기, 사용자 본인의 Microsoft OneDrive 계정, 그리고 사용자가 본인 API 키로 연결한 AI 서비스입니다.',
+          text: '**요약하면:** EZHaru는 휴대폰에서 음성을 녹음해 전사본과 요약으로 만들어 줍니다. **저희는 어떤 서버도 운영하지 않으며, 사용자의 녹음·전사본·개인정보를 받지 않습니다.** 데이터는 사용자가 소유하거나 직접 선택한 곳으로만 갑니다. 사용자의 기기, 사용자 본인의 클라우드 저장소(Microsoft OneDrive 또는 Google Drive), 그리고 사용자가 본인 API 키로 연결한 AI 서비스입니다.',
         },
         { kind: 'heading', text: '앱이 다루는 데이터와 전달 경로' },
         {
@@ -749,12 +750,12 @@ export const ko: Dictionary = {
           rows: [
             [
               '음성 녹음',
-              '사용자 기기 → 사용자 본인의 OneDrive(연결한 경우) → 사용자가 본인 API 키로 설정한 전사 서비스',
+              '사용자 기기 → 사용자 본인의 클라우드 저장소인 OneDrive 또는 Google Drive(연결한 경우) → 사용자가 본인 API 키로 설정한 전사 서비스',
               '사용자 본인만, 본인 계정을 통해',
             ],
             [
               '전사본 및 요약(.md 노트)',
-              '사용자 기기 → 사용자 본인의 OneDrive / OneNote(선택)',
+              '사용자 기기 → 사용자 본인의 OneDrive 또는 Google Drive / OneNote(선택)',
               '사용자 본인만',
             ],
             [
@@ -765,6 +766,11 @@ export const ko: Dictionary = {
             [
               'Microsoft 계정 로그인',
               '사용자 본인의 OneDrive에 업로드하기 위한 액세스 토큰이 기기에 암호화되어 저장됩니다. 저희는 비밀번호나 토큰을 볼 수 없습니다',
+              '사용자 본인만',
+            ],
+            [
+              'Google 계정 로그인(선택)',
+              'Google Drive를 연결하시면 액세스 토큰이 기기에 암호화되어 저장되며, 사용자 본인의 Drive에 파일을 업로드하는 용도로만 사용됩니다. 앱은 drive.file 범위만 요청합니다. 이 범위는 앱이 직접 만든 파일에만 접근할 수 있고, Drive의 다른 어떤 파일에도 접근하지 못합니다. 저희는 비밀번호나 토큰을 볼 수 없습니다',
               '사용자 본인만',
             ],
             [
@@ -787,12 +793,31 @@ export const ko: Dictionary = {
         { kind: 'heading', text: '연결하실 수 있는 외부 서비스' },
         {
           kind: 'text',
-          text: '서비스를 연결하시면 해당 데이터는 사용자와 그 서비스 사이의 약관에 따라 처리됩니다. Microsoft OneDrive/OneNote(사용자가 소유한 저장소), 그리고 사용자가 설정한 전사·요약 AI 업체(예: Groq 또는 Anthropic — 사용자 본인의 API 키로, 사용자와 해당 업체 사이의 계약에 따라)가 여기에 해당합니다. 데이터 보관 정책이 납득되는 업체를 선택하세요. 자체 호스팅을 포함해 호환되는 어떤 제공자와도 동작합니다.',
+          text: '서비스를 연결하시면 해당 데이터는 사용자와 그 서비스 사이의 약관에 따라 처리됩니다. Microsoft OneDrive/OneNote와 Google Drive(사용자가 소유한 저장소), 그리고 사용자가 설정한 전사·요약 AI 업체(예: Groq 또는 Anthropic — 사용자 본인의 API 키로, 사용자와 해당 업체 사이의 계약에 따라)가 여기에 해당합니다. 데이터 보관 정책이 납득되는 업체를 선택하세요. 자체 호스팅을 포함해 호환되는 어떤 제공자와도 동작합니다.',
+        },
+        { kind: 'heading', text: 'Google 사용자 데이터와 제한적 사용(Limited Use)' },
+        {
+          kind: 'text',
+          text: 'Google Drive를 연결하시는 경우, EZHaru가 Google API를 통해 받는 정보의 이용은 제한적 사용(Limited Use) 요건을 포함한 [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy)를 따릅니다.',
+        },
+        {
+          kind: 'list',
+          items: [
+            'Google 사용자 데이터는 사용자가 요청한 기능을 제공하고 개선하는 목적으로**만** 사용합니다. 즉, 녹음과 노트를 사용자 본인의 Google Drive에 업로드하는 용도입니다.',
+            '어떤 형태의 광고에도 Google 사용자 데이터를 사용하지 **않습니다**.',
+            '사용자가 지원을 위해 명시적으로 요청하신 경우, 오남용 조사 등 보안상 필요한 경우, 법령이 요구하는 경우를 제외하고 사람이 Google 사용자 데이터를 읽지 **않습니다**.',
+            'Google 사용자 데이터를 판매·대여하거나 타인에게 이전하지 **않습니다**.',
+            '가장 좁은 권한만 요청합니다. **drive.file** 범위는 EZHaru가 직접 만든 파일만 보고 관리할 수 있으며, Drive의 나머지 내용에는 접근할 수 없습니다.',
+          ],
+        },
+        {
+          kind: 'text',
+          text: '앱에 서버가 없기 때문에 이 약속은 구조적으로 지켜집니다. Google 사용자 데이터는 기기를 떠나 사용자 본인의 Google Drive로 갈 뿐, 저희를 거치지 않으며 저희가 보관하는 사본도 없습니다.',
         },
         { kind: 'heading', text: '데이터 삭제' },
         {
           kind: 'text',
-          text: '앱에서 녹음을 삭제하실 수 있으며, OneDrive 사본을 함께 삭제할지 선택하실 수 있습니다. 설정에서 OneDrive 연결을 해제하면 앱의 접근 권한이 즉시 회수됩니다. 앱을 삭제하면 기기에 저장된 모든 데이터가 지워집니다. OneDrive에 있는 파일과 선택하신 AI 업체가 보관하는 데이터는 해당 계정을 통해 사용자가 직접 관리하십니다.',
+          text: '앱에서 녹음을 삭제하실 수 있으며, 클라우드 사본을 함께 삭제할지 선택하실 수 있습니다. 설정에서 OneDrive 또는 Google Drive 연결을 해제하면 앱의 접근 권한이 즉시 회수되며, [Google 계정 권한 페이지](https://myaccount.google.com/permissions)에서 언제든 직접 회수하실 수도 있습니다. 앱을 삭제하면 기기에 저장된 모든 데이터가 지워집니다. 이미 클라우드 저장소에 있는 파일과 선택하신 AI 업체가 보관하는 데이터는 해당 계정을 통해 사용자가 직접 관리하십니다.',
         },
         { kind: 'heading', text: '녹음 동의' },
         {

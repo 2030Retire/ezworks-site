@@ -6,15 +6,20 @@ import { localizePath, neutralPath } from '@/lib/routes';
 import { cn } from '@/lib/cn';
 
 /**
- * EN / 한국어 switcher.
+ * Language switcher — a single link to the *other* locale, not a pair of
+ * pills showing both.
  *
- * Switching keeps the reader on the same page: it strips the locale prefix off
- * the current pathname and re-adds the target one, so /services/ goes to
+ * Showing both doubled the control's width, and at a 130% font scale on a
+ * 360px screen that pushed the mobile menu button off the edge of the header.
+ * One target is also the clearer affordance: the label names where you land.
+ *
+ * Switching keeps the reader on the same page — it strips the locale prefix
+ * off the current pathname and re-adds the target one, so /services/ goes to
  * /ko/services/ rather than home.
  *
- * These are plain <a> elements on purpose. The two locales live under separate
- * root layouts (different <html lang>), so a real document load is what makes
- * the language attribute — and the screen-reader voice — actually change.
+ * This is a plain <a> on purpose. The two locales live under separate root
+ * layouts (different <html lang>), so a real document load is what makes the
+ * language attribute — and the screen-reader voice — actually change.
  */
 export function LanguageSwitcher({
   lang,
@@ -22,39 +27,27 @@ export function LanguageSwitcher({
   className,
 }: {
   lang: Lang;
-  /** Accessible name for the group, e.g. "Language" / "언어". */
+  /** Accessible name stating where the link goes, e.g. "View this page in Korean". */
   label: string;
   className?: string;
 }) {
   const pathname = usePathname();
   const base = neutralPath(pathname ?? '/');
+  const target = locales.find((locale) => locale !== lang) ?? lang;
 
   return (
-    <nav aria-label={label} className={cn('shrink-0', className)}>
-      <ul className="flex items-center gap-0.5">
-        {locales.map((locale) => {
-          const active = locale === lang;
-          return (
-            <li key={locale}>
-              <a
-                href={localizePath(locale, base)}
-                hrefLang={locale}
-                lang={locale}
-                aria-current={active ? 'true' : undefined}
-                className={cn(
-                  'inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg px-2.5 text-sm font-semibold transition-colors',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2',
-                  active
-                    ? 'bg-tint text-brand-hover'
-                    : 'text-soft hover:bg-surface hover:text-ink',
-                )}
-              >
-                {localeLabels[locale]}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+    <a
+      href={localizePath(target, base)}
+      hrefLang={target}
+      lang={target}
+      aria-label={label}
+      className={cn(
+        'inline-flex min-h-[44px] shrink-0 items-center justify-center rounded-lg px-3 text-sm font-semibold text-soft transition-colors hover:bg-surface hover:text-ink',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2',
+        className,
+      )}
+    >
+      {localeLabels[target]}
+    </a>
   );
 }

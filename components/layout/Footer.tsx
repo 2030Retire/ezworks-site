@@ -22,7 +22,7 @@ export function Footer({ lang }: { lang: Lang }) {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-soft">
               {ui.footerBlurb}
             </p>
-            <LanguageSwitcher lang={lang} label={ui.languageLabel} className="mt-5 -ml-2.5" />
+            <LanguageSwitcher lang={lang} label={ui.switchLanguageLabel} className="mt-5 -ml-2.5" />
           </div>
 
           {nav.footer.map((group) => (

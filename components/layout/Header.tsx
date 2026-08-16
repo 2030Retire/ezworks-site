@@ -15,7 +15,7 @@ export type HeaderStrings = {
   openMenu: string;
   closeMenu: string;
   headerCta: string;
-  languageLabel: string;
+  switchLanguageLabel: string;
 };
 
 /**
@@ -88,7 +88,7 @@ export function Header({
 
         <LanguageSwitcher
           lang={lang}
-          label={strings.languageLabel}
+          label={strings.switchLanguageLabel}
           className="ml-auto md:ml-3"
         />
 

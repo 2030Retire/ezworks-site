@@ -24,6 +24,20 @@ export function Inline({
     if (match.index > last) nodes.push(text.slice(last, match.index));
     if (match[1] !== undefined) {
       nodes.push(<b key={nodes.length}>{match[1]}</b>);
+    } else if (/^https?:\/\//.test(match[3])) {
+      // The policy documents cite Google's own policy pages. Open those in a
+      // new tab so the reader does not lose their place in the document.
+      nodes.push(
+        <a
+          key={nodes.length}
+          href={match[3]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClassName}
+        >
+          {match[2]}
+        </a>,
+      );
     } else {
       nodes.push(
         <Link key={nodes.length} href={match[3]} className={linkClassName}>

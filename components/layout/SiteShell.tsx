@@ -59,7 +59,7 @@ export function SiteBody({
           openMenu: ui.openMenu,
           closeMenu: ui.closeMenu,
           headerCta: ui.headerCta,
-          languageLabel: ui.languageLabel,
+          switchLanguageLabel: ui.switchLanguageLabel,
         }}
       />
       <main id="main" className="flex-1">

@@ -40,6 +40,8 @@ export const en = {
     closeMenu: 'Close menu',
     headerCta: 'Talk to us',
     languageLabel: 'Language',
+    /** Accessible name for the switcher, which shows only the other locale. */
+    switchLanguageLabel: 'View this page in Korean',
     effectiveDateLabel: 'Effective date:',
     footerBlurb:
       'Practical software and automation for small companies — and the people who run them.',
@@ -785,13 +787,13 @@ export const en = {
      */
     haru: {
       title: 'EZHaru Privacy Policy',
-      effectiveDate: 'August 14, 2026',
+      effectiveDate: 'August 15, 2026',
       backHref: '/haru/',
       backLabel: 'EZHaru',
       blocks: [
         {
           kind: 'callout',
-          text: '**The short version:** EZHaru records audio on your phone and turns it into transcripts and summaries. **We do not operate any server, and we never receive your recordings, transcripts, or personal data.** Your data goes only to places you own or choose: your device, your own Microsoft OneDrive account, and the AI service you connect with your own API key.',
+          text: '**The short version:** EZHaru records audio on your phone and turns it into transcripts and summaries. **We do not operate any server, and we never receive your recordings, transcripts, or personal data.** Your data goes only to places you own or choose: your device, your own cloud storage (Microsoft OneDrive or Google Drive), and the AI service you connect with your own API key.',
         },
         { kind: 'heading', text: 'What data the app handles, and where it goes' },
         {
@@ -800,12 +802,12 @@ export const en = {
           rows: [
             [
               'Voice recordings',
-              'Your device → your own OneDrive (if you connect it) → the transcription service you configured with your own API key',
+              'Your device → your own cloud storage, OneDrive or Google Drive (if you connect it) → the transcription service you configured with your own API key',
               'Only you, via your own accounts',
             ],
             [
               'Transcripts & summaries (.md notes)',
-              'Your device → your own OneDrive / OneNote (optional)',
+              'Your device → your own OneDrive or Google Drive / OneNote (optional)',
               'Only you',
             ],
             [
@@ -816,6 +818,11 @@ export const en = {
             [
               'Microsoft account sign-in',
               'An access token is stored encrypted on your device to upload to your own OneDrive. We never see your password or token',
+              'Only you',
+            ],
+            [
+              'Google account sign-in (optional)',
+              'If you connect Google Drive, an access token is stored encrypted on your device and used only to upload your files to your own Drive. We request the narrow drive.file scope, which grants access solely to files the app itself creates — never to anything else in your Drive. We never see your password or token',
               'Only you',
             ],
             [
@@ -838,12 +845,31 @@ export const en = {
         { kind: 'heading', text: 'Third-party services you may connect' },
         {
           kind: 'text',
-          text: "When you connect a service, your data is handled under that service's terms with you: Microsoft OneDrive/OneNote (storage you own) and the transcription/summary AI vendor you configure (for example Groq or Anthropic — using your own API key, under your own agreement with them). Choose vendors whose data-retention terms you are comfortable with; the app works with any compatible provider, including self-hosted ones.",
+          text: "When you connect a service, your data is handled under that service's terms with you: Microsoft OneDrive/OneNote and Google Drive (storage you own) and the transcription/summary AI vendor you configure (for example Groq or Anthropic — using your own API key, under your own agreement with them). Choose vendors whose data-retention terms you are comfortable with; the app works with any compatible provider, including self-hosted ones.",
+        },
+        { kind: 'heading', text: 'Google user data and Limited Use' },
+        {
+          kind: 'text',
+          text: "If you choose to connect Google Drive, EZHaru's use of information received from Google APIs adheres to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements.",
+        },
+        {
+          kind: 'list',
+          items: [
+            'Google user data is used **only** to provide and improve the features you asked for — uploading your recordings and notes to your own Google Drive.',
+            'We do **not** use Google user data for advertising of any kind.',
+            'We do **not** allow humans to read your Google user data, except where you explicitly ask us to for support, where it is necessary for security purposes such as investigating abuse, or where the law requires it.',
+            'We do **not** sell, rent, or transfer Google user data to anyone.',
+            'We request the narrowest scope that works: **drive.file**, which can only see and manage the files EZHaru itself creates. The rest of your Drive is never accessible to the app.',
+          ],
+        },
+        {
+          kind: 'text',
+          text: 'In practice this is straightforward, because the app has no server: Google user data never leaves your device except to travel to your own Google Drive. It does not pass through us, and we hold no copy of it.',
         },
         { kind: 'heading', text: 'Data deletion' },
         {
           kind: 'text',
-          text: "Delete recordings in the app (you choose whether the OneDrive copy is deleted too). Disconnect OneDrive in Settings to revoke the app's access instantly. Uninstalling the app removes all local data. Files in your OneDrive and any data held by your chosen AI vendor are under your own control through those accounts.",
+          text: "Delete recordings in the app (you choose whether the cloud copy is deleted too). Disconnect OneDrive or Google Drive in Settings to revoke the app's access instantly; you can also revoke Google access at any time from your [Google Account permissions page](https://myaccount.google.com/permissions). Uninstalling the app removes all local data. Files already in your own cloud storage, and any data held by your chosen AI vendor, are under your own control through those accounts.",
         },
         { kind: 'heading', text: 'Recording consent' },
         {
