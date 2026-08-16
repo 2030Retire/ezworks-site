@@ -736,7 +736,7 @@ export const en = {
         { kind: 'heading', text: 'Hosting' },
         {
           kind: 'text',
-          text: 'This site is a set of static files served by GitHub Pages. Like any web host, the provider processes technical connection data — such as IP address, browser user agent and requested URL — in order to deliver the page and to protect the service. We do not receive, store or analyse those logs.',
+          text: 'This site is a set of static files served by Vercel. Like any web host, the provider processes technical connection data — such as IP address, browser user agent and requested URL — in order to deliver the page and to protect the service. We do not receive, store or analyse those logs.',
         },
         { kind: 'heading', text: 'The contact form' },
         {

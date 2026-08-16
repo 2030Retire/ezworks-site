@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Static export — GitHub Pages serves the `out/` directory as plain files.
+  // Static export — the `out/` directory is served as plain files, so the
+  // site stays portable across hosts and has no server-side surface.
   output: 'export',
   // Every route becomes a directory with index.html, so /haru/ and /haru/privacy/
   // keep their exact published URLs (the Play Store privacy URL depends on this).
