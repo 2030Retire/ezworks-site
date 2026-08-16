@@ -86,7 +86,7 @@ export const en = {
         'We make the everyday work of a small company simpler — with practical software, automation, and the help to put it in place.',
       primaryCta: { label: 'Talk to us', href: '/contact/' },
       secondaryCta: { label: 'See what we build', href: '/products/' },
-      footnote: 'For companies under 100 people, with no IT department to lean on.',
+      footnote: 'For teams with no IT department to lean on — the whole company, or just the office you run.',
     },
 
     /**
@@ -419,7 +419,7 @@ export const en = {
       },
     ],
     goodFit: [
-      'Under about 100 people, with no internal IT team',
+      'No in-house developers or IT team to hand it to',
       'A process that repeats every week and still needs a person to carry it',
       'Tools that already work individually but do not talk to each other',
       'A spreadsheet that has quietly become a production system',
@@ -512,14 +512,14 @@ export const en = {
       meta: {
         title: 'About',
         description:
-          'EZWorks is an independent software studio building practical tools and automation for companies under 100 people — and for the people who run them.',
+          'EZWorks is an independent software studio building practical tools and automation for small companies — and for the people who run them.',
         ogTitle: 'About EZWorks',
         ogDescription:
           'An independent software studio building practical tools and automation for small companies without an IT department.',
       } as PageMeta,
       eyebrow: 'About',
       title: 'An independent studio for companies that run on other people’s spare time.',
-      lede: 'EZWorks builds practical software for small companies — and, just as much, for the people who run them. Our customers are typically under 100 people with no IT department, where the person who would fix the process is also the person doing the work.',
+      lede: 'EZWorks builds practical software for small companies — and, just as much, for the people who run them. Our customers have no IT department to lean on, and the person who would fix a process is usually the person already doing it.',
       whyHeading: 'Why we work on this',
       whyParagraphs: [
         'Large companies solve operational drag by hiring for it. A thirty-person company cannot: the tedious middle of the work — the retyping, the chasing, the monthly rebuild of the same report — lands on whoever has capacity, usually the person least able to spare it.',
