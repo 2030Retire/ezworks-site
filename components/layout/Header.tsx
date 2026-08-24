@@ -51,17 +51,18 @@ export function Header({
           className="flex shrink-0 items-center gap-2.5"
           aria-label={strings.homeAriaLabel}
         >
+          {/* The full lockup, with the old "Work, Simplified." tagline cropped
+              off — that line was replaced in the copy and should not come back
+              through the logo. Alt is empty because the link already carries an
+              accessible name. */}
           <Image
-            src="/ezworks-symbol.png"
+            src="/ezworks-wordmark.png"
             alt=""
-            width={190}
-            height={205}
-            className="h-8 w-auto"
+            width={486}
+            height={143}
+            className="h-7 w-auto sm:h-8"
             priority
           />
-          <span className="text-[1.0625rem] font-bold tracking-tight text-ink">
-            {siteName}
-          </span>
         </Link>
 
         <nav aria-label={strings.primaryNavLabel} className="ml-auto hidden md:block">

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { Container } from '@/components/layout/Container';
 import { Section, SectionHeading } from '@/components/layout/Section';
 import { SeamGrid } from '@/components/layout/SeamGrid';
-import { StatusBadge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Reveal';
 import { Screenshots } from '@/components/product/Screenshots';
@@ -34,14 +33,9 @@ export function HaruPageView({ lang }: { lang: Lang }) {
                   className="h-14 w-auto"
                   priority
                 />
-                <StatusBadge
-                  status={haru.status}
-                  labels={content.productStatusLabels}
-                  note={haru.statusNote}
-                />
               </div>
 
-              <h1 className="mt-6 text-balance text-[2rem] font-bold leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[3rem]">
+              <h1 className="display mt-6 text-balance text-[2rem] font-bold  text-ink sm:text-4xl lg:text-[3rem]">
                 {page.headlineLead}{' '}
                 <span className="text-brand">{page.headlineAccent}</span>
               </h1>

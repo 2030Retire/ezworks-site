@@ -22,8 +22,12 @@ export default function KoreanRootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // The inline script in <SiteHead> adds `js` to <html> before React hydrates,
+  // so the server HTML and the live DOM differ on this one element by design.
+  // suppressHydrationWarning silences that specific attribute diff; it does not
+  // weaken hydration checks on anything inside.
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <head>
         <SiteHead />
       </head>

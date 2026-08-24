@@ -12,7 +12,7 @@ export function ContactPageView({ lang }: { lang: Lang }) {
     <Container className="py-14 sm:py-16 lg:py-20">
       <div className="grid grid-cols-[minmax(0,1fr)] gap-12 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
         <div>
-          <h1 className="text-balance text-[2rem] font-bold leading-[1.15] tracking-tight text-ink sm:text-4xl">
+          <h1 className="display text-balance text-[2rem] font-bold  text-ink sm:text-4xl">
             {page.title}
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-soft">{page.lede}</p>

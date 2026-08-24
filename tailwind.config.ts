@@ -27,6 +27,9 @@ const config: Config = {
         ink: '#16202B',
         soft: '#5A6B7E',
         line: '#E3E9F0',
+        // Second hairline weight: table header rules and closing dividers,
+        // where the default line reads too faint against a surface tone.
+        'line-strong': '#CDD2D8',
         tint: '#F0F5FF',
         surface: '#F7F9FC',
       },

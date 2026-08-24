@@ -19,7 +19,7 @@ export function FinalCta({
   return (
     <Section tone="surface" className="border-t border-line">
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-balance text-2xl font-bold leading-tight tracking-tight text-ink sm:text-3xl">
+        <h2 className="headline text-2xl font-bold text-ink sm:text-3xl">
           {heading}
         </h2>
         <p className="mt-4 text-base leading-relaxed text-soft sm:text-[1.0625rem]">

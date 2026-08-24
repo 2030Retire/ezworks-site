@@ -24,7 +24,7 @@ export function LegalPage({
           ← {backLabel}
         </Link>
 
-        <h1 className="mt-8 text-[1.875rem] font-bold leading-tight tracking-tight text-ink sm:text-[2.125rem]">
+        <h1 className="display mt-8 text-[1.875rem] font-bold  text-ink sm:text-[2.125rem]">
           {title}
         </h1>
         <p className="mt-2 text-sm text-soft">{effectiveDate}</p>
