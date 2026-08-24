@@ -1,0 +1,299 @@
+<title>실증 설계</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FDFDFC; --ink:#12181F; --body:#3D4853; --mute:#7C8894; --hair:#E4E7EA;
+  --hair-hi:#CDD2D8; --wash:#F5F6F7; --accent:#0063F9;
+  --need:#8A5A00; --need-bg:#FDF8EF; --need-line:#E8D7B4;
+  --have:#136B3B; --have-bg:#F1F8F3;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF;
+  --need:#DEB776; --need-bg:#1A1610; --need-line:#3A301D;
+  --have:#7FD9A6; --have-bg:#0F1A14;
+}}
+:root[data-theme="dark"]{
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF;
+  --need:#DEB776; --need-bg:#1A1610; --need-line:#3A301D;
+  --have:#7FD9A6; --have-bg:#0F1A14;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:16.5px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.w{max-width:900px;margin:0 auto;padding:0 28px}
+.t{max-width:64ch}
+h1,h2,h3,h4{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.mono{font-family:"IBM Plex Mono",monospace}
+.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+
+header{padding:82px 0 60px;border-bottom:1px solid var(--hair)}
+h1{font-size:clamp(1.7rem,3.6vw,2.3rem);line-height:1.45;max-width:28ch}
+header p{margin-top:26px;max-width:56ch}
+
+section{padding:70px 0;border-top:1px solid var(--hair)}
+section:first-of-type{border-top:none}
+.head{display:flex;flex-direction:column;gap:16px;max-width:60ch}
+h2{font-size:clamp(1.2rem,2.4vw,1.44rem);line-height:1.5}
+.body{margin-top:34px;display:flex;flex-direction:column;gap:20px}
+.body.t{max-width:64ch}
+
+.layers{margin-top:38px;display:flex;flex-direction:column}
+.layers > div{display:grid;grid-template-columns:66px 1fr;gap:0 26px;padding:26px 0;
+  border-top:1px solid var(--hair)}
+.layers > div:first-child{border-top:none;padding-top:0}
+.layers .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;
+  color:var(--mute);padding-top:6px}
+.layers h3{font-size:1.02rem}
+.layers p{margin-top:8px;font-size:.95rem;max-width:56ch}
+.layers .ex{margin-top:12px;padding:12px 15px;background:var(--wash);
+  border-left:1px solid var(--hair-hi);font-size:.9rem;max-width:56ch}
+
+table{width:100%;border-collapse:collapse;margin-top:32px;font-size:.93rem}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);text-align:left;padding:0 14px 12px 0;
+  border-bottom:1px solid var(--hair-hi);white-space:nowrap}
+td{padding:16px 14px 16px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.scroll{overflow-x:auto}
+.scroll table{min-width:620px}
+
+/* case demo */
+.case{margin-top:36px;border:1px solid var(--hair-hi);padding:32px 30px}
+.case .ct{font-size:1.06rem;color:var(--ink);font-weight:600}
+.case .cs{margin-top:8px;font-size:.9rem;color:var(--mute)}
+.case h4{margin-top:30px;font-size:.82rem;font-family:"IBM Plex Mono",monospace;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:500}
+.case h4:first-of-type{margin-top:26px}
+.case p{margin-top:11px;font-size:.95rem;max-width:58ch}
+.need{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;
+  font-weight:500;letter-spacing:.08em;color:var(--need);background:var(--need-bg);
+  border:1px solid var(--need-line);padding:2px 7px;margin-left:6px;vertical-align:1px}
+.slot{margin-top:11px;padding:14px 16px;background:var(--need-bg);
+  border:1px dashed var(--need-line);font-size:.9rem;color:var(--need);max-width:58ch}
+.have{margin-top:11px;padding:14px 16px;background:var(--have-bg);
+  border-left:2px solid var(--have);font-size:.93rem;max-width:58ch}
+
+/* flow diagram */
+.flow{margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:640px}
+.flow > div{border:1px solid var(--hair);padding:18px 18px 20px}
+.flow .fl{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute)}
+.flow ol{margin:12px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px;
+  counter-reset:f}
+.flow li{counter-increment:f;font-size:.88rem;padding-left:22px;position:relative;line-height:1.6}
+.flow li::before{content:counter(f);position:absolute;left:0;top:1px;
+  font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--mute)}
+@media(max-width:660px){.flow{grid-template-columns:1fr}}
+
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px}
+ul li{padding-left:20px;position:relative;font-size:.95rem;max-width:60ch}
+ul li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:1px;background:var(--hair-hi)}
+ol.q{margin:26px 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:0;counter-reset:q}
+ol.q li{counter-increment:q;display:grid;grid-template-columns:34px 1fr;gap:14px;
+  padding:15px 0;border-top:1px solid var(--hair);font-size:.95rem;max-width:66ch}
+ol.q li:first-child{border-top:none}
+ol.q li::before{content:"Q" counter(q);font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+  color:var(--mute);padding-top:5px}
+.quiet{color:var(--mute);font-size:.9rem}
+footer{border-top:1px solid var(--hair);padding:50px 0 80px}
+footer p{font-size:.86rem;color:var(--mute);max-width:62ch;margin-bottom:8px}
+</style>
+
+<header>
+  <div class="w">
+    <p class="lab">EZWorks · 실증 설계</p>
+    <h1 style="margin-top:20px">말로 하는 주장을 검증 가능한 서술로 바꾸는 방법</h1>
+    <p>고객명과 고용주 지표는 쓸 수 없습니다. 그런데 조사해 보면 그 두 가지가 신뢰의 핵심이 아닙니다. 대신 쓸 수 있는 것이 세 층 있고, 그중 두 층은 아직 재료가 없습니다.</p>
+  </div>
+</header>
+
+<div class="w">
+
+<section>
+  <div class="head">
+    <p class="lab">Research</p>
+    <h2>조사에서 확인된 것</h2>
+  </div>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>출처</th><th>내용</th><th>우리에게</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="mono">UserEvidence<br>2025</td>
+        <td>익명 사례가 실명 사례와 전환율이 거의 같다. 단 이름의 빈자리를 <strong>서술의 구체성</strong>으로 메워야 한다. “중견 제조사”보다 “지점 4곳, 30명대, 수납 방식이 지점마다 다른 사업자”가 강하다.</td>
+        <td>고객명 금지가 큰 손실이 아니다. 다만 지금 서술이 너무 뭉뚱그려져 있다</td>
+      </tr>
+      <tr>
+        <td class="mono">B2B 사례<br>작성 관행</td>
+        <td>매끄러운 성공담보다 <strong>마찰과 실패</strong>를 드러낸 서술이 신뢰를 만든다. 무엇이 어긋났고 어떻게 고쳤는지가 자신감의 신호로 읽힌다.</td>
+        <td>“안 되는 건 안 된다”와 같은 축. 지금 사이트에 마찰 서술이 0건</td>
+      </tr>
+      <tr>
+        <td class="mono">Stanford<br>Web Credibility<br>(Fogg)</td>
+        <td>4,500명·3년 연구, 10개 지침. #1 <strong>검증 용이성</strong> · #9 <strong>판촉 절제</strong> · #4 <strong>사람이 뒤에 있음</strong> · #10 사소한 오류도 없게.</td>
+        <td>#9는 이미 지키는 방향. #1과 #4가 공백</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="body t">
+    <p class="quiet">#9(판촉 절제)가 실증된 것이 중요합니다. “파는 느낌 말고 정보 전달로”는 취향이 아니라 신뢰도를 올리는 방향입니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Three Layers</p>
+    <h2>쓸 수 있는 것은 세 층입니다</h2>
+    <p>숫자가 막혀 있다고 실증이 막힌 것은 아닙니다. 층을 나누면 어디가 비어 있는지가 보입니다.</p>
+  </div>
+
+  <div class="layers">
+    <div>
+      <div class="k">1층</div>
+      <div>
+        <h3>문제 서술의 구체성</h3>
+        <p>고객이 누구인지 대신 <strong>어떤 상황인지</strong>를 좁힙니다. 규모, 지점 수, 무엇이 몇 갈래로 갈라져 있었는지.</p>
+        <div class="ex"><span style="color:var(--mute)">지금 →</span> “수납과 청구가 수작업이고 지점마다 다르다”<br>
+        <span style="color:var(--mute)">되어야 →</span> “지점 4곳, 직원 30명대. 지점마다 수납 규칙이 달라 본사에서 합산이 안 되던 상태”</div>
+      </div>
+    </div>
+    <div>
+      <div class="k">2층</div>
+      <div>
+        <h3>메커니즘 공개 <span class="need">재료 없음</span></h3>
+        <p>어떻게 돌아가는지를 그대로 적습니다. 판정 조건, 읽어내는 필드, 예외가 큐로 넘어가는 기준. <strong>해본 사람만 쓸 수 있는 종류의 구체성이라 그 자체가 증명입니다.</strong></p>
+        <div class="ex">올바른 판정표 하나가 “성과 30% 개선”보다 확실하게 경험을 증명합니다. 그리고 고용주 지표가 아니라 방법론이므로 공개해도 문제가 없습니다.</div>
+      </div>
+    </div>
+    <div>
+      <div class="k">3층</div>
+      <div>
+        <h3>마찰 공개 <span class="need">재료 없음</span></h3>
+        <p>무엇을 잘못 짚었고, 어디서 되돌아왔고, 무엇을 포기했는지. 조사에서 확인된 가장 강한 신뢰 장치입니다.</p>
+        <div class="ex">“7개 법인 동시 개시” 같은 문장 옆에 “동시 개시 직후 발생한 문제들” 한 문단이 붙으면 문장의 무게가 달라집니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Target Density</p>
+    <h2>사례 하나가 이 밀도여야 합니다</h2>
+    <p>아래는 다지점 멤버십·수납 플랫폼을 목표 밀도로 배치한 것입니다. 초록은 지금 아는 것, 점선은 Hoon에게 받아야 하는 것.</p>
+  </div>
+
+  <div class="case">
+    <p class="ct">지점을 늘릴 때마다 수납 규칙이 하나씩 늘어나던 사업자</p>
+    <p class="cs">다지점 멤버십 · 출결 · 수납 플랫폼 · 직접 구축 후 운영 중</p>
+
+    <h4>상황</h4>
+    <div class="have">무술 도장을 여러 지점 운영하는 사업자. 학부모 포털, 키오스크 체크인, 반복 결제 처리를 하나의 플랫폼에서 다룬다.</div>
+    <div class="slot">필요 — 지점 수, 직원 규모대, 회원 규모대(자릿수만). 그리고 도입 전에 수납·출결이 실제로 어떻게 처리되고 있었는지 두세 문장.</div>
+
+    <h4>이전 흐름 / 이후 흐름</h4>
+    <div class="flow">
+      <div>
+        <p class="fl">Before</p>
+        <ol>
+          <li class="slot" style="margin:0;padding:10px 12px">단계별로 무엇을 누가 어떻게 했는지 <span class="need">필요</span></li>
+        </ol>
+      </div>
+      <div>
+        <p class="fl">After</p>
+        <ol>
+          <li>키오스크에서 회원이 직접 체크인</li>
+          <li>출결이 회원 기록에 즉시 반영</li>
+          <li class="slot" style="margin:0;padding:10px 12px">수납 판정과 청구 생성 단계 <span class="need">필요</span></li>
+          <li>학부모 포털에서 조회</li>
+        </ol>
+      </div>
+    </div>
+
+    <h4>메커니즘</h4>
+    <div class="slot">필요 — 반복 결제가 어떤 조건으로 생성되는지(주기·비례계산·형제 할인 등 실제 규칙 축), 결제 실패 시 처리, 지점 간 데이터 분리를 무엇으로 보장했는지. <strong>규칙의 축 이름만이라도.</strong></div>
+
+    <h4>어긋난 것</h4>
+    <div class="slot">필요 — 처음 설계에서 틀렸던 것 하나. 실사용 첫 몇 주에 나온 예상 못 한 문제 하나. 포기하거나 미룬 기능 하나.</div>
+
+    <h4>지금</h4>
+    <div class="have">구축 후 운영 중.</div>
+    <div class="slot">필요 — 운영 기간(개월), 그리고 “이건 됐고 이건 여전히 사람이 한다”의 경계.</div>
+  </div>
+
+  <div class="body t">
+    <p class="quiet">이 사례를 고른 이유는 <strong>직접 구축한 것이라 메커니즘을 자유롭게 공개할 수 있기</strong> 때문입니다. 고용주 업무(자동승인·건별추적·SSO 포털)는 2층까지만 열고 3층은 열지 않는 편이 안전합니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Interview</p>
+    <h2>사례당 열 문항</h2>
+    <p>이 답이 모이면 위 점선이 채워집니다. 정확한 수치보다 <strong>자릿수와 규칙의 이름</strong>이 중요합니다.</p>
+  </div>
+  <ol class="q">
+    <li>규모를 자릿수로만 — 지점 수, 직원 규모대, 회원/건수 규모대.</li>
+    <li>도입 전에 그 업무가 실제로 어떻게 처리되고 있었습니까. 누가, 무엇으로, 몇 단계로.</li>
+    <li>가장 손이 많이 가던 단계 하나.</li>
+    <li>그 업무의 판정 규칙에는 어떤 축이 있었습니까. (주기, 금액대, 예외 조건 등 이름만)</li>
+    <li>시스템이 자동으로 처리하는 것과 사람이 여전히 보는 것의 경계는 어디입니까.</li>
+    <li>처음 설계에서 틀렸던 것 하나.</li>
+    <li>실사용 첫 몇 주에 나온 예상 못 한 문제 하나.</li>
+    <li>포기했거나 미룬 기능 하나, 그리고 그 이유.</li>
+    <li>착수부터 실제 사용까지 걸린 기간 (자릿수).</li>
+    <li>같은 일을 외주로 맡겼다면 어땠을 것 같습니까 (기간·비용 자릿수 감각).</li>
+  </ol>
+  <div class="body t">
+    <p class="quiet">6·7·8번이 가장 중요합니다. 조사에서 신뢰를 가장 크게 올린 것이 마찰 서술이었고, 지금 사이트에 그게 0건입니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Visual Devices</p>
+    <h2>시각으로 실증하는 장치</h2>
+    <p>Stanford #1(검증 용이성)과 #6(전문적 디자인)에 대응합니다. 문장으로 주장하지 않고 형태로 보여줍니다.</p>
+  </div>
+  <div class="body">
+    <ul>
+      <li><strong>Before / After 흐름도 두 개를 나란히.</strong> 문장으로 “간소화했습니다”라고 쓰는 대신 단계 수가 줄어든 것을 눈으로 보게 합니다. 위 사례에 이미 배치했습니다.</li>
+      <li><strong>판정표를 실제 표로.</strong> 조건과 결과가 있는 표는 마케팅 문구가 될 수 없습니다. 표는 틀리면 틀린 것이 보입니다.</li>
+      <li><strong>산출물의 축소판.</strong> 검토 보고서 한 장을 값 지우고 구조만 보여주면 “검토를 하면 무엇을 받는지”가 문장 없이 전달됩니다.</li>
+      <li><strong>출처 링크를 본문에.</strong> Gartner 수치는 보도자료로 직접 링크합니다. 검증 경로를 만들어 두는 것이 #1입니다.</li>
+      <li><strong>숫자에는 라벨과 성격 표기.</strong> 실측인지 목표인지 샘플인지 옆에 적습니다. 실측만 실측이라고 적을 수 있으면 그 표기가 신뢰가 됩니다.</li>
+      <li><strong>사진·아이콘·일러스트를 쓰지 않습니다.</strong> 스톡 이미지는 신뢰를 깎습니다. 표·흐름도·타이포로만 갑니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Decision</p>
+    <h2>가장 큰 공백은 사람이 없다는 것입니다</h2>
+  </div>
+  <div class="body t">
+    <p>Stanford 지침 #4는 <strong>정직하고 신뢰할 만한 사람이 뒤에 있음을 보여라</strong>입니다. 지금 사이트에는 사람이 없습니다. “16년 동안 그 자리에 있었습니다”라고 쓰는데 그게 누구인지 없습니다. 익명의 전문성 주장은 약합니다.</p>
+    <p>그리고 이건 지금까지 지켜온 금지와 충돌하지 않습니다. 금지한 것은 <strong>자택 주소와 전화번호</strong>였습니다. 실명, 경력 요약, LinkedIn 링크는 그 범주가 아닙니다.</p>
+    <p>1인 회사에서 이건 단일 최대 레버입니다. 회사의 신뢰가 아니라 <strong>사람의 이력</strong>으로 증명하는 쪽이 훨씬 빠릅니다 — 미국 진출 한국 기업 IT를 16년, SAP 롤아웃 PM 2회, 7개 법인 동시 개시. 이걸 익명으로 두면 검증할 수 없는 자랑이 되고, 이름을 붙이면 확인 가능한 이력이 됩니다.</p>
+    <p><strong>결정 필요:</strong> 실명·경력·LinkedIn을 <code>/about/</code>에 넣습니까.</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="w">
+    <p>출처 — Stanford Web Credibility Project (Fogg 외, 4,500명·3년, 10개 지침) · UserEvidence, <em>Evidence Gap Report</em> 2025 · Gartner, <em>Lack of AI-Ready Data Puts AI Projects at Risk</em> (2025-02-26)</p>
+    <p>정본 위치 — <span class="mono">docs/1_정본_canonical/EVIDENCE_DESIGN.html</span></p>
+  </div>
+</footer>

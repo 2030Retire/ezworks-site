@@ -1,6 +1,5 @@
 import Link from 'next/link';
-import { StatusBadge } from '@/components/ui/Badge';
-import type { Product, ProductStatus } from '@/content/types';
+import type { Product } from '@/content/types';
 
 /**
  * Card for one product. Driven entirely by the locale's catalogue entry, so a
@@ -11,11 +10,9 @@ import type { Product, ProductStatus } from '@/content/types';
  */
 export function ProductCard({
   product,
-  statusLabels,
   exploreLabel,
 }: {
   product: Product;
-  statusLabels: Record<ProductStatus, string>;
   /** Template containing `{name}`, e.g. "Explore {name}". */
   exploreLabel: string;
 }) {
@@ -25,12 +22,8 @@ export function ProductCard({
     : product.cta.label;
 
   return (
-    <article className="group relative flex h-full flex-col rounded-2xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-0.5 hover:border-brand/30 hover:shadow-[0_16px_40px_-18px_rgba(22,32,43,0.28)] sm:p-8">
-      <div className="flex flex-wrap items-center gap-3">
-        <StatusBadge status={product.status} labels={statusLabels} note={product.statusNote} />
-      </div>
-
-      <h3 className="mt-5 text-2xl font-bold tracking-tight text-ink">
+    <article className="group relative flex h-full flex-col border border-line bg-white p-6 transition-colors duration-200 hover:border-brand/40 sm:p-8">
+      <h3 className="text-2xl font-bold tracking-tight text-ink">
         {product.name}
       </h3>
       <p className="mt-1.5 text-[0.9375rem] font-semibold text-brand">

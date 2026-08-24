@@ -25,6 +25,10 @@ export function Section({
   return (
     <section
       id={id}
+      // Same-tone neighbours get a hairline and tighter top padding in CSS.
+      // A change of background is itself a boundary, so generous padding reads
+      // as breathing room there; with no change it reads as a hole.
+      data-tone={tone}
       className={cn('py-16 sm:py-20 lg:py-28', toneClass[tone], className)}
     >
       <Container>{children}</Container>
@@ -52,7 +56,9 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        'max-w-2xl',
+        // Wide enough that a two-line lede does not read as a stranded column.
+        // Sections that need a tighter measure pass their own max-w.
+        'max-w-[46rem]',
         align === 'center' && 'mx-auto text-center',
         className,
       )}
@@ -69,7 +75,7 @@ export function SectionHeading({
       ) : null}
       <h2
         className={cn(
-          'text-balance text-2xl font-bold leading-tight tracking-tight sm:text-3xl lg:text-[2.15rem]',
+          'headline text-2xl font-bold sm:text-3xl lg:text-[2.05rem]',
           eyebrow && 'mt-3',
           onDeep ? 'text-white' : 'text-ink',
         )}

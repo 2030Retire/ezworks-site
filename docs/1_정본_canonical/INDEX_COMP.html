@@ -1,0 +1,289 @@
+<title>EZWorks 시안 전체 구성</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FDFDFC; --ink:#12181F; --body:#3D4853; --mute:#7C8894; --hair:#E4E7EA;
+  --hair-hi:#CDD2D8; --wash:#F5F6F7; --accent:#0063F9; --accent-soft:#EDF3FF;
+  --todo:#8A5A00; --todo-bg:#FDF8EF; --todo-line:#E8D7B4;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+  --todo:#DEB776; --todo-bg:#1A1610; --todo-line:#3A301D;
+}}
+:root[data-theme="dark"]{
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+  --todo:#DEB776; --todo-bg:#1A1610; --todo-line:#3A301D;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:16.5px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.w{max-width:940px;margin:0 auto;padding:0 28px}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+
+header{padding:80px 0 52px;border-bottom:1px solid var(--hair)}
+h1{font-size:clamp(1.6rem,3.4vw,2.1rem);line-height:1.44;max-width:26ch}
+header p{margin-top:24px;max-width:58ch}
+
+section{padding:60px 0;border-top:1px solid var(--hair)}
+.head{display:flex;flex-direction:column;gap:15px;max-width:60ch}
+h2{font-size:clamp(1.14rem,2.3vw,1.34rem);line-height:1.5}
+.body{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+
+figure{margin:36px 0 0}
+figure svg{width:100%;height:auto;display:block;color:var(--hair-hi)}
+figcaption{margin-top:15px;font-size:.88rem;color:var(--mute);max-width:58ch}
+
+/* card grid */
+.grid{margin-top:34px;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:1px;
+  background:var(--hair);border:1px solid var(--hair)}
+.card{background:var(--paper);padding:22px 22px 24px;display:flex;flex-direction:column;gap:9px;
+  text-decoration:none}
+a.card:hover{background:var(--wash)}
+.card .k{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--mute)}
+.card .nm{color:var(--ink);font-weight:600;font-size:1.02rem;line-height:1.45}
+.card .ds{font-size:.9rem;color:var(--body);line-height:1.65}
+.card .go{margin-top:auto;font-size:.86rem;color:var(--accent);font-family:"IBM Plex Mono",monospace}
+.card.wip{background:var(--todo-bg)}
+.card.wip .go{color:var(--todo)}
+
+.files{margin-top:32px;display:flex;flex-direction:column}
+.files > div{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:22px;
+  padding:14px 0;border-top:1px solid var(--hair);font-size:.93rem;align-items:baseline}
+.files > div:first-child{border-top:none}
+.files .f{font-family:"IBM Plex Mono",monospace;font-size:.86rem;color:var(--ink)}
+@media(max-width:620px){.files > div{grid-template-columns:1fr;gap:4px}}
+
+.st{margin-top:30px;display:flex;flex-direction:column}
+.st > div{display:flex;justify-content:space-between;gap:20px;align-items:baseline;
+  padding:14px 0;border-bottom:1px solid var(--hair);font-size:.94rem}
+.st .v{font-family:"IBM Plex Mono",monospace;font-size:.88rem;white-space:nowrap}
+.st .ok{color:var(--accent)} .st .wait{color:var(--todo)}
+
+.quiet{color:var(--mute);font-size:.9rem}
+footer{border-top:1px solid var(--hair);padding:46px 0 84px}
+footer p{font-size:.86rem;color:var(--mute);max-width:62ch}
+</style>
+
+<header>
+  <div class="w">
+    <p class="lab">EZWorks · 시안</p>
+    <h1 style="margin-top:18px">전체 구성</h1>
+    <p>지금까지 만든 시안과 문서의 지도입니다. 각 항목을 눌러 이동할 수 있습니다. 실제 사이트(ezworks.co)는 아직 옛 내용이며, 이 시안들은 그 사이트에 반영하기 전 단계입니다.</p>
+  </div>
+</header>
+
+<div class="w">
+
+<section>
+  <div class="head">
+    <p class="lab">Reading Path</p>
+    <h2>방문자가 지나는 경로와, 그 뒤를 받치는 문서</h2>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 900 420" role="img" aria-label="홈 페이지의 섹션들이 진행 방식과 사례 문서로 갈라지고, 그 아래에 공개되지 않는 내부 정본 문서들이 각 공개 페이지를 받치는 구조">
+      <defs>
+        <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/>
+        </marker>
+      </defs>
+
+      <text x="14" y="20" font-size="10.5" font-weight="500" letter-spacing="1.5" fill="#0063F9">공개 — 방문자가 읽는 것</text>
+
+      <!-- home -->
+      <rect x="14" y="34" width="196" height="188" fill="none" stroke="#0063F9" stroke-width="1.5"/>
+      <text x="30" y="58" font-size="14" font-weight="600" fill="#12181F">홈</text>
+      <text x="30" y="80" font-size="11" fill="#7C8894">현실 · 안 맞는 이유</text>
+      <text x="30" y="99" font-size="11" fill="#7C8894">기초 — 정의·데이터·패턴·AI</text>
+      <text x="30" y="118" font-size="11" fill="#7C8894">준비도</text>
+      <text x="30" y="137" font-size="11" fill="#12181F">진행 방식 ─────────┐</text>
+      <text x="30" y="156" font-size="11" fill="#7C8894">규율</text>
+      <text x="30" y="175" font-size="11" fill="#12181F">만드는 것 ────────┐</text>
+      <text x="30" y="194" font-size="11" fill="#7C8894">제품 · 검토 · 연락</text>
+
+      <!-- branch targets -->
+      <line x1="210" y1="133" x2="288" y2="90" stroke="#0063F9" stroke-width="1.3" marker-end="url(#ab)"/>
+      <rect x="294" y="62" width="180" height="56" fill="none" stroke="#0063F9" stroke-width="1.3"/>
+      <text x="384" y="86" text-anchor="middle" font-size="13" font-weight="600" fill="#12181F">진행 방식</text>
+      <text x="384" y="105" text-anchor="middle" font-size="10.5" fill="#7C8894">진단 · 요구정의 · 구축</text>
+
+      <line x1="210" y1="171" x2="288" y2="196" stroke="#0063F9" stroke-width="1.3" marker-end="url(#ab)"/>
+      <rect x="294" y="168" width="180" height="56" fill="none" stroke="#0063F9" stroke-width="1.3"/>
+      <text x="384" y="192" text-anchor="middle" font-size="13" font-weight="600" fill="#12181F">사례 4건</text>
+      <text x="384" y="211" text-anchor="middle" font-size="10.5" fill="#7C8894">메커니즘 · 마찰 · 결과</text>
+
+      <rect x="510" y="62" width="180" height="56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <text x="600" y="86" text-anchor="middle" font-size="13" fill="#7C8894">운영 규율</text>
+      <text x="600" y="105" text-anchor="middle" font-size="10.5" fill="#7C8894">별도 페이지 있음</text>
+      <line x1="474" y1="90" x2="504" y2="90" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+      <rect x="510" y="168" width="180" height="56" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 4"/>
+      <text x="600" y="192" text-anchor="middle" font-size="13" fill="#7C8894">제품 상세</text>
+      <text x="600" y="211" text-anchor="middle" font-size="10.5" fill="#8A5A00">미작성</text>
+      <line x1="474" y1="196" x2="504" y2="196" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+      <!-- divider -->
+      <line x1="14" y1="258" x2="886" y2="258" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5"/>
+      <text x="14" y="284" font-size="10.5" font-weight="500" letter-spacing="1.5" fill="#7C8894">비공개 — 판단 근거를 담은 내부 정본</text>
+
+      <!-- internal docs -->
+      <rect x="14" y="298" width="164" height="52" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="96" y="322" text-anchor="middle" font-size="11.5" fill="#12181F">POSITIONING</text>
+      <text x="96" y="339" text-anchor="middle" font-size="10" fill="#7C8894">한 문장 · 배제 · 대상</text>
+
+      <rect x="192" y="298" width="164" height="52" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="274" y="322" text-anchor="middle" font-size="11.5" fill="#12181F">VOICE</text>
+      <text x="274" y="339" text-anchor="middle" font-size="10" fill="#7C8894">어법 · 금지 표현</text>
+
+      <rect x="370" y="298" width="164" height="52" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="452" y="322" text-anchor="middle" font-size="11.5" fill="#12181F">EVIDENCE</text>
+      <text x="452" y="339" text-anchor="middle" font-size="10" fill="#7C8894">증거 등급 · 금지 목록</text>
+
+      <rect x="548" y="298" width="164" height="52" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="630" y="322" text-anchor="middle" font-size="11.5" fill="#12181F">RESEARCH</text>
+      <text x="630" y="339" text-anchor="middle" font-size="10" fill="#7C8894">신뢰도 연구 · 인용 규칙</text>
+
+      <rect x="726" y="298" width="160" height="52" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="806" y="322" text-anchor="middle" font-size="11.5" fill="#12181F">METHODOLOGY</text>
+      <text x="806" y="339" text-anchor="middle" font-size="10" fill="#7C8894">준비도 · 결정 이력</text>
+
+      <!-- upward provenance arrows -->
+      <path d="M96,298 V270" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a)"/>
+      <path d="M274,298 V270" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a)"/>
+      <path d="M452,298 V270" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a)"/>
+      <path d="M630,298 V270" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a)"/>
+      <path d="M806,298 V270" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a)"/>
+      <text x="450" y="382" text-anchor="middle" font-size="10.5" fill="#7C8894">공개되는 문장은 모두 이 문서들에 근거를 둡니다 — 사이트에는 결론만 나갑니다</text>
+    </svg>
+    <figcaption>위쪽은 방문자가 읽는 것, 아래쪽은 공개되지 않는 판단 근거입니다. 점선 상자는 아직 별도 페이지로 만들지 않은 것입니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Comps</p>
+    <h2>시안 — 눌러서 이동</h2>
+  </div>
+
+  <div class="grid">
+    <a class="card" href="https://claude.ai/code/artifact/67dd8f00-7279-4a9b-8583-e0bcb6cf3bf3">
+      <span class="k">홈</span>
+      <span class="nm">AI 이전의 기초 공사</span>
+      <span class="ds">기초 사슬, 준비도, 진행 방식 3구간, 규율, 제품, 검토. 상단 개요와 도형 2개.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/f2a8fd85-73d5-4f78-b52b-134d65df77f7">
+      <span class="k">진행 방식</span>
+      <span class="nm">진단 · 요구정의 · 구축</span>
+      <span class="ds">세 구간과 두 개의 종료 지점. 구간별 산출 문서, 구간과 무관하게 적용되는 규칙 여섯.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/1a0282c4-d327-414a-93ec-bf3f503ce6f8">
+      <span class="k">사례 04</span>
+      <span class="nm">출하 운영 — 수기 층의 제거</span>
+      <span class="ds">현장 보드와 사무실 화면 두 층위. 도크·조립 As-Is/To-Be, 다섯 거점 실시간 집계.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/6fabb730-8dbc-4534-bf66-0e93b8e6347f">
+      <span class="k">사례 01</span>
+      <span class="nm">회비 계산 — 규칙을 데이터로</span>
+      <span class="ds">청구 규칙을 컬럼 세 개로 흡수. 판단 지점이 매달 전원에서 첫 회 1건으로.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/dccf1ead-8c90-4a9a-baa8-7782e8f9acc4">
+      <span class="k">사례 02 · 03</span>
+      <span class="nm">기록 없는 승인 · 서버 없는 설계</span>
+      <span class="ds">아홉 단계와 검증 게이트의 위치. 게이트를 승인 앞에 두는 이유.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/4c5878eb-85c6-4be5-99a0-5bb6ee5e2b3d">
+      <span class="k">운영 규율</span>
+      <span class="nm">자동 판정을 켜는 순서</span>
+      <span class="ds">로직은 고정하고 권한만 3단계로. 규칙을 설정으로, 읽기 전용 우선.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/26d88586-d084-47a4-bbd1-1042c6064719">
+      <span class="k">설계 문서</span>
+      <span class="nm">설득 구조</span>
+      <span class="ds">하향식 골격, 문장 종결 자리별 규칙, 페이지 사이 흐름. 여섯 페이지의 결손 점검표.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/ed660d6b-f31d-438e-9753-f4e72119966f">
+      <span class="k">설계 문서</span>
+      <span class="nm">실증 설계</span>
+      <span class="ds">신뢰도 연구 근거, 실증 3층 구조, 사례 목표 밀도와 취재 질문.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <a class="card" href="https://claude.ai/code/artifact/1ddb0e2b-f6a2-41f9-8602-661ccbfe539c">
+      <span class="k">설계 문서</span>
+      <span class="nm">정리 먼저, AI 다음</span>
+      <span class="ds">초기 컨셉안. 준비도 레벨, 자가진단, 계약 원칙. 일부는 이후 결정으로 대체됨.</span>
+      <span class="go">열기 →</span>
+    </a>
+    <div class="card wip">
+      <span class="k">미작성</span>
+      <span class="nm">영문판 · 제품 상세 · 회사 소개</span>
+      <span class="ds">한국어 톤 확정 후 착수. 회사 소개에는 실명·경력 공개 여부 결정이 걸려 있습니다.</span>
+      <span class="go">대기</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Canon</p>
+    <h2>내부 정본 — 파일로만 존재</h2>
+    <p>사이트에 나가지 않습니다. 판단의 근거와 금지 목록을 담고 있어, 문구를 쓸 때 이 문서들을 먼저 봅니다.</p>
+  </div>
+  <div class="files">
+    <div><span class="f">POSITIONING.md</span><span>한 문장 · 우리가 아닌 것 · 대상 세그먼트 · 증거 3축 · 계약 원칙</span></div>
+    <div><span class="f">METHODOLOGY.md</span><span>준비도 모델(2축) · ITO형 접수함의 위치 · 결정 이력</span></div>
+    <div><span class="f">EVIDENCE_LEDGER.md</span><span>문제 모양별 결과물 · 증거 등급(● ◐) · 영구 금지 목록</span></div>
+    <div><span class="f">STORY_ARC.html</span><span>하향식 골격 · 종결 규칙 · 페이지 사이 흐름 (공개용 아님)</span></div>
+    <div><span class="f">VOICE.md</span><span>어법 규칙 · 금지 표현 · CPAFlow에서 역추출한 톤</span></div>
+    <div><span class="f">RESEARCH_PHASE0.md</span><span>Gartner · 웹 신뢰도 연구 · OBM 구조 · 인용 규칙</span></div>
+    <div><span class="f">SITE_IA.md</span><span>섹션 순서와 문구안 (일부는 이후 결정으로 대체됨)</span></div>
+    <div><span class="f">DOC_INDEX.md</span><span>문서 지도와 상태</span></div>
+  </div>
+  <div class="body">
+    <p class="quiet">위치 — <span style="font-family:'IBM Plex Mono',monospace;font-size:.88rem">c:\git\ezworks-site\docs\1_정본_canonical\</span></p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Status</p>
+    <h2>남은 것</h2>
+  </div>
+  <div class="st">
+    <div><span>여섯 페이지 하향식 개요 · 정리</span><span class="v ok">완료</span></div>
+    <div><span>제목 명사구 전환 · 도형 12개</span><span class="v ok">완료</span></div>
+    <div><span>한국어 톤 확정</span><span class="v wait">검토 중</span></div>
+    <div><span>실명 · 경력 공개 여부</span><span class="v wait">미결</span></div>
+    <div><span>검토 정액가와 기간 실값</span><span class="v wait">샘플 상태</span></div>
+    <div><span>사례 04 도착→상차 실측값</span><span class="v wait">측정 필요</span></div>
+    <div><span>영문판</span><span class="v wait">한국어 확정 후</span></div>
+    <div><span>실제 사이트 반영 (content/ko.ts · en.ts)</span><span class="v wait">시안 확정 후</span></div>
+    <div><span>EZHaru 스크린샷 3장</span><span class="v wait">촬영 필요</span></div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="w">
+    <p>이 페이지는 검토용 지도입니다. 실제 사이트에는 포함되지 않습니다.</p>
+  </div>
+</footer>

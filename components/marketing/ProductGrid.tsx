@@ -36,7 +36,6 @@ export function ProductGrid({
           <Reveal key={product.slug} delay={i * 80} className="h-full">
             <ProductCard
               product={product}
-              statusLabels={content.productStatusLabels}
               exploreLabel={content.productExploreLabel}
             />
           </Reveal>

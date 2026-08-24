@@ -1,0 +1,505 @@
+<title>정리 먼저, AI 다음</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#FFFFFF; --surface:#F7F9FC; --sunken:#EFF3F9;
+  --ink:#16202B; --soft:#5A6B7E; --faint:#8B9AAB;
+  --line:#E1E8F0; --line-strong:#C9D5E3;
+  --brand:#0063F9; --brand-ink:#0B4FC4; --tint:#EFF5FF;
+  --stop:#B4232A; --stop-bg:#FDF3F3; --stop-line:#EFC9C9;
+  --go:#136B3B; --go-bg:#F0F8F3; --go-line:#C4E3D1;
+  --wait:#8A5A00; --wait-bg:#FDF7EC; --wait-line:#EDD9B0;
+  --shadow:0 1px 2px rgba(22,32,43,.04), 0 14px 34px -20px rgba(22,32,43,.20);
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --ground:#0C1219; --surface:#121A24; --sunken:#0A1017;
+  --ink:#E7EDF4; --soft:#9AAABB; --faint:#6B7C8E;
+  --line:#1F2C3A; --line-strong:#2C3D50;
+  --brand:#5C97FF; --brand-ink:#8FB6FF; --tint:#14243D;
+  --stop:#F09595; --stop-bg:#1E1315; --stop-line:#3D2226;
+  --go:#7FD9A6; --go-bg:#0E1A14; --go-line:#1F3A2A;
+  --wait:#E3B76B; --wait-bg:#1B1610; --wait-line:#3A2E1B;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.6);
+}}
+:root[data-theme="dark"]{
+  --ground:#0C1219; --surface:#121A24; --sunken:#0A1017;
+  --ink:#E7EDF4; --soft:#9AAABB; --faint:#6B7C8E;
+  --line:#1F2C3A; --line-strong:#2C3D50;
+  --brand:#5C97FF; --brand-ink:#8FB6FF; --tint:#14243D;
+  --stop:#F09595; --stop-bg:#1E1315; --stop-line:#3D2226;
+  --go:#7FD9A6; --go-bg:#0E1A14; --go-line:#1F3A2A;
+  --wait:#E3B76B; --wait-bg:#1B1610; --wait-line:#3A2E1B;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 14px 34px -20px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  line-height:1.72; font-size:16px;
+  -webkit-font-smoothing:antialiased; word-break:keep-all; overflow-wrap:break-word;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px 110px}
+.col{max-width:68ch}
+h1,h2{font-family:"Gowun Batang",serif;font-weight:700;text-wrap:balance;margin:0}
+h3{font-family:"IBM Plex Sans KR",sans-serif;font-weight:600;font-size:1.02rem;margin:0}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin:0}
+p{margin:0}
+code{font-family:"IBM Plex Mono",monospace;font-size:.9em;background:var(--sunken);
+  padding:1px 6px;border-radius:5px}
+:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:3px}
+
+header.top{border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,var(--tint),var(--ground))}
+header.top .wrap{padding-top:56px;padding-bottom:52px;display:flex;flex-direction:column;gap:24px}
+.kicker{display:flex;flex-wrap:wrap;gap:9px;align-items:center;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.08em;color:var(--soft)}
+.chip{border:1px solid var(--line-strong);border-radius:999px;padding:3px 11px;background:var(--ground)}
+h1{font-size:clamp(2.1rem,5.2vw,3.4rem);line-height:1.18;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--brand)}
+.thesis{font-size:clamp(1.02rem,2.2vw,1.16rem);color:var(--soft);max-width:60ch}
+.en{font-size:.93rem;color:var(--faint);border-left:2px solid var(--line-strong);
+  padding-left:14px;max-width:56ch}
+
+section{padding:62px 0 0}
+.shead{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+h2{font-size:clamp(1.45rem,3.2vw,1.95rem);line-height:1.28}
+.lede{color:var(--soft);max-width:64ch}
+.stack{display:flex;flex-direction:column;gap:16px}
+
+.decide{border:1px solid var(--wait-line);background:var(--wait-bg);border-radius:14px;
+  padding:24px 26px;display:flex;flex-direction:column;gap:16px}
+.decide h2{font-size:1.3rem}
+.decide ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:13px;counter-reset:d}
+.decide li{counter-increment:d;display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:baseline}
+.decide li::before{content:counter(d);font-family:"IBM Plex Mono",monospace;font-size:12px;
+  font-weight:600;color:var(--wait);border:1px solid var(--wait-line);border-radius:6px;
+  text-align:center;padding:1px 0}
+.decide b{font-weight:600}
+
+.ladder,.steps,.pairs,.obm{display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.rung{display:grid;grid-template-columns:62px 1fr;background:var(--ground)}
+.rung .lv{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:14px;
+  display:flex;align-items:center;justify-content:center;background:var(--sunken);color:var(--soft)}
+.rung .body{padding:16px 20px;display:flex;flex-direction:column;gap:7px}
+.rung .nm{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
+.rung p{color:var(--soft);font-size:.94rem}
+.bar{height:5px;border-radius:3px;background:var(--line);position:relative;overflow:hidden;margin-top:4px}
+.bar i{position:absolute;top:0;bottom:0;left:0;background:var(--brand);border-radius:3px;display:block}
+.tag{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:600;letter-spacing:.05em;
+  border-radius:999px;padding:2px 9px;white-space:nowrap}
+.t-stop{color:var(--stop);background:var(--stop-bg);border:1px solid var(--stop-line)}
+.t-go{color:var(--go);background:var(--go-bg);border:1px solid var(--go-line)}
+.t-brand{color:var(--brand-ink);background:var(--tint);border:1px solid var(--line-strong)}
+
+.steps{counter-reset:s}
+.step{background:var(--ground);padding:20px 22px;display:grid;grid-template-columns:30px 1fr;
+  gap:16px;counter-increment:s}
+.step::before{content:counter(s);font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;
+  color:var(--brand-ink);background:var(--tint);border-radius:8px;height:26px;
+  display:flex;align-items:center;justify-content:center}
+.step .sb{display:flex;flex-direction:column;gap:8px}
+.step p{color:var(--soft);font-size:.95rem}
+.moat{border-left:2px solid var(--brand);padding-left:14px;color:var(--ink)}
+
+.pair{background:var(--ground);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr)}
+.pair .cliche{padding:16px 20px;color:var(--faint);font-size:.93rem;background:var(--sunken)}
+.pair .mech{padding:16px 20px;font-size:.95rem;border-left:2px solid var(--brand)}
+.pair .mech b{font-weight:600}
+.phead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);background:var(--surface)}
+.phead div{padding:10px 20px;font-family:"IBM Plex Mono",monospace;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+@media(max-width:720px){
+  .pair,.phead{grid-template-columns:1fr}
+  .pair .mech{border-left:none;border-top:2px solid var(--brand)}
+  .phead div:last-child{display:none}
+}
+
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
+th{background:var(--surface);text-align:left;font-weight:600;font-size:11px;
+  font-family:"IBM Plex Mono",monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+th,td{padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.g{font-family:"IBM Plex Mono",monospace;font-weight:600;text-align:center;white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.gr-full{color:var(--go)} .gr-anon{color:var(--wait)} .gr-un{color:var(--soft)}
+.mono{font-family:"IBM Plex Mono",monospace}
+.smp{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.08em;
+  color:var(--wait);background:var(--wait-bg);border:1px solid var(--wait-line);
+  border-radius:4px;padding:1px 6px;margin-left:7px;white-space:nowrap;vertical-align:1px}
+.big{font-family:"Gowun Batang",serif;font-size:clamp(1.5rem,3.6vw,2rem);font-weight:700;
+  line-height:1.35;color:var(--ink)}
+.say{display:grid;gap:10px}
+.say div{display:grid;grid-template-columns:26px 1fr;gap:12px;align-items:baseline;font-size:.98rem}
+.say .x{color:var(--stop);font-weight:700;text-align:center}
+.say .o{color:var(--go);font-weight:700;text-align:center}
+
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,258px),1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--ground);
+  display:flex;flex-direction:column;gap:8px}
+.card.stopc{border-color:var(--stop-line);background:var(--stop-bg)}
+.card p{color:var(--soft);font-size:.93rem}
+.quote{border:1px solid var(--line);background:var(--surface);border-radius:14px;
+  padding:22px 24px;box-shadow:var(--shadow)}
+.quote strong{font-family:"Gowun Batang",serif;font-size:1.14rem;font-weight:700;
+  line-height:1.55;display:block}
+.quote span{display:block;margin-top:10px;color:var(--soft);font-size:.92rem}
+.src{font-size:.85rem;color:var(--faint);font-family:"IBM Plex Mono",monospace;line-height:1.6}
+ul.plain{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+ul.plain li{display:grid;grid-template-columns:14px 1fr;gap:11px;font-size:.95rem;align-items:baseline}
+ul.plain li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--brand);
+  margin-top:9px;justify-self:center}
+ul.plain.no li::before{background:var(--stop);width:10px;height:1.5px;border-radius:0}
+.obm .row{background:var(--ground);display:grid;grid-template-columns:104px 1fr}
+.obm .k{background:var(--sunken);padding:14px 16px;font-family:"IBM Plex Mono",monospace;
+  font-size:12px;font-weight:600;color:var(--brand-ink)}
+.obm .v{padding:14px 18px;font-size:.94rem}
+footer{margin-top:70px;padding-top:26px;border-top:1px solid var(--line);
+  color:var(--faint);font-size:.86rem;display:flex;flex-direction:column;gap:8px}
+@media (prefers-reduced-motion:no-preference){
+  .fade{animation:f .7s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes f{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+</style>
+
+<header class="top">
+  <div class="wrap fade">
+    <div class="kicker">
+      <span class="chip">EZWorks · 컨셉안</span>
+      <span class="chip">2026-08-16</span>
+      <span class="chip">Hoon 컨펌 대기</span>
+    </div>
+    <h1>정리 먼저,<br><em>AI 다음.</em></h1>
+    <p class="thesis">사이트의 한 문장을 이렇게 잡자는 제안입니다 — <strong>“AI가 붙을 수 있는 상태로 회사를 만들고, 그다음에 붙입니다.”</strong></p>
+    <p class="en">We get your company to the state where AI can actually attach — then we attach it.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <div class="col decide">
+    <p class="eyebrow" style="color:var(--wait)">먼저 — 답이 필요한 것</p>
+    <h2>이 5개가 정해지면 사이트 문구로 넘어갑니다</h2>
+    <ol>
+      <li><b>레벨 4단계가 실제 경험과 맞습니까?</b> 보신 회사들이 이 눈금에 놓입니까, 아니면 다르게 나눠야 합니까? <span class="tag t-stop">대기</span></li>
+      <li><b>진단 정액가와 기간</b> — 아래 §가격의 <span class="smp">SAMPLE</span> 숫자를 실값으로. <span class="tag t-stop">대기</span></li>
+      <li><b>속도 숫자</b> — 자릿수만이라도. <span class="tag t-stop">대기</span></li>
+      <li><b>가격을 사이트에 공개할까</b> — 진단만 공개(추천) / 둘 다 비공개. <span class="tag t-stop">대기</span></li>
+      <li>“안 된다”고 말한 사례 → <b>기억 없음.</b> 과거 실적 주장은 쓰지 않고 앞으로의 약속으로만 씁니다. <span class="tag t-go">해결</span></li>
+      <li>OBM 골격 → <b>확인 완료.</b> <span class="tag t-go">해결</span></li>
+    </ol>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">왜 이 문장인가</p>
+    <h2>“AI로 생산성을 높입니다”는 아무 정보가 없습니다</h2>
+    <p class="lede">2026년 현재 모든 컨설팅펌·SI·프리랜서가 쓰는 문장입니다. 더 근본적인 문제는 <strong>AI가 방법이지 가치가 아니라는 것</strong>입니다. 구매자가 돈을 내는 이유는 “AI를 쓴다”가 아니라 “내 무엇이 언제까지 얼마에 되는가”입니다.</p>
+  </div>
+  <div class="col stack">
+    <div class="quote">
+      <strong>“2026년까지 조직은 AI-ready 데이터가 뒷받침되지 않는 AI 프로젝트의 60%를 포기할 것”</strong>
+      <span>Gartner, <em>Lack of AI-Ready Data Puts AI Projects at Risk</em> (2025-02-26)</span>
+    </div>
+    <p>Hoon의 가설 — “프로세스·데이터가 정비되지 않은 회사는 AI 프로젝트에 실패한다” — 은 추측이 아니라 <strong>업계 데이터로 확인됩니다.</strong> 같은 조사에서 데이터관리 리더 248명 중 <strong>63%</strong>가 AI에 맞는 데이터 체계를 갖추지 못했거나 갖췄는지 모른다고 답했습니다.</p>
+    <p>그래서 이 수치는 우리가 피해야 할 통계가 아니라 <strong>서비스 정의 그 자체</strong>입니다. 업계의 실패 원인을 우리 상품으로 바꾸는 겁니다.</p>
+    <p class="src">⚠️ 사이트에는 Gartner 수치만 씁니다. MIT·RAND 수치는 2차 인용이 대부분이라 숫자로 박지 않습니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">준비도 눈금</p>
+    <h2>합격·불합격이 아니라 레벨입니다</h2>
+    <p class="lede">“귀사는 실패하는 유형입니다”라고 말하면 계약이 안 됩니다. 같은 사실을 팔 수 있는 언어로 바꿉니다. 계보는 <strong>CMMI의 프로세스 축 + AI-ready 데이터 축</strong>을 SMB 규모에 맞게 4단으로 압축한 것입니다 — 우리가 발명했다고 쓰지 않습니다.</p>
+  </div>
+  <div class="ladder">
+    <div class="rung"><div class="lv">L0</div><div class="body">
+      <div class="nm"><h3>머릿속</h3><span class="tag t-stop">첫 프로젝트 = 정리</span></div>
+      <p>프로세스가 사람에게만 있습니다. 사장·핵심인력의 경험에 의존합니다.</p>
+      <div class="bar"><i style="width:12%"></i></div></div></div>
+    <div class="rung"><div class="lv">L1</div><div class="body">
+      <div class="nm"><h3>적혀는 있음</h3><span class="tag t-stop">첫 프로젝트 = 정리</span></div>
+      <p>문서는 있으나 실제와 다릅니다. 데이터가 여러 곳에 흩어져 있습니다.</p>
+      <div class="bar"><i style="width:38%"></i></div></div></div>
+    <div class="rung"><div class="lv">L2</div><div class="body">
+      <div class="nm"><h3>정의됨</h3><span class="tag t-brand">자동화 가능</span></div>
+      <p>단계별 In/Out이 분명하고, 데이터가 한 곳에 모입니다.</p>
+      <div class="bar"><i style="width:70%"></i></div></div></div>
+    <div class="rung"><div class="lv">L3</div><div class="body">
+      <div class="nm"><h3>자동화 준비</h3><span class="tag t-go">AI가 바로 붙는다</span></div>
+      <p>시스템이 데이터를 만들고 있습니다.</p>
+      <div class="bar"><i style="width:100%"></i></div></div></div>
+  </div>
+  <div class="col" style="margin-top:22px">
+    <div class="quote">
+      <strong>“지금 L1입니다. 첫 프로젝트는 AI가 아니라 L2로 올리는 일입니다. 그게 끝나면 AI는 몇 주짜리 일이 됩니다.”</strong>
+      <span>같은 진단인데 이건 팔립니다. 그리고 “2·3레벨업이 아니라 비약적 성장”이 이 언어에서 자동으로 설명됩니다 — 레벨이 실제로 존재하니까요.</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">사이트의 심장</p>
+    <h2>주 CTA를 자가진단으로 바꿉니다</h2>
+    <p class="lede">지금 주 CTA는 <code>Talk to us</code>입니다. 약합니다 — 방문자에게 <strong>아무것도 주지 않고 바로 요구</strong>합니다. 자가진단 5문항은 설득 원칙 셋을 동시에 작동시킵니다.</p>
+  </div>
+  <div class="stack">
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>질문</th><th>판정축</th></tr></thead>
+      <tbody>
+        <tr><td class="g">1</td><td>이 업무가 어떻게 돌아가는지 문서로 설명할 수 있습니까?</td><td>프로세스</td></tr>
+        <tr><td class="g">2</td><td>각 단계에서 무엇이 들어오고 무엇이 나가는지 정해져 있습니까?</td><td>In/Out</td></tr>
+        <tr><td class="g">3</td><td>담당자가 오늘 그만두면 다른 사람이 이어받을 수 있습니까?</td><td>속인성</td></tr>
+        <tr><td class="g">4</td><td>필요한 데이터가 한 곳에서 조회됩니까?</td><td>데이터</td></tr>
+        <tr><td class="g">5</td><td>지난달 처리 건수를 지금 바로 볼 수 있습니까?</td><td>측정</td></tr>
+      </tbody>
+    </table></div>
+    <div class="grid2">
+      <div class="card"><h3>상호성</h3><p>우리가 먼저 줍니다. 진단 프레임워크 자체를 공개합니다. 문의하지 않고 나가도 우리를 기억합니다.</p></div>
+      <div class="card"><h3>일관성</h3><p>답한 사람은 <strong>자기 회사가 L1임을 스스로 인정한 상태</strong>가 됩니다. 우리가 말한 게 아닙니다.</p></div>
+      <div class="card"><h3>권위</h3><p>눈금을 가진 쪽이 전문가입니다. 판정 기준을 공개하는 행위 자체가 권위를 만듭니다.</p></div>
+    </div>
+    <p class="col"><strong>부수 효과가 더 큽니다.</strong> 리드가 이미 자격심사를 통과한 상태로 들어옵니다. L0 회사가 “AI 해주세요”로 오는 게 아니라, 자기가 L1임을 알고 “정리부터 해야 하는군요”로 옵니다. <strong>가장 힘들다던 설득이 폼 하나로 절반 끝납니다.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">방법론</p>
+    <h2>네 단계, 그리고 1단계에서 끝나도 됩니다</h2>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="sb">
+      <h3>진단 — Readiness Review</h3>
+      <p>산출물: 레벨 판정 · 병목 3개 · 지금 할 것 / 나중 할 것 / <strong>하지 말 것</strong>.</p>
+      <p>독립 상품입니다. 2단계로 안 넘어가도 고객에게 남는 것이 있습니다. 동시에 세 역할을 합니다 — 팔기 쉬운 첫 계약, 자격심사 게이트, 2단계 제안서. <strong>안 맞는 고객을 6개월 뒤가 아니라 2주 뒤에 걸러냅니다.</strong></p>
+    </div></div>
+    <div class="step"><div class="sb">
+      <h3>정리 — Define</h3>
+      <p>프로세스를 있어야 할 대로가 아니라 <strong>실제로 있는 대로</strong> 그립니다. 단계별 In/Out 확정, 데이터를 한 곳으로.</p>
+      <p class="moat"><strong>여기가 우리의 moat입니다.</strong> 프롬프트는 누구나 씁니다. 도구는 평준화됐습니다. 그런데 40명짜리 회사에 들어가 <strong>사장 머릿속에만 있는 프로세스를 끄집어내 문서로 만드는 일</strong>은 거의 아무도 못 합니다. AI가 대체할 수 없는 유일한 부분이고, 그게 16년의 값입니다.</p>
+    </div></div>
+    <div class="step"><div class="sb">
+      <h3>자동화 — Automate</h3>
+      <p>2단계에서 정의된 것만. 규칙으로 되는 건 규칙으로, 판단이 필요한 곳만 AI. <strong>한 번에 한 프로세스.</strong></p>
+    </div></div>
+    <div class="step"><div class="sb">
+      <h3>정착 — Hand over</h3>
+      <p>데이터 이관, 계정과 권한, 교육, 실사용 첫 몇 주. 아무도 안 쓰는 시스템은 인도가 아닙니다.</p>
+    </div></div>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">가격 · 기간</p>
+    <h2>“케바케”를 없애지 않고, 무엇에 따라 달라지는지 공개합니다</h2>
+    <p class="lede">영업 잘하는 사람들이 정형화하는 방식이 이겁니다. 지금 막히는 이유는 <strong>프로젝트 전체를 한 번에 견적 내려 하기 때문</strong>입니다 — 그건 케바케일 수밖에 없습니다. 그래서 2단계로 나눕니다.</p>
+  </div>
+  <div class="col stack">
+    <div class="say">
+      <div><span class="x">✕</span><span>“회사마다 다릅니다”</span></div>
+      <div><span class="o">✓</span><span class="big">“지금 L1이면 보통 7~10주입니다.<br>L2였다면 4주였을 겁니다.”</span></div>
+    </div>
+    <p>뒤 문장이 <strong>정리(2단계)의 값어치까지 동시에 설명합니다.</strong> 레벨이 이미 있으니 그것이 곧 견적표가 됩니다.</p>
+  </div>
+
+  <div class="grid2" style="margin-top:26px">
+    <div class="card">
+      <h3>① 진단 — 정액 · 고정기간</h3>
+      <p>산출물이 정해져 있으니 값도 정해집니다. <strong>여기서 값을 못 말하면 진단은 상품이 아닙니다.</strong></p>
+      <ul class="plain" style="margin-top:6px">
+        <li>기간 <strong>2주</strong><span class="smp">SAMPLE</span></li>
+        <li>고객 측 담당자 <strong>주 3시간</strong><span class="smp">SAMPLE</span></li>
+        <li>정액 <strong>$2,400</strong><span class="smp">SAMPLE</span></li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:var(--go-line);background:var(--go-bg)">
+      <h3>⭐ 위험 제거 장치</h3>
+      <p><strong>진단비는 구축 계약 시 전액 차감.</strong></p>
+      <p>고객이 진단에서 잃을 것이 없어집니다 → 첫 계약의 저항이 거의 사라집니다. 우리도 손해가 아닙니다 — 진단은 어차피 2단계 제안서를 만드는 과정입니다.</p>
+    </div>
+  </div>
+
+  <div class="tw" style="margin-top:20px"><table>
+    <thead><tr><th>시작 레벨</th><th>첫 프로세스 하나</th><th>무엇 때문에 길어지나</th></tr></thead>
+    <tbody>
+      <tr><td class="g">L0</td><td class="g">10~14주<span class="smp">SAMPLE</span></td><td>프로세스를 처음부터 끄집어내야 한다</td></tr>
+      <tr><td class="g">L1</td><td class="g">7~10주<span class="smp">SAMPLE</span></td><td>적힌 것과 실제의 차이를 메워야 한다</td></tr>
+      <tr><td class="g">L2</td><td class="g">4~6주<span class="smp">SAMPLE</span></td><td>정리는 됐고 자동화만</td></tr>
+      <tr><td class="g">L3</td><td class="g">2~4주<span class="smp">SAMPLE</span></td><td>AI 부착만</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="col stack" style="margin-top:20px">
+    <p class="src">⚠️ <span class="smp">SAMPLE</span> 은 구조 검토용 자리표시입니다. 실값 확인 전까지 사이트·제안서에 나가지 않습니다.</p>
+    <div class="card" style="border-color:var(--wait-line);background:var(--wait-bg)">
+      <h3>미결 — 가격을 사이트에 공개할까</h3>
+      <p>원 브리프는 <strong>가격 표기 금지</strong>였습니다. 그런데 진단은 정액 상품이라 값을 공개하는 편이 유리합니다.</p>
+      <ul class="plain" style="margin-top:6px">
+        <li><strong>A (추천)</strong> — 진단만 가격 공개, 구축은 레벨별 기간만. 마찰 제거 + 자신감 신호. “미출시 제품에 가격 금지”라는 원 취지와 충돌하지 않습니다</li>
+        <li><strong>B</strong> — 둘 다 비공개. 진단이 상품으로 안 읽힙니다</li>
+        <li><strong>C</strong> — 둘 다 공개. 구축 가격은 앵커링 사고를 부릅니다. 반대</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">계약 원칙</p>
+    <h2>진부한 말에 비용을 붙입니다</h2>
+    <p class="lede">“진부하다”고 하신 게 정확합니다. 그런데 해법은 더 잘 쓰는 게 아닙니다. 저 문장들이 진부한 이유는 <strong>아무 비용도 들지 않기 때문</strong>입니다. 누구나 공짜로 말할 수 있으면 아무 정보가 없습니다. <strong>포장하지 말고 메커니즘을 붙입니다.</strong></p>
+  </div>
+  <div class="pairs">
+    <div class="phead"><div>누구나 하는 말</div><div>비용이 드는 형태</div></div>
+    <div class="pair">
+      <div class="cliche">안 되는 것을 된다고 하지 않습니다</div>
+      <div class="mech"><b>진단만 받고 끝내셔도 됩니다.</b> 결과가 “지금은 하지 마세요”면 그렇게 씁니다.</div>
+    </div>
+    <div class="pair">
+      <div class="cliche">불필요한 것을 덕지덕지 붙이지 않습니다</div>
+      <div class="mech"><b>한 번에 한 프로세스만 계약합니다.</b> 두 번째는 첫 번째가 실제로 돌아간 뒤에.</div>
+    </div>
+    <div class="pair">
+      <div class="cliche">바가지 씌우지 않습니다</div>
+      <div class="mech"><b>범위와 기간을 먼저 고정합니다.</b> 늘어나면 우리 오판이지 추가 청구 사유가 아닙니다.</div>
+    </div>
+    <div class="pair">
+      <div class="cliche">고객의 신뢰와 협조가 전제입니다</div>
+      <div class="mech"><b>주 N시간 · 담당자 1명</b>을 계약에 명시합니다. 못 내주시면 그 프로젝트는 받지 않습니다.</div>
+    </div>
+    <div class="pair">
+      <div class="cliche">우리 것이 아니면 만들지 않습니다</div>
+      <div class="mech">기존 도구로 되는 일이면 <b>그렇게 하시라고 말합니다.</b> 우리 매출이 안 되더라도.</div>
+    </div>
+  </div>
+  <div class="col" style="margin-top:20px">
+    <p>마지막 두 줄이 가장 셉니다. <strong>일을 거절하는 조건을 먼저 공개하는 회사는 거의 없습니다.</strong> 그리고 1인 회사로서 실제로 지켜야 하는 조건이니 거짓도 아닙니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">증거</p>
+    <h2>프로젝트가 아니라 “문제 모양”으로 배치합니다</h2>
+    <p class="lede">구매자는 우리가 도장 플랫폼을 만들었는지 관심이 없습니다. 궁금한 건 <strong>“내 승인이 채팅에서 끝나는 문제, 이거 해결됩니까?”</strong> 입니다. 각 행의 등급 표기가 정직함의 장치입니다 — 아무것도 부풀리지 않으면서 재료를 전부 씁니다.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>고객이 겪는 문제</th><th>우리가 한 일</th><th>등급</th></tr></thead>
+    <tbody>
+      <tr><td>승인이 채팅에서 끝나고 누가 언제 승인했는지 기록이 없다</td><td>규칙 기반 <strong>자동 승인 + 예외만 사람 큐로</strong></td><td class="g gr-anon">◐</td></tr>
+      <tr><td>종이·PDF·사진을 사람이 다시 입력한다</td><td>문서 OCR → 필드 추출 → 확인만</td><td class="g gr-full">●</td></tr>
+      <tr><td>본사 시스템이 현지 업무에 안 맞는다</td><td>다국 ERP 롤아웃 프로세스 갭 해소 · 7개 법인 동시 런칭</td><td class="g gr-anon">◐</td></tr>
+      <tr><td>“이 건 지금 어디까지 갔나”에 답이 없다</td><td>여러 시스템에 걸친 건별 추적 화면</td><td class="g gr-anon">◐</td></tr>
+      <tr><td>내부 도구마다 로그인이 따로다</td><td>SSO + 역할 기반 단일 포털</td><td class="g gr-anon">◐</td></tr>
+      <tr><td>수납·청구가 수작업이고 지점마다 다르다</td><td>반복 결제 + 다지점 격리 + 학부모 포털 + 키오스크</td><td class="g gr-full">●</td></tr>
+      <tr><td>회의·현장 기록이 남지 않는다</td><td>음성 → 전사 → 요약 → 노트 파일 자동 생성</td><td class="g gr-full">●</td></tr>
+      <tr><td>예산 초과를 사후에 안다</td><td>신청 시점 예산 조회 · 사전승인 검증</td><td class="g gr-anon">◐</td></tr>
+      <tr><td>종이 결재가 책상에서 멈춘다</td><td>Microsoft 365 기반 전자결재 + ERP 연동, 모바일 승인</td><td class="g gr-anon">◐</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid2" style="margin-top:20px">
+    <div class="card"><h3><span class="mono gr-full">●</span> 직접 구축</h3><p>우리 제품·프로젝트로 서술 가능합니다.</p></div>
+    <div class="card"><h3><span class="mono gr-anon">◐</span> 익명 역량</h3><p>고용주 업무입니다. <strong>실적이 아니라 역량으로만</strong> 씁니다.</p></div>
+    <div class="card stopc"><h3>업종 언급 금지</h3><p>단어 하나면 익명성이 즉시 무너집니다. 성과 숫자도 고용주 데이터입니다.</p></div>
+  </div>
+  <div class="col stack" style="margin-top:26px">
+    <h3>다룰 수 있는 시스템</h3>
+    <ul class="plain">
+      <li><strong>SAP</strong> (ABAP · MM · SD) — 직접 수행, 롤아웃 PM 2회. <strong>자격 심사 신호</strong>입니다. 이 단어 하나로 “우리 사정을 안다”가 전달됩니다.</li>
+      <li><strong>Microsoft 365 / Power Platform</strong> — SMB에 최고의 제안입니다. “이미 내고 계신 것 위에 짓습니다. 새 소프트웨어를 팔지 않습니다.”</li>
+      <li><strong>QuickBooks</strong> — 직접 연동 구현.</li>
+    </ul>
+    <ul class="plain no">
+      <li><strong>Salesforce는 벤더명으로 쓰지 않습니다.</strong> “CRM” 범주로 문만 열어둡니다. 새 고객사에 한 건을 처음부터 끝까지 인도하면 그때 올립니다.</li>
+      <li><strong>네트워크·방화벽·서버는 서비스 카드로 만들지 않습니다.</strong> 사람은 목록에 있는 걸 주문합니다. 대신 About에 한 줄 — “미국 법인의 IT를 직접 운영해봤기 때문에 시스템이 들어갈 환경을 압니다.”</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">속도</p>
+    <h2>AI가 실제로 바꾼 것</h2>
+    <p class="lede">문제 모양이 아니라 <strong>AI가 바꾼 것 자체</strong>라서 별도 축으로 둡니다. 숫자가 없으면 “AI 활용”은 말에 그칩니다.</p>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>항목</th><th>값</th><th>상태</th></tr></thead>
+    <tbody>
+      <tr><td>모바일 앱 — 설계 착수 → 스토어 테스트 배포</td><td class="g">6일</td><td class="gr-full">실측 확인</td></tr>
+      <tr><td>다지점 멤버십 플랫폼 — 착수 → 첫 지점 운영</td><td class="g gr-un">10주<span class="smp">SAMPLE</span></td><td class="gr-anon">실값 확인</td></tr>
+      <tr><td>경비·승인 플랫폼 — 착수 → 기능 완성</td><td class="g gr-un">12주<span class="smp">SAMPLE</span></td><td class="gr-anon">실값 확인</td></tr>
+      <tr><td>통상 외주 견적 대비</td><td class="g gr-un">기간 ¼ · 비용 ⅕<span class="smp">SAMPLE</span></td><td class="gr-anon">실값 확인</td></tr>
+    </tbody>
+  </table></div>
+  <div class="col stack" style="margin-top:18px">
+    <p class="src">⛔ 숫자를 지어내지 않습니다. 확인 전까지 사이트에 쓰지 않습니다. 정확도보다 자릿수가 중요합니다.</p>
+    <p>⛔ “6일 만에 앱” 옆에 대형 시스템 얘기를 나란히 두지 않습니다. 스타트업 속도와 엔터프라이즈 규모를 동시에 주장하면 둘 다 안 믿깁니다. <strong>속도는 제품 쪽, 규모는 서비스 쪽으로 분리합니다.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">받지 않는 일</p>
+    <h2>거절 조건을 먼저 공개합니다</h2>
+  </div>
+  <div class="col">
+    <ul class="plain no">
+      <li>담당자 시간을 낼 수 없는 프로젝트 — 성과의 전제조건이 협조입니다. 없으면 실패가 예정돼 있습니다.</li>
+      <li>이미 여러 팀이 쓰는 대형 시스템 재작성 — 우리 규모가 아닙니다.</li>
+      <li>인력 파견 — 만들어 인도하는 회사입니다.</li>
+      <li>물리 인프라·상시 전산 대응 — 원격으로 인도 가능한 일만 합니다.</li>
+      <li>“일단 AI 좀 붙여봐 주세요” — 무엇을 위한 것인지 없으면 60% 확률로 버려집니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">설득 구조</p>
+    <h2>OBM으로 섹션 순서를 잡습니다</h2>
+    <p class="lede">김효석 『OBM 설득마케팅』의 구조만 차용합니다. 사이트 본문에 저자·책을 인용하지 않고 우리 방법론으로 소화합니다. <strong>Open의 ②‘갈등하게’가 자가진단과 정확히 겹칩니다</strong> — 우리가 판정해 주는 게 아니라 방문자가 스스로 인정하는 구조.</p>
+  </div>
+  <div class="obm">
+    <div class="row"><div class="k">O ① 궁금</div><div class="v">Hero — “AI가 붙을 수 있는 상태로 만든 다음에 붙입니다”</div></div>
+    <div class="row"><div class="k">O ② 갈등</div><div class="v">환상 걷기 + <strong>자가진단</strong> → “우리가 L1이구나”</div></div>
+    <div class="row"><div class="k">O ③ 필요</div><div class="v">레벨 눈금 + Gartner 60%</div></div>
+    <div class="row"><div class="k">B 신뢰</div><div class="v">방법론 4단계 · 문제모양 + 증거등급 · 계약원칙 · 받지 않는 일</div></div>
+    <div class="row"><div class="k">M 행동</div><div class="v">진단 신청</div></div>
+  </div>
+  <div class="col stack" style="margin-top:22px">
+    <h3>사회적 증거가 봉인된 것은 손실이 아닙니다</h3>
+    <p>로고·후기·사용자 수는 우리 규칙상 쓸 수 없습니다. 그런데 그건 <strong>가장 빌리기 쉽고 가장 빨리 닳는 무기</strong>입니다. 우리는 강제로 상호성·권위·일관성으로 밀려나는데 그쪽이 훨씬 오래 갑니다.</p>
+    <p><strong>사람의 증거를 못 쓰면 절차의 증거로 대체합니다</strong> — 방법론, 진단 서식, 판정 기준. 그래서 방법론 문서가 단순 문서가 아닙니다. <strong>그게 우리의 사회적 증거 대체물입니다.</strong> 방법론 없이 사례만 나열하면 아무리 잘 써도 “일 잘하는 개인”으로 읽힙니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="shead col">
+    <p class="eyebrow">되돌리기 조건</p>
+    <h2>이 포지셔닝이 틀렸다면 무엇을 보고 알까</h2>
+  </div>
+  <div class="tw"><table>
+    <thead><tr><th>신호</th><th>해석</th><th>조치</th></tr></thead>
+    <tbody>
+      <tr><td>자가진단 완료는 많은데 진단 신청이 0</td><td>진단이 상품으로 안 읽힌다</td><td>산출물·가격을 더 구체화</td></tr>
+      <tr><td>문의가 전부 L0 회사</td><td>눈금이 너무 관대</td><td>판정 기준 상향 · 거절 목록 강화</td></tr>
+      <tr><td>문의가 전부 30명 이하 SMB</td><td>법인 세그먼트 가설 실패</td><td>한국어면 특화를 되돌리고 SMB로 단일화</td></tr>
+      <tr><td>“AI 얘기가 없다”는 이탈</td><td>정직함이 소극적으로 읽힘</td><td>속도 축을 앞으로 당김</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer class="col">
+  <p>정본: <code>docs/1_정본_canonical/</code> — POSITIONING · METHODOLOGY · EVIDENCE_LEDGER · RESEARCH_PHASE0 · DOC_INDEX</p>
+  <p>출처: Gartner, <em>Lack of AI-Ready Data Puts AI Projects at Risk</em> (2025-02-26) · 김효석 『OBM 설득마케팅』 · Cialdini, <em>Influence</em></p>
+</footer>
+
+</div>

@@ -1,26 +1,33 @@
 import { Hero } from '@/components/marketing/Hero';
-import { Problems } from '@/components/marketing/Problems';
-import { Approach } from '@/components/marketing/Approach';
+import { Paths } from '@/components/marketing/Paths';
+import { Reality, SelfApply, Summary } from '@/components/marketing/HomeSections';
 import { ProductGrid } from '@/components/marketing/ProductGrid';
-import { ServicesPreview } from '@/components/marketing/ServicesPreview';
-import { Beliefs } from '@/components/marketing/Beliefs';
-import { Proof } from '@/components/marketing/Proof';
 import { FinalCta } from '@/components/marketing/FinalCta';
 import { getContent } from '@/content';
 import type { Lang } from '@/content/types';
 
+/**
+ * The home page is an entrance, not the whole argument.
+ *
+ * It states the criterion, shows who this is for, and hands the reader to the
+ * page that carries the part they came for. The long-form material lives at
+ * /approach/, /method/ and /practices/ — putting all of it here made a single
+ * page nobody finishes.
+ *
+ * SelfApply stays because it is what turns the product list below it from a
+ * side line into evidence; the two only work next to each other.
+ */
 export function HomeView({ lang }: { lang: Lang }) {
   const { finalCta } = getContent(lang).home;
 
   return (
     <>
       <Hero lang={lang} />
-      <Problems lang={lang} />
-      <Approach lang={lang} />
+      <Reality lang={lang} />
+      <Paths lang={lang} />
+      <SelfApply lang={lang} />
       <ProductGrid lang={lang} showAllLink />
-      <ServicesPreview lang={lang} />
-      <Beliefs lang={lang} />
-      <Proof lang={lang} />
+      <Summary lang={lang} />
       <FinalCta
         heading={finalCta.heading}
         body={finalCta.body}

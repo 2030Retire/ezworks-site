@@ -32,17 +32,12 @@ export const localeOpenGraph: Record<Lang, string> = {
 export type NavItem = { href: string; label: string };
 export type NavGroup = { title: string; items: NavItem[] };
 
-export type ProductStatus = 'private-alpha' | 'in-development' | 'early-access';
-
 export type Product = {
   slug: string;
   name: string;
   tagline: string;
   /** One or two sentences for cards and list rows. */
   description: string;
-  status: ProductStatus;
-  /** Short qualifier shown next to the badge, e.g. platform. */
-  statusNote?: string;
   features: { title: string; body: string }[];
   cta: { label: string; href: string };
   /** Detail page, when one exists. Cards link here; otherwise to the CTA. */
@@ -52,15 +47,32 @@ export type Product = {
   seoDescription: string;
 };
 
+/**
+ * A service area. Cases live inside the area they demonstrate rather than in a
+ * section of their own — a capability claim and its evidence should not be a
+ * click apart.
+ */
 export type Service = {
   slug: string;
   title: string;
-  /** One line for the home page summary. */
+  /** One line for listings. */
   summary: string;
-  /** Fuller explanation for /services/. */
+  /** Fuller explanation. */
   body: string;
-  /** Concrete examples — what an engagement actually produces. */
-  examples: string[];
+  /** When this is the right area to start in. */
+  when: string[];
+  /** What the engagement leaves behind. */
+  outputs: string[];
+  /** Real work. No client, industry or site is named. */
+  cases: { title: string; body: string; result: string }[];
+};
+
+/** A problem stated the way it is lived, linked to the area that handles it. */
+export type ProblemName = {
+  title: string;
+  note: string;
+  /** Slug of the service area, used as an in-page anchor. */
+  area: string;
 };
 
 /**
