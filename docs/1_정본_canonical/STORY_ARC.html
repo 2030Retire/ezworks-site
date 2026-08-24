@@ -1,0 +1,584 @@
+<title>설득 구조 — 페이지 안과 페이지 사이</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FDFDFC; --ink:#12181F; --body:#3D4853; --mute:#7C8894; --hair:#E4E7EA;
+  --hair-hi:#CDD2D8; --wash:#F5F6F7; --accent:#0063F9; --accent-soft:#EDF3FF;
+  --bad:#B4232A; --bad-bg:#FDF4F4; --bad-line:#EDCBCB;
+  --warn:#8A5A00; --warn-bg:#FDF8EF; --warn-line:#E8D7B4;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+  --bad:#F09595; --bad-bg:#1D1416; --bad-line:#3A2327;
+  --warn:#DEB776; --warn-bg:#1A1610; --warn-line:#3A301D;
+}}
+:root[data-theme="dark"]{
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+  --bad:#F09595; --bad-bg:#1D1416; --bad-line:#3A2327;
+  --warn:#DEB776; --warn-bg:#1A1610; --warn-line:#3A301D;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:16.5px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.w{max-width:920px;margin:0 auto;padding:0 28px}
+.t{max-width:62ch}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+
+nav{border-bottom:1px solid var(--hair)}
+nav .w{display:flex;align-items:baseline;gap:20px;padding:20px 28px;font-size:14.5px;flex-wrap:wrap}
+nav a{border:none;color:var(--mute)} nav a:hover{color:var(--ink)}
+nav .here{color:var(--ink);font-weight:500} nav .sp{margin-left:auto}
+
+header{padding:78px 0 50px;border-bottom:1px solid var(--hair)}
+h1{font-size:clamp(1.6rem,3.5vw,2.14rem);line-height:1.42;max-width:24ch}
+header p{margin-top:24px;max-width:58ch}
+
+section{padding:60px 0;border-top:1px solid var(--hair)}
+.head{display:flex;flex-direction:column;gap:15px;max-width:60ch}
+h2{font-size:clamp(1.16rem,2.4vw,1.38rem);line-height:1.5}
+h3{font-size:1rem}
+.body{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+.body.t{max-width:62ch}
+
+figure{margin:36px 0 0}
+figure svg{width:100%;height:auto;display:block;color:var(--hair-hi)}
+figcaption{margin-top:15px;font-size:.88rem;color:var(--mute);max-width:58ch}
+
+blockquote{margin:0;padding:24px 0 24px 24px;border-left:2px solid var(--accent);max-width:56ch}
+blockquote p{color:var(--ink);font-size:1.06rem;line-height:1.66}
+blockquote .src{margin-top:11px;font-size:.85rem;color:var(--mute)}
+
+.stage{margin-top:34px;display:flex;flex-direction:column}
+.stage > div{padding:22px 0;border-top:1px solid var(--hair-hi)}
+.stage > div:first-child{border-top:none;padding-top:0}
+.sh{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px}
+.sh .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--mute)}
+.scols{margin-top:16px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
+.scols h4{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.scols ul{margin-top:13px}
+@media(max-width:660px){.scols{grid-template-columns:1fr;gap:20px}}
+
+.ba{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ba > div{border:1px solid var(--hair);padding:20px}
+.ba .h{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute)}
+.ba ul{margin-top:14px}
+.ba.cmp > div:first-child{border-color:var(--bad-line);background:var(--bad-bg)}
+.ba.cmp > div:last-child{border-color:var(--accent);background:var(--accent-soft)}
+@media(max-width:660px){.ba{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:.92rem}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);text-align:left;padding:0 14px 11px 0;
+  border-bottom:1px solid var(--hair-hi);white-space:nowrap}
+td{padding:14px 14px 14px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:500}
+td.c{text-align:center;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.scroll{overflow-x:auto}.scroll table{min-width:620px}
+
+.warn{margin-top:32px;border:1px solid var(--bad-line);background:var(--bad-bg);padding:22px 24px}
+.warn .lab{color:var(--bad)}
+.warn h3{margin-top:11px;color:var(--bad)}
+.warn p{margin-top:10px;font-size:.95rem;max-width:58ch}
+.ok{margin-top:22px;border:1px solid var(--accent);background:var(--accent-soft);padding:22px 24px}
+.ok .lab{color:var(--accent)}
+.ok h3{margin-top:11px}
+.ok p{margin-top:10px;font-size:.95rem;max-width:58ch}
+
+ol{margin:30px 0 0;padding:0;list-style:none;counter-reset:s;display:flex;flex-direction:column}
+ol li{counter-increment:s;padding:17px 0 17px 42px;border-top:1px solid var(--hair);
+  position:relative;font-size:.95rem}
+ol li:first-child{border-top:none}
+ol li::before{content:counter(s);position:absolute;left:0;top:17px;
+  font-family:"IBM Plex Mono",monospace;font-size:.86rem;color:var(--mute)}
+ol li b{color:var(--ink);font-weight:500}
+
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul li{padding-left:19px;position:relative;font-size:.93rem}
+ul li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:1px;background:var(--hair-hi)}
+.quiet{color:var(--mute);font-size:.9rem}
+footer{border-top:1px solid var(--hair);padding:48px 0 84px}
+footer p{font-size:.86rem;color:var(--mute);max-width:62ch;margin-bottom:9px}
+</style>
+
+<nav>
+  <div class="w">
+    <a href="https://claude.ai/code/artifact/c1810e0d-1d6b-4044-8933-8399778e3f8a">전체 구성</a>
+    <a href="https://claude.ai/code/artifact/67dd8f00-7279-4a9b-8583-e0bcb6cf3bf3">홈</a>
+    <a href="https://claude.ai/code/artifact/f2a8fd85-73d5-4f78-b52b-134d65df77f7">진행 방식</a>
+    <a href="https://claude.ai/code/artifact/1a0282c4-d327-414a-93ec-bf3f503ce6f8">사례 04</a>
+    <span class="here">설득 구조</span>
+    <span class="sp"></span><span class="lab">내부 문서</span>
+  </div>
+</nav>
+
+<header>
+  <div class="w">
+    <p class="lab">내부 설계 문서 · 공개하지 않음</p>
+    <h1 style="margin-top:20px">설득 구조 — 페이지 안과 페이지 사이</h1>
+    <p>지금 만든 페이지는 모두 상향식입니다. 문제에서 시작해 과정을 지나 마지막에 결과가 나옵니다. 읽는 사람은 <strong>끝까지 가야 자기 얘기인지 알 수 있습니다.</strong> 이 문서는 그 순서를 뒤집는 규칙과, 페이지 사이의 이동에도 같은 규칙을 적용하는 방법을 정합니다.</p>
+  </div>
+</header>
+
+<div class="w">
+
+<section>
+  <div class="head">
+    <p class="lab">Diagnosis</p>
+    <h2>현재 구조의 결함</h2>
+    <p>여섯 페이지의 제목 순서를 뽑아 확인한 결과입니다. 상단 개요가 있는 페이지가 하나도 없습니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 820 330" role="img" aria-label="현재 페이지는 문제에서 시작해 마지막에 결과가 나오므로 독자가 관련성을 판단하려면 끝까지 읽어야 하고, 바꾼 구조는 상단에 문제와 해결과 효과를 먼저 두어 몇 초 안에 판단하게 한다">
+      <defs>
+        <marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#B4232A"/></marker>
+        <marker id="d2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/></marker>
+      </defs>
+
+      <!-- LEFT: current -->
+      <text x="14" y="18" font-size="10.5" font-weight="500" letter-spacing="1.4" fill="#B4232A">현재 — 상향식</text>
+      <g font-size="11" fill="#3D4853">
+        <rect x="14" y="32" width="212" height="34" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="54">문제 서술</text>
+        <rect x="14" y="74" width="212" height="34" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="96">현장 상태</text>
+        <rect x="14" y="116" width="212" height="34" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="138">설계 판단</text>
+        <rect x="14" y="158" width="212" height="34" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="180">메커니즘</text>
+        <rect x="14" y="200" width="212" height="34" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="222">마찰 기록</text>
+        <rect x="14" y="242" width="212" height="34" fill="none" stroke="#B4232A" stroke-width="1.4"/>
+        <text x="28" y="264" fill="#B4232A">결과 · 효과</text>
+      </g>
+      <path d="M246,44 V254" fill="none" stroke="#B4232A" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#d1)"/>
+      <text x="258" y="140" font-size="11" fill="#B4232A">"우리 얘기인가?"</text>
+      <text x="258" y="160" font-size="11" fill="#B4232A">답이 여기 있음</text>
+      <text x="14" y="300" font-size="10.5" fill="#7C8894">관련성 판단까지 — 전체를 읽어야 함</text>
+      <text x="14" y="318" font-size="10.5" fill="#B4232A">대부분 그 전에 떠납니다</text>
+
+      <!-- divider -->
+      <line x1="410" y1="24" x2="410" y2="310" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5"/>
+
+      <!-- RIGHT: revised -->
+      <text x="444" y="18" font-size="10.5" font-weight="500" letter-spacing="1.4" fill="#0063F9">바꾼 것 — 하향식</text>
+      <rect x="444" y="32" width="290" height="76" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+      <text x="458" y="54" font-size="11.5" font-weight="600" fill="#0063F9">개요 — 문제 · 해결 · 효과</text>
+      <text x="458" y="76" font-size="10.5" fill="#7C8894">세 줄. 결과는 밝히고 방법은 남김</text>
+      <text x="458" y="96" font-size="10.5" fill="#7C8894">"이거 우리도 해당되겠는데"</text>
+      <path d="M754,60 V80" fill="none" stroke="#0063F9" stroke-width="1.4" marker-end="url(#d2)"/>
+      <text x="766" y="74" font-size="11" fill="#0063F9">3초</text>
+
+      <g font-size="11" fill="#3D4853">
+        <rect x="444" y="120" width="290" height="30" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="458" y="140">기준 — 무엇을 보면 아는가</text>
+        <rect x="444" y="156" width="290" height="30" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="458" y="176">근거 — 실제로 무엇을 했는가</text>
+        <rect x="444" y="192" width="290" height="30" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="458" y="212">메커니즘 · 마찰</text>
+        <rect x="444" y="228" width="290" height="30" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="458" y="248">비용 — 어디까지, 어디서 멈추나</text>
+        <rect x="444" y="264" width="290" height="30" fill="none" stroke="#0063F9" stroke-width="1.3"/>
+        <text x="458" y="284" fill="#0063F9">정리 — 세 줄 + 다음 한 가지</text>
+      </g>
+      <text x="444" y="318" font-size="10.5" fill="#7C8894">판단은 위에서, 확인은 아래에서</text>
+    </svg>
+    <figcaption>같은 내용, 순서만 다릅니다. 위쪽에서 관련성을 판단하게 하고, 아래는 그 판단을 확인하는 자리로 씁니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Key Move</p>
+    <h2>여는 문장은 요약이 아니라 판단 기준</h2>
+  </div>
+  <div class="body t">
+    <p>상단에 결론을 다 적으면 아래를 읽을 이유가 없어집니다. 참고한 방식이 이 문제를 정확히 피합니다 — 여는 문장이 <strong>답이 아니라, 무엇을 봐야 하는지</strong>를 줍니다. 냉장고 판매의 첫 문장은 "이 냉장고가 좋습니다"가 아니라 "다른 것은 보지 마시고, 홈바가 있는지만 보십시오"입니다. 답을 얻지 못했으므로 계속 듣게 됩니다.</p>
+    <p>우리 쪽으로 옮기면 이렇게 됩니다.</p>
+  </div>
+
+  <blockquote>
+    <p>AI를 붙일 수 있는지는 도구가 아니라 <strong>업무 상태가 어디에 있는지</strong>로 갈립니다. 시스템 안에 있는지, 사람 머리와 엑셀 파일에 있는지.</p>
+    <p class="src">기준을 제시하되 판정은 하지 않습니다 — 자기 회사를 대입해 보려면 아래를 읽어야 합니다.</p>
+  </blockquote>
+
+  <div class="body t">
+    <p>이 문장이 지금 홈의 첫 문장을 대체할 후보입니다. 현재 홈은 "세상은 온통 AI입니다. 그런데 우리 회사는 여전히 사장이 다 합니다"로 시작합니다. 상황 묘사여서 공감은 되지만 <strong>읽을 이유를 만들지 않습니다.</strong> 기준을 주면 읽을 이유가 생깁니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Three Stages</p>
+    <h2>세 단계와 각 단계의 할 일</h2>
+    <p>참고한 구조를 우리 용어로 옮긴 것입니다. 사이트 어디에도 이 단계 이름은 나오지 않습니다 — 골격일 뿐입니다.</p>
+  </div>
+
+  <div class="stage">
+    <div>
+      <div class="sh"><span class="k">단계 1</span><h3>읽게 만드는 자리</h3></div>
+      <div class="scols">
+        <div>
+          <h4>해야 하는 것</h4>
+          <ul>
+            <li><strong>판단 기준 제시</strong> — 무엇을 보면 알 수 있는지</li>
+            <li><strong>자기 대입</strong> — 우리 회사는 어느 쪽인가</li>
+            <li>정확한 문장 자체로 호감을 얻음 — 과장하지 않는 것이 곧 신호</li>
+          </ul>
+        </div>
+        <div>
+          <h4>하지 않는 것</h4>
+          <ul>
+            <li>공포 조성 — "지금 안 하면 도태됩니다" 류</li>
+            <li>부족함을 지적하는 어조. 자기 확인은 되지만 비난은 되지 않게</li>
+            <li>상단에서 결론을 다 말해 버리는 것</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sh"><span class="k">단계 2</span><h3>믿게 만드는 자리</h3></div>
+      <div class="scols">
+        <div>
+          <h4>순서가 정해져 있음</h4>
+          <ul>
+            <li><strong>신뢰</strong> — 실제로 만들어 운영 중인 것. 측정하지 않은 수치는 말하지 않음</li>
+            <li><strong>차별</strong> — 요건을 쓸 수 없는 회사를 전제로 시작한다는 점</li>
+            <li><strong>비용</strong> — 정액 진단, 그리고 두 개의 종료 지점</li>
+          </ul>
+        </div>
+        <div>
+          <h4>기준</h4>
+          <ul>
+            <li>우리에게 있는 것을 중요한 것으로 말하고, 없는 것은 중요하지 않다고 말함 — 없는 것을 있는 척하지 않음</li>
+            <li>남들도 다 하는 것은 쓰지 않음</li>
+            <li>비용은 금액이 아니라 <strong>실패했을 때 잃는 것의 상한</strong>으로 말함</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="sh"><span class="k">단계 3</span><h3>움직이게 만드는 자리</h3></div>
+      <div class="scols">
+        <div>
+          <h4>반드시 하는 것</h4>
+          <ul>
+            <li><strong>정리</strong> — 페이지 끝에 세 줄 요약. 예외 없이 모든 페이지</li>
+            <li><strong>한 가지 제시</strong> — 다음에 할 행동을 하나만. 두 개 이상은 아무것도 안 하게 만듦</li>
+          </ul>
+        </div>
+        <div>
+          <h4>문턱을 낮추는 방식</h4>
+          <ul>
+            <li>연락의 첫 단계를 가볍게 — "어느 프로세스에 손이 가장 많이 가는지"만 물음</li>
+            <li>정액·종료 지점을 여기서 다시 언급 — 결정의 무게를 줄임</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Boundary</p>
+    <h2>가져오지 않는 것 — 촉진제</h2>
+  </div>
+
+  <div class="warn">
+    <p class="lab">쓰지 않습니다</p>
+    <h3>시간 압박 · 한정 · 마감</h3>
+    <p>참고한 구조의 마지막 장치는 시간 제한입니다. 두 시간 안에 결정하게 만드는 방송에서는 작동합니다. <strong>우리 사이트에서는 반대로 작동합니다.</strong> 검토 주기가 몇 주에서 몇 달인 결정에 인위적 마감을 걸면 즉시 들통나고, 그 한 줄로 지금까지 지켜온 어조가 전부 무너집니다. 값싸 보이지 않으려고 문장을 계속 고쳐 온 것이 그 한 줄에 지워집니다.</p>
+  </div>
+
+  <div class="ok">
+    <p class="lab">대신 씁니다</p>
+    <h3>실패 비용의 상한</h3>
+    <p>결정을 재촉하는 것이 아니라 <strong>결정의 크기를 줄이는 것</strong>이 우리 쪽 장치입니다. 진단은 정액이고 2주이며 거기서 끝낼 수 있습니다. 잘못 골랐을 때 잃는 것이 미리 정해져 있으면 시작하기 쉬워집니다. 이미 구조에 들어 있으므로 새로 만들 것이 아니라, <strong>이 장치를 눈에 보이는 자리로 옮기는 일</strong>만 남았습니다.</p>
+  </div>
+
+  <div class="body t">
+    <p class="quiet">되돌리는 조건 — 문의가 오는데 진단 계약까지 이어지지 않는 상태가 반복되면, 문턱이 아니라 결정 근거가 부족한 것입니다. 그때는 촉진제가 아니라 사례를 늘려야 합니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Register</p>
+    <h2>문장 종결 — 자리에 따라 다르게</h2>
+    <p>같은 지적을 세 번 받았습니다. 「~합니다」가 나쁜 것이 아니라 <strong>모든 자리에서 같은 종결을 쓰는 것</strong>이 문제입니다. 자리별로 고정합니다.</p>
+  </div>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>자리</th><th>종결</th><th>예</th></tr></thead>
+    <tbody>
+      <tr><td>제목 · 소제목</td><td>명사구</td><td>병목의 위치 / 기능 추가가 아닌 층 제거</td></tr>
+      <tr><td>개요 · 정리 · 결과 항목</td><td>명사 종결</td><td>도크 중복 입력과 스테이지 탐색 제거. 5개 거점 실시간 집계</td></tr>
+      <tr><td>판단 기준 문장</td><td>점검형 + 필요</td><td>원인이 인력이나 설비인가. 먼저 살펴볼 필요가 있습니다</td></tr>
+      <tr><td>설명 · 서술 본문</td><td>「~습니다」 허용</td><td>기간계와 창고 시스템은 서로 데이터를 주고받고 있었습니다</td></tr>
+      <tr><td>표 · 목록 항목</td><td>명사 · 화살표</td><td>3명 이상 → 1명 / 운전자 판단 → 지정</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="warn">
+    <p class="lab">쓰지 않습니다</p>
+    <h3>「운영에 정착했습니다」류의 자기 보증</h3>
+    <p>한 사례에만 정착을 명시하면 <strong>나머지는 정착하지 않았다는 뜻이 됩니다.</strong> 정착은 기본 전제이므로 말하지 않습니다. 같은 이유로 「성공적으로」 「안정적으로」 「효과를 보고 있습니다」를 쓰지 않습니다 — 읽는 사람이 판단할 몫입니다.</p>
+  </div>
+
+  <div class="warn">
+    <p class="lab">쓰지 않습니다</p>
+    <h3>내부 장부 용어의 노출</h3>
+    <p>「구조상 확정」 「실측」 「측정 필요」 같은 등급 표시는 우리가 근거를 관리하는 장치입니다. 페이지에 그대로 내보내면 방문자에게는 <strong>변명처럼 읽힙니다.</strong> 근거 등급은 내부에서만 쓰고, 페이지에는 말할 수 있는 것만 올립니다. 측정되지 않은 항목은 등급을 붙이는 것이 아니라 <strong>빼는 것</strong>이 맞습니다.</p>
+  </div>
+
+  <div class="ok">
+    <p class="lab">측정 판단</p>
+    <h3>재는 것이 성립하지 않으면 재지 않습니다</h3>
+    <p>물량이 한가한 시기에는 처리 건수나 지연 비율에 변화가 나타나지 않습니다. 그런 지표를 「측정 필요」로 남겨 두면 언젠가 채워질 것처럼 보이지만 채워지지 않습니다. <strong>측정 조건이 성립하는 지표만 남기고 나머지는 지웁니다.</strong></p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Page Skeleton</p>
+    <h2>페이지 표준 골격</h2>
+    <p>모든 페이지가 이 순서를 따릅니다. 사례든 방법론이든 제품이든 동일합니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 800 448" role="img" aria-label="페이지는 개요, 기준, 확인, 근거, 차이, 비용, 정리, 다음 행동의 여덟 블록 순서로 구성되고 각 블록은 독자에게 서로 다른 역할을 한다">
+      <defs>
+        <marker id="s1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/></marker>
+      </defs>
+      <text x="14" y="16" font-size="10" letter-spacing="1.4" fill="#7C8894">블록</text>
+      <text x="420" y="16" font-size="10" letter-spacing="1.4" fill="#7C8894">읽는 사람이 하는 일</text>
+
+      <g font-size="11.5">
+        <rect x="14" y="28" width="380" height="42" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+        <text x="30" y="46" font-weight="600" fill="#0063F9">개요</text>
+        <text x="30" y="63" font-size="10.5" fill="#7C8894">문제 · 해결 · 효과 — 세 줄</text>
+        <text x="420" y="53" fill="#0063F9">"우리 얘기인가" 판단</text>
+
+        <rect x="14" y="80" width="380" height="42" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="30" y="98" fill="#12181F">기준</text>
+        <text x="30" y="115" font-size="10.5" fill="#7C8894">무엇을 보면 아는가</text>
+        <text x="420" y="105" fill="#3D4853">읽을 이유를 얻음</text>
+
+        <rect x="14" y="132" width="380" height="42" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="30" y="150" fill="#12181F">확인</text>
+        <text x="30" y="167" font-size="10.5" fill="#7C8894">그 기준으로 본 현장의 상태</text>
+        <text x="420" y="157" fill="#3D4853">자기 회사를 대입</text>
+
+        <rect x="14" y="184" width="380" height="42" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="30" y="202" fill="#12181F">근거</text>
+        <text x="30" y="219" font-size="10.5" fill="#7C8894">실제로 만든 것 · 정착 여부</text>
+        <text x="420" y="209" fill="#3D4853">믿을 만한지 본다</text>
+
+        <rect x="14" y="236" width="380" height="42" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="30" y="254" fill="#12181F">차이</text>
+        <text x="30" y="271" font-size="10.5" fill="#7C8894">일반적인 방식과 무엇이 다른가</text>
+        <text x="420" y="261" fill="#3D4853">대안과 비교</text>
+
+        <rect x="14" y="288" width="380" height="42" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="30" y="306" fill="#12181F">비용</text>
+        <text x="30" y="323" font-size="10.5" fill="#7C8894">얼마에 어디까지 · 어디서 멈추나</text>
+        <text x="420" y="313" fill="#3D4853">실패 비용의 상한을 확인</text>
+
+        <rect x="14" y="340" width="380" height="42" fill="none" stroke="#0063F9" stroke-width="1.3"/>
+        <text x="30" y="358" fill="#0063F9">정리</text>
+        <text x="30" y="375" font-size="10.5" fill="#7C8894">세 줄 요약 — 예외 없음</text>
+        <text x="420" y="365" fill="#0063F9">기억에 남김</text>
+
+        <rect x="14" y="392" width="380" height="42" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+        <text x="30" y="410" font-weight="600" fill="#0063F9">다음</text>
+        <text x="30" y="427" font-size="10.5" fill="#7C8894">할 일 한 가지 — 하나만</text>
+        <text x="420" y="417" fill="#0063F9">행동</text>
+      </g>
+
+      <g stroke="currentColor" stroke-width="1" marker-end="url(#s1)">
+        <line x1="204" y1="70" x2="204" y2="76"/><line x1="204" y1="122" x2="204" y2="128"/>
+        <line x1="204" y1="174" x2="204" y2="180"/><line x1="204" y1="226" x2="204" y2="232"/>
+        <line x1="204" y1="278" x2="204" y2="284"/><line x1="204" y1="330" x2="204" y2="336"/>
+        <line x1="204" y1="382" x2="204" y2="388"/>
+      </g>
+      <line x1="408" y1="28" x2="408" y2="434" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5"/>
+    </svg>
+    <figcaption>짧은 페이지는 중간 블록을 합칠 수 있습니다. 다만 <strong>개요와 정리와 다음</strong> 세 개는 어떤 페이지에서도 빠지지 않습니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Site Flow</p>
+    <h2>페이지 사이의 흐름</h2>
+    <p>같은 세 단계를 사이트 전체에도 적용합니다. 방문자가 어디서 들어와도 같은 순서를 지나게 됩니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 880 372" role="img" aria-label="검색이나 소개로 들어온 방문자가 홈 상단에서 기준을 받고, 사례와 진행 방식과 규율에서 신뢰와 차별과 비용을 확인한 뒤, 검토 신청 한 곳으로 모인다">
+      <defs>
+        <marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/></marker>
+        <marker id="f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/></marker>
+      </defs>
+
+      <!-- entries -->
+      <text x="14" y="18" font-size="10" letter-spacing="1.4" fill="#7C8894">진입</text>
+      <rect x="14" y="28" width="120" height="30" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="74" y="48" text-anchor="middle" font-size="10.5" fill="#7C8894">검색</text>
+      <rect x="14" y="64" width="120" height="30" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="74" y="84" text-anchor="middle" font-size="10.5" fill="#7C8894">소개 · 추천</text>
+      <rect x="14" y="100" width="120" height="30" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3"/>
+      <text x="74" y="120" text-anchor="middle" font-size="10.5" fill="#7C8894">제품 이용자</text>
+
+      <!-- band 1 -->
+      <text x="176" y="18" font-size="10" letter-spacing="1.4" fill="#0063F9">1 — 읽게 만드는 자리</text>
+      <rect x="176" y="28" width="200" height="102" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+      <text x="192" y="52" font-size="13" font-weight="600" fill="#0063F9">홈 상단</text>
+      <text x="192" y="74" font-size="10.5" fill="#7C8894">판단 기준 한 문장</text>
+      <text x="192" y="92" font-size="10.5" fill="#7C8894">현실 — 자기 대입</text>
+      <text x="192" y="110" font-size="10.5" fill="#7C8894">준비도 자가 확인</text>
+
+      <g stroke="currentColor" stroke-width="1" marker-end="url(#f1)">
+        <line x1="134" y1="43" x2="170" y2="52"/><line x1="134" y1="79" x2="170" y2="79"/>
+        <line x1="134" y1="115" x2="170" y2="106"/>
+      </g>
+
+      <!-- band 2 -->
+      <text x="418" y="18" font-size="10" letter-spacing="1.4" fill="#7C8894">2 — 믿게 만드는 자리</text>
+      <rect x="418" y="28" width="196" height="44" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="434" y="46" font-size="11.5" fill="#12181F">사례 4건</text>
+      <text x="434" y="63" font-size="10" fill="#7C8894">신뢰 — 실제로 만든 것</text>
+
+      <rect x="418" y="80" width="196" height="44" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="434" y="98" font-size="11.5" fill="#12181F">진행 방식</text>
+      <text x="434" y="115" font-size="10" fill="#7C8894">차별 — 요건 없이 시작</text>
+
+      <rect x="418" y="132" width="196" height="44" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="434" y="150" font-size="11.5" fill="#12181F">운영 규율</text>
+      <text x="434" y="167" font-size="10" fill="#7C8894">차별 — 켜는 순서</text>
+
+      <rect x="418" y="184" width="196" height="44" fill="none" stroke="#0063F9" stroke-width="1.3"/>
+      <text x="434" y="202" font-size="11.5" fill="#0063F9">검토 조건 · 정액</text>
+      <text x="434" y="219" font-size="10" fill="#7C8894">비용 — 실패 상한</text>
+
+      <g stroke="currentColor" stroke-width="1.1" marker-end="url(#f1)">
+        <line x1="376" y1="66" x2="412" y2="50"/><line x1="376" y1="79" x2="412" y2="102"/>
+        <line x1="376" y1="92" x2="412" y2="154"/>
+      </g>
+      <line x1="376" y1="104" x2="412" y2="206" stroke="#0063F9" stroke-width="1.2" marker-end="url(#f2)"/>
+
+      <!-- cross links -->
+      <path d="M614,50 C650,50 650,102 618,102" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#f1)"/>
+      <text x="662" y="80" font-size="9.5" fill="#7C8894">사례 → 방식</text>
+
+      <!-- band 3 -->
+      <text x="700" y="18" font-size="10" letter-spacing="1.4" fill="#0063F9">3 — 움직이는 자리</text>
+      <rect x="700" y="132" width="166" height="96" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+      <text x="716" y="158" font-size="13" font-weight="600" fill="#0063F9">검토 신청</text>
+      <text x="716" y="180" font-size="10.5" fill="#7C8894">질문 하나만</text>
+      <text x="716" y="198" font-size="10.5" fill="#7C8894">"손이 가장 많이</text>
+      <text x="716" y="214" font-size="10.5" fill="#7C8894">가는 프로세스"</text>
+
+      <g stroke="#0063F9" stroke-width="1.3" marker-end="url(#f2)">
+        <line x1="614" y1="50" x2="694" y2="140"/>
+        <line x1="614" y1="102" x2="694" y2="156"/>
+        <line x1="614" y1="154" x2="694" y2="172"/>
+        <line x1="614" y1="206" x2="694" y2="188"/>
+      </g>
+
+      <!-- footer rule -->
+      <line x1="14" y1="264" x2="866" y2="264" stroke="currentColor" stroke-width="1" stroke-dasharray="3 5"/>
+      <text x="14" y="290" font-size="11" fill="#12181F">모든 페이지 끝에 같은 두 블록이 있습니다 — 세 줄 정리, 그리고 다음 한 가지.</text>
+      <text x="14" y="312" font-size="10.5" fill="#7C8894">어느 페이지에서 이탈해도 마지막에 본 것이 정리와 행동이 되도록 합니다.</text>
+      <text x="14" y="340" font-size="10.5" fill="#7C8894">사례에서 바로 검토 신청으로 가는 경로가 가장 짧습니다 — 신뢰가 이미 형성된 상태이므로 막지 않습니다.</text>
+    </svg>
+    <figcaption>진입 경로는 셋이지만 통과하는 순서는 하나입니다. 굵은 파란 선이 신청으로 모이는 경로입니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Audit</p>
+    <h2>페이지별 현재 상태</h2>
+    <p>각 페이지가 어느 단계를 담당하고 있는지, 비어 있는 곳은 어디인지입니다.</p>
+  </div>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>페이지</th><th>개요</th><th>기준</th><th>근거</th><th>차이</th><th>비용</th><th>정리</th><th>다음</th><th>제목 형태</th></tr></thead>
+    <tbody>
+      <tr><td>홈</td><td class="c">—</td><td class="c">△</td><td class="c">●</td><td class="c">●</td><td class="c">●</td><td class="c">—</td><td class="c">●</td><td>서술문 — 교체 필요</td></tr>
+      <tr><td>진행 방식</td><td class="c">—</td><td class="c">●</td><td class="c">△</td><td class="c">●</td><td class="c">△</td><td class="c">—</td><td class="c">—</td><td>명사구 완료</td></tr>
+      <tr><td>사례 04</td><td class="c">—</td><td class="c">△</td><td class="c">●</td><td class="c">●</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td>명사구 완료</td></tr>
+      <tr><td>사례 01</td><td class="c">—</td><td class="c">—</td><td class="c">●</td><td class="c">△</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td>서술문 — 교체 필요</td></tr>
+      <tr><td>사례 02 · 03</td><td class="c">—</td><td class="c">—</td><td class="c">●</td><td class="c">△</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td>서술문 — 교체 필요</td></tr>
+      <tr><td>운영 규율</td><td class="c">—</td><td class="c">—</td><td class="c">●</td><td class="c">●</td><td class="c">—</td><td class="c">—</td><td class="c">—</td><td>서술문 — 교체 필요</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="body t">
+    <p><strong>개요와 정리가 전부 비어 있습니다.</strong> 여섯 페이지 중 하나도 없습니다. 이것이 지금 구조의 가장 큰 결손이고, 고치는 비용은 가장 낮습니다 — 이미 쓴 내용을 요약해 위와 아래에 붙이는 일이기 때문입니다.</p>
+    <p class="quiet">● 담당 · △ 약함 · — 없음</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Order</p>
+    <h2>적용 순서</h2>
+  </div>
+  <ol>
+    <li><b>사례 04에 개요와 정리를 붙임</b> — 한 페이지에서 골격이 실제로 작동하는지 먼저 확인합니다.</li>
+    <li><b>홈 첫 문장을 판단 기준으로 교체</b> — 상황 묘사를 기준 제시로. 이 한 문장이 사이트 전체의 입구입니다.</li>
+    <li><b>홈에 개요와 정리 추가</b> — 홈은 그 자체로 사이트의 개요이므로 최상단 블록이 가장 중요합니다.</li>
+    <li><b>남은 네 페이지</b> — 사례 01 · 02 · 03 · 규율에 제목 명사구 교체, 개요, 정리, 도형.</li>
+    <li><b>비용 블록을 사례에도 노출</b> — 지금은 홈에만 있습니다. 사례에서 바로 신청으로 가는 경로에 비용 정보가 없습니다.</li>
+    <li><b>영문판</b> — 한국어 골격이 확정된 뒤. 골격은 그대로, 문장만 새로 씁니다.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Summary</p>
+    <h2>정리</h2>
+  </div>
+  <div class="body t">
+    <p><strong>하나.</strong> 모든 페이지가 상향식이어서 관련성 판단이 맨 아래에 있었습니다. 개요를 최상단으로 올립니다.</p>
+    <p><strong>둘.</strong> 여는 문장은 요약이 아니라 판단 기준입니다. 효과는 밝히고 방법은 남깁니다.</p>
+    <p><strong>셋.</strong> 시간 압박은 쓰지 않습니다. 우리 쪽 장치는 실패 비용의 상한 — 정액 진단과 종료 지점입니다.</p>
+  </div>
+  <div class="body t" style="margin-top:26px">
+    <p class="quiet">다음 한 가지 — 사례 04에 개요와 정리를 붙여 골격을 눈으로 확인합니다.</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="w">
+    <p>내부 설계 문서입니다. 사이트에 공개되지 않으며, 단계 이름은 사이트 문구에 등장하지 않습니다.</p>
+    <p class="quiet">참고 — 김효석의 설득 3단계 구조(영업 강연), Cialdini의 사회적 증거·일관성 원칙. 구조만 참고하고 용어와 촉진 기법은 가져오지 않았습니다.</p>
+  </div>
+</footer>

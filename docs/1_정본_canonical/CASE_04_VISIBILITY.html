@@ -1,0 +1,587 @@
+<title>출하 운영 — 수기 층 제거</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FDFDFC; --ink:#12181F; --body:#3D4853; --mute:#7C8894; --hair:#E4E7EA;
+  --hair-hi:#CDD2D8; --wash:#F5F6F7; --accent:#0063F9; --accent-soft:#EDF3FF;
+  --gone:#B4232A; --gone-bg:#FDF4F4; --gone-line:#EDCBCB;
+  --fill:#8A5A00; --fill-bg:#FDF8EF; --fill-line:#E8D7B4;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+  --gone:#F09595; --gone-bg:#1D1416; --gone-line:#3A2327;
+  --fill:#DEB776; --fill-bg:#1A1610; --fill-line:#3A301D;
+}}
+:root[data-theme="dark"]{
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+  --gone:#F09595; --gone-bg:#1D1416; --gone-line:#3A2327;
+  --fill:#DEB776; --fill-bg:#1A1610; --fill-line:#3A301D;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:16.5px;line-height:1.8;word-break:keep-all;text-wrap:pretty;-webkit-font-smoothing:antialiased}
+.w{max-width:900px;margin:0 auto;padding:0 28px}
+.t{max-width:62ch}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+
+nav{border-bottom:1px solid var(--hair)}
+nav .w{display:flex;align-items:baseline;gap:20px;padding:20px 28px;font-size:14.5px}
+nav a{border:none;color:var(--mute)} nav a:hover{color:var(--ink)}
+nav .here{color:var(--ink);font-weight:500} nav .sp{margin-left:auto}
+
+header{padding:78px 0 50px;border-bottom:1px solid var(--hair)}
+h1{font-size:clamp(1.6rem,3.5vw,2.14rem);line-height:1.42;max-width:24ch}
+.meta{margin-top:24px;display:flex;flex-wrap:wrap;gap:8px 22px;
+  font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute)}
+
+section{padding:60px 0;border-top:1px solid var(--hair)}
+.head{display:flex;flex-direction:column;gap:15px;max-width:60ch}
+h2{font-size:clamp(1.16rem,2.4vw,1.38rem);line-height:1.5}
+h3{font-size:1rem}
+.body{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+.body.t{max-width:62ch}
+
+figure{margin:36px 0 0}
+figure svg{width:100%;height:auto;display:block;color:var(--hair-hi)}
+figcaption{margin-top:15px;font-size:.88rem;color:var(--mute);max-width:58ch}
+
+blockquote{margin:0;padding:24px 0 24px 24px;border-left:2px solid var(--accent);max-width:56ch}
+blockquote p{color:var(--ink);font-size:1.06rem;line-height:1.66}
+
+.ba{margin-top:32px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ba > div{border:1px solid var(--hair);padding:20px}
+.ba .h{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute)}
+.ba ul{margin-top:14px}
+.ba.cmp > div:first-child{border-color:var(--gone-line);background:var(--gone-bg)}
+.ba.cmp > div:last-child{border-color:var(--hair-hi);background:var(--wash)}
+@media(max-width:660px){.ba{grid-template-columns:1fr}}
+
+.rule{margin-top:30px;display:flex;flex-direction:column}
+.rule > div{padding:19px 0;border-top:1px solid var(--hair)}
+.rule > div:first-child{border-top:none;padding-top:0}
+.rule p{margin-top:8px;font-size:.94rem;max-width:60ch}
+.rule .q{margin-top:9px;font-family:"IBM Plex Mono",monospace;font-size:.85rem;color:var(--mute)}
+
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:.92rem}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);text-align:left;padding:0 14px 11px 0;
+  border-bottom:1px solid var(--hair-hi);white-space:nowrap}
+td{padding:14px 14px 14px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:500}
+td.v{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;
+  white-space:nowrap;color:var(--ink);font-weight:500}
+.fillin{color:var(--fill);background:var(--fill-bg);border:1px dashed var(--fill-line);
+  padding:1px 7px;font-family:"IBM Plex Mono",monospace;font-size:.85rem;white-space:nowrap}
+.scroll{overflow-x:auto}.scroll table{min-width:560px}
+
+.phase{margin-top:32px;border:1px solid var(--accent);background:var(--accent-soft);padding:22px 24px}
+.phase .lab{color:var(--accent)}
+.phase h3{margin-top:11px}
+.phase p{margin-top:10px;font-size:.95rem;max-width:58ch}
+
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul li{padding-left:19px;position:relative;font-size:.93rem}
+ul li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:1px;background:var(--hair-hi)}
+.quiet{color:var(--mute);font-size:.9rem}
+.note{margin-top:28px;border:1px dashed var(--fill-line);background:var(--fill-bg);padding:18px 20px}
+.note .lab{color:var(--fill)}
+.note p{margin-top:9px;font-size:.92rem;max-width:58ch}
+footer{border-top:1px solid var(--hair);padding:48px 0 84px}
+.abs{margin-top:34px;border:1px solid var(--accent);background:var(--accent-soft);padding:26px 28px}
+.abs .crit{color:var(--ink);font-size:1.08rem;line-height:1.62;max-width:54ch;font-weight:500}
+.abs .g{margin-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--hair-hi)}
+.abs .g > div{background:var(--paper);padding:17px 18px}
+.abs .g h4{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.abs .g p{margin-top:10px;font-size:.93rem;line-height:1.62}
+.abs .g b{color:var(--ink);font-weight:600}
+@media(max-width:660px){.abs .g{grid-template-columns:1fr}}
+.sum{margin-top:30px;display:flex;flex-direction:column;gap:15px;max-width:60ch}
+.sum > p{padding-left:30px;position:relative;font-size:1rem;line-height:1.7}
+.sum > p > b{position:absolute;left:0;top:0;color:var(--accent);font-weight:600;
+  font-family:"IBM Plex Mono",monospace;font-size:.9rem}
+.next{margin-top:34px;border-top:1px solid var(--hair-hi);padding-top:24px;max-width:58ch}
+.next .lab{color:var(--accent)}
+.next p{margin-top:11px;font-size:1rem;color:var(--ink);line-height:1.66}
+footer p{font-size:.86rem;color:var(--mute);max-width:62ch;margin-bottom:9px}
+</style>
+
+<nav>
+  <div class="w">
+    <a href="https://claude.ai/code/artifact/c1810e0d-1d6b-4044-8933-8399778e3f8a">전체 구성</a>
+    <a href="https://claude.ai/code/artifact/67dd8f00-7279-4a9b-8583-e0bcb6cf3bf3">홈</a>
+    <a href="https://claude.ai/code/artifact/f2a8fd85-73d5-4f78-b52b-134d65df77f7">진행 방식</a>
+    <span class="here">사례 04</span>
+    <span class="sp"></span><span class="lab">시안</span>
+  </div>
+</nav>
+
+<header>
+  <div class="w">
+    <p class="lab">사례 04 · Phase 1</p>
+    <h1 style="margin-top:20px">출하 운영 — 수기 층의 제거</h1>
+    <div class="meta">
+      <span>도크 운영 · 조립 라인 · 통합 포털</span>
+      <span>물류 거점 <span class="num">5</span>곳</span>
+      <span>진단 → 구축·이행</span>
+    </div>
+  </div>
+</header>
+
+<div class="w">
+  <div class="abs">
+    <p class="crit">출하가 느린 원인이 인력이나 설비인가. <strong>시스템 사이를 사람이 잇고 있지 않은지</strong> 먼저 살펴볼 필요가 있습니다.</p>
+    <div class="g">
+      <div>
+        <h4>문제</h4>
+        <p>업무별 시스템은 이미 있었고 서로 연동도 되어 있었습니다. 그런데 진행 상태를 알려면 <b>사람이 손으로 유지하는 일정 캘린더</b>를 봐야 했습니다.</p>
+      </div>
+      <div>
+        <h4>해결</h4>
+        <p>그 캘린더를 더 좋게 만드는 대신 <b>없앴습니다.</b> 상태는 이미 시스템이 알고 있었으므로, <b>시스템을 직접 읽어</b> 현장 보드와 사무실 화면에 공유.</p>
+      </div>
+      <div>
+        <h4>효과</h4>
+        <p>출하 건당 수기 갱신 <b>5회 → 0회.</b> 도크 중복 입력과 스테이지 탐색 제거. <b>5개 거점 실시간 집계</b> — 서로 다른 시간대를 하나의 공통 간격으로.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w">
+
+<section>
+  <div class="head">
+    <p class="lab">Finding</p>
+    <h2>병목의 위치</h2>
+  </div>
+  <div class="body t">
+    <p>출하가 느리고 진행 상태를 알 수 없다는 문제로 진단을 시작했습니다. 흔한 결론은 인력 부족 또는 시스템 부족입니다. 둘 다 아니었습니다.</p>
+  </div>
+  <blockquote>
+    <p>업무별 시스템은 이미 있었습니다. 시스템 사이를 사람이 잇고 있었습니다.</p>
+  </blockquote>
+  <div class="body t">
+    <p>기간계와 창고 시스템은 서로 데이터를 주고받고 있었습니다. 그런데 진행 상태를 확인하려면 그 어느 쪽도 아닌 일정 캘린더를 봐야 했습니다. 단계마다 담당자가 손으로 색을 바꿨기 때문입니다. 시스템 밖에 두 번째 기준이 생기고, 그것이 실질적인 운영 기준이 되어 있었습니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">As-Is · Office</p>
+    <h2>건당 다섯 번의 수기 갱신</h2>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 860 200" role="img" aria-label="기간계와 창고 시스템은 자동 연동되어 있었으나, 일정 캘린더가 그 사이에 놓여 담당자가 다섯 단계마다 손으로 상태를 갱신하고 있었다">
+      <defs>
+        <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/></marker>
+        <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#B4232A"/></marker>
+      </defs>
+
+      <rect x="20" y="24" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="95" y="52" text-anchor="middle" font-size="12.5" fill="#12181F">기간계</text>
+      <line x1="170" y1="47" x2="284" y2="47" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
+      <text x="227" y="37" text-anchor="middle" font-size="10.5" fill="#7C8894">자동 연동</text>
+      <rect x="290" y="24" width="150" height="46" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="365" y="52" text-anchor="middle" font-size="12.5" fill="#12181F">창고 시스템</text>
+
+      <!-- manual layer -->
+      <rect x="20" y="106" width="420" height="62" fill="none" stroke="#B4232A" stroke-width="1.4" stroke-dasharray="5 4"/>
+      <text x="36" y="130" font-size="12" font-weight="600" fill="#B4232A">일정 캘린더 — 수기</text>
+      <text x="36" y="151" font-size="11" fill="#7C8894">일정 등록 · 지시서 첨부 · 피킹 완료 · 출하 완료 · 전송 결과</text>
+
+      <line x1="95" y1="70" x2="95" y2="100" stroke="#B4232A" stroke-width="1.3" marker-end="url(#a2)"/>
+      <line x1="365" y1="70" x2="365" y2="100" stroke="#B4232A" stroke-width="1.3" marker-end="url(#a2)"/>
+
+      <text x="470" y="118" font-size="12" fill="#12181F">상태를 보려면 이쪽을 봐야 했습니다</text>
+      <text x="470" y="140" font-size="11" fill="#7C8894">출하 1건당 손이 가는 횟수</text>
+      <text x="470" y="164" font-size="20" font-weight="600" fill="#B4232A" font-family="'IBM Plex Mono',monospace">5회</text>
+      <text x="524" y="164" font-size="11" fill="#7C8894">— 어긋나도 알려주는 장치 없음</text>
+    </svg>
+    <figcaption>연동은 자동이었고, 그 위에 사람이 유지하는 층이 하나 더 있었습니다. 진단 문서는 이 층을 개선 대상이 아니라 제거 대상으로 규정했습니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">As-Is · Dock</p>
+    <h2>도크 현장의 상태</h2>
+    <p>사무실의 수기 층과 별개로, 현장에도 같은 성격의 문제가 있었습니다.</p>
+  </div>
+
+  <div class="ba cmp">
+    <div>
+      <p class="h">개선 전</p>
+      <ul>
+        <li>도크 처리에 <strong>3명 이상</strong> — 시스템 입력과 수기 기록의 중복 처리</li>
+        <li>중복 처리 과정에서 사람 실수 발생</li>
+        <li>사무실에서 현장 상황 확인 불가</li>
+        <li>트럭 도착 후 <strong>스테이지를 찾아야 함</strong></li>
+        <li>트럭 경유지 순서에 맞춘 상차 필요 — 로딩 지연</li>
+        <li>상차 순서가 <strong>지게차 운전자의 경험에 의존</strong></li>
+      </ul>
+    </div>
+    <div>
+      <p class="h">개선 후</p>
+      <ul>
+        <li>트럭 배차 시 <strong>대시보드 타임테이블에 자동 등록</strong> — 중복 입력 제거</li>
+        <li>상태가 자동 공유되어 별도 전달 불필요</li>
+        <li>사무실과 현장이 같은 화면을 조회</li>
+        <li>슈퍼바이저가 <strong>준비할 스테이지를 지정</strong></li>
+        <li>지정된 순서대로 상차 — 경험이 아니라 화면을 따름</li>
+        <li><strong>슈퍼바이저 1명</strong>이 지정하고, 초보 운전자도 동일한 속도로 처리</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="body t">
+    <p><strong>마지막 항목이 이 개선의 실질입니다.</strong> 숙련도에 의존하던 판단을 화면이 대신하면, 사람을 더 뽑거나 교육 기간을 늘리지 않고도 처리 속도가 균일해집니다. 그리고 숙련자가 자리를 비운 날에도 같은 속도가 나옵니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Principle</p>
+    <h2>기능 추가가 아닌 층 제거</h2>
+    <p>일반적인 대응은 반대 방향입니다. 캘린더가 불편하면 더 나은 캘린더를 만들거나 알림을 붙입니다. 그러면 손으로 하는 일은 남습니다.</p>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h3>개선 대신 폐지</h3>
+      <p>상태는 기간계와 연동 메시지가 이미 알고 있었습니다. 색상판을 더 잘 만드는 대신 그 판 자체를 없애고, 상태를 원래 아는 쪽에서 직접 읽게 했습니다.</p>
+      <p class="q">더 나은 수기 도구를 만들면 수기가 남습니다.</p>
+    </div>
+    <div>
+      <h3>사무실·현장 동일 화면</h3>
+      <p>현장 대형 화면용 도크 보드와 사무실 모니터링이 같은 데이터, 같은 시점을 봅니다. 두 화면이 다른 소스를 보면 어느 쪽이 맞는지를 두고 회의가 생깁니다.</p>
+    </div>
+    <div>
+      <h3>화면 내 완결</h3>
+      <p>현장에서 확인하고 원래 시스템으로 돌아가 다시 입력하는 왕복을 없앴습니다. 왕복이 남으면 사람들은 결국 둘 중 하나만 씁니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Mechanism · Dock Board</p>
+    <h2>도크 보드의 구조</h2>
+    <p>시간대와 도크를 축으로 한 격자입니다. 한 칸이 한 건의 출하이고, 카드의 상태가 색으로 구분됩니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 860 268" role="img" aria-label="가로축은 도크, 세로축은 시간대인 격자에서 각 카드가 확정, 피킹 중, 피킹 대기 상태로 표시되고 카드에 스테이지 지정과 지연 시간이 함께 나타난다">
+      <!-- header row -->
+      <text x="14" y="20" font-size="10" letter-spacing="1.3" fill="#7C8894">TIME</text>
+      <rect x="60" y="8" width="180" height="26" fill="none" stroke="currentColor" stroke-width="1"/>
+      <text x="150" y="26" text-anchor="middle" font-size="11.5" fill="#12181F">Dock 9</text>
+      <rect x="248" y="8" width="180" height="26" fill="none" stroke="currentColor" stroke-width="1"/>
+      <text x="338" y="26" text-anchor="middle" font-size="11.5" fill="#12181F">Dock 10</text>
+      <rect x="436" y="8" width="180" height="26" fill="none" stroke="currentColor" stroke-width="1"/>
+      <text x="526" y="26" text-anchor="middle" font-size="11.5" fill="#12181F">Dock 11</text>
+      <rect x="624" y="8" width="180" height="26" fill="none" stroke="currentColor" stroke-width="1"/>
+      <text x="714" y="26" text-anchor="middle" font-size="11.5" fill="#7C8894">Dock 12 (조립)</text>
+
+      <!-- row 1 -->
+      <text x="14" y="66" font-size="11" fill="#7C8894" font-family="'IBM Plex Mono',monospace">11</text>
+      <rect x="60" y="44" width="180" height="58" fill="none" stroke="#136B3B" stroke-width="1.3"/>
+      <text x="70" y="60" font-size="9" letter-spacing=".8" fill="#136B3B">CONFIRMED</text>
+      <text x="70" y="82" font-size="17" font-weight="600" fill="#136B3B" font-family="'IBM Plex Mono',monospace">2928</text>
+      <text x="152" y="96" font-size="9.5" fill="#7C8894">STAGE</text>
+      <text x="188" y="96" font-size="12" font-weight="600" fill="#0063F9" font-family="'IBM Plex Mono',monospace">12</text>
+
+      <rect x="248" y="44" width="180" height="58" fill="none" stroke="#8A5A00" stroke-width="1.3" stroke-dasharray="4 3"/>
+      <text x="258" y="60" font-size="9" letter-spacing=".8" fill="#8A5A00">PICKING</text>
+      <text x="258" y="82" font-size="17" font-weight="600" fill="#8A5A00" font-family="'IBM Plex Mono',monospace">6118</text>
+      <text x="340" y="96" font-size="9.5" fill="#7C8894">STAGE</text>
+      <text x="376" y="96" font-size="12" fill="#7C8894" font-family="'IBM Plex Mono',monospace">—</text>
+
+      <rect x="436" y="44" width="180" height="58" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="526" y="78" text-anchor="middle" font-size="11" fill="#7C8894">— open —</text>
+
+      <rect x="624" y="44" width="180" height="58" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="714" y="78" text-anchor="middle" font-size="11" fill="#7C8894">— open —</text>
+
+      <!-- row 2 -->
+      <text x="14" y="140" font-size="11" fill="#7C8894" font-family="'IBM Plex Mono',monospace">12</text>
+      <rect x="60" y="118" width="180" height="58" fill="none" stroke="#136B3B" stroke-width="1.3"/>
+      <text x="70" y="134" font-size="9" letter-spacing=".8" fill="#136B3B">CONFIRMED</text>
+      <text x="70" y="156" font-size="17" font-weight="600" fill="#136B3B" font-family="'IBM Plex Mono',monospace">3847</text>
+      <text x="152" y="170" font-size="9.5" fill="#7C8894">STAGE</text>
+      <text x="188" y="170" font-size="12" font-weight="600" fill="#0063F9" font-family="'IBM Plex Mono',monospace">15</text>
+
+      <rect x="248" y="118" width="180" height="58" fill="none" stroke="#6B4FA8" stroke-width="1.3"/>
+      <text x="258" y="134" font-size="9" letter-spacing=".8" fill="#6B4FA8">READY TO PICK</text>
+      <text x="258" y="156" font-size="17" font-weight="600" fill="#6B4FA8" font-family="'IBM Plex Mono',monospace">2141</text>
+      <text x="340" y="134" font-size="9.5" fill="#7C8894">ETA 15:00</text>
+
+      <rect x="436" y="118" width="180" height="58" fill="none" stroke="#136B3B" stroke-width="1.3"/>
+      <text x="446" y="134" font-size="9" letter-spacing=".8" fill="#136B3B">CONFIRMED</text>
+      <text x="446" y="156" font-size="17" font-weight="600" fill="#136B3B" font-family="'IBM Plex Mono',monospace">0009</text>
+      <rect x="556" y="124" width="52" height="16" fill="none" stroke="#B4232A" stroke-width="1"/>
+      <text x="582" y="136" text-anchor="middle" font-size="9.5" fill="#B4232A" font-family="'IBM Plex Mono',monospace">+116m</text>
+
+      <rect x="624" y="118" width="180" height="58" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="714" y="152" text-anchor="middle" font-size="11" fill="#7C8894">— open —</text>
+
+      <!-- legend -->
+      <line x1="14" y1="204" x2="846" y2="204" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="14" y="228" font-size="10.5" fill="#136B3B">■ 확정</text>
+      <text x="94" y="228" font-size="10.5" fill="#8A5A00">▨ 피킹 중</text>
+      <text x="186" y="228" font-size="10.5" fill="#6B4FA8">■ 피킹 대기</text>
+      <text x="286" y="228" font-size="10.5" fill="#0063F9">STAGE — 슈퍼바이저 지정</text>
+      <text x="470" y="228" font-size="10.5" fill="#B4232A">+분 — 계획 대비 지연</text>
+      <text x="14" y="252" font-size="10.5" fill="#7C8894">배차되면 해당 시간대·도크 칸에 자동 등록됩니다. 카드에 표시된 숫자는 예시입니다.</text>
+    </svg>
+    <figcaption>운전자가 스테이지를 찾아다니지 않습니다. 카드에 지정된 스테이지를 보고 이동하고, 계획 대비 지연은 카드에 함께 표시됩니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Mechanism · Office</p>
+    <h2>사무실 화면 — 전체 운영 현황</h2>
+    <p>현장 보드가 한 거점의 지금을 보여주는 화면이라면, 사무실 화면은 <strong>다섯 거점을 하나로 모은 층위</strong>입니다. 같은 데이터에서 나오지만 묻는 질문이 다릅니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 860 264" role="img" aria-label="서로 다른 시간대에 있는 다섯 거점의 데이터가 공통 간격으로 정렬되어 하나의 사무실 화면에 모이고, 그 화면은 월 목표 대비 진행과 거점별 시간대별 진행과 일자별 추이를 함께 보여준다">
+      <defs>
+        <marker id="o1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/></marker>
+        <marker id="o2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/></marker>
+      </defs>
+
+      <text x="14" y="18" font-size="10" letter-spacing="1.4" fill="#7C8894">거점 · 서로 다른 시간대</text>
+      <g font-size="10.5">
+        <rect x="14" y="28" width="150" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="47" fill="#12181F">거점 A</text><text x="122" y="47" fill="#7C8894" font-family="'IBM Plex Mono',monospace">ET</text>
+        <rect x="14" y="62" width="150" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="81" fill="#12181F">거점 B</text><text x="122" y="81" fill="#7C8894" font-family="'IBM Plex Mono',monospace">CT</text>
+        <rect x="14" y="96" width="150" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="115" fill="#12181F">거점 C</text><text x="122" y="115" fill="#7C8894" font-family="'IBM Plex Mono',monospace">CT</text>
+        <rect x="14" y="130" width="150" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="149" fill="#12181F">거점 D</text><text x="122" y="149" fill="#7C8894" font-family="'IBM Plex Mono',monospace">PT</text>
+        <rect x="14" y="164" width="150" height="28" fill="none" stroke="currentColor" stroke-width="1"/>
+        <text x="28" y="183" fill="#12181F">거점 E</text><text x="122" y="183" fill="#7C8894" font-family="'IBM Plex Mono',monospace">ET</text>
+      </g>
+
+      <g stroke="currentColor" stroke-width="1" marker-end="url(#o1)">
+        <line x1="164" y1="42" x2="222" y2="94"/><line x1="164" y1="76" x2="222" y2="102"/>
+        <line x1="164" y1="110" x2="222" y2="110"/><line x1="164" y1="144" x2="222" y2="118"/>
+        <line x1="164" y1="178" x2="222" y2="126"/>
+      </g>
+
+      <rect x="228" y="86" width="152" height="48" fill="none" stroke="#0063F9" stroke-width="1.4"/>
+      <text x="304" y="106" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0063F9">공통 간격 정렬</text>
+      <text x="304" y="124" text-anchor="middle" font-size="10" fill="#7C8894">현지 시각 병기</text>
+
+      <line x1="380" y1="110" x2="424" y2="110" stroke="#0063F9" stroke-width="1.4" marker-end="url(#o2)"/>
+
+      <text x="430" y="18" font-size="10" letter-spacing="1.4" fill="#0063F9">사무실 화면 — 하나</text>
+      <rect x="430" y="28" width="416" height="164" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+      <line x1="430" y1="82" x2="846" y2="82" stroke="currentColor" stroke-width="1"/>
+      <line x1="430" y1="136" x2="846" y2="136" stroke="currentColor" stroke-width="1"/>
+      <line x1="638" y1="28" x2="638" y2="82" stroke="currentColor" stroke-width="1"/>
+
+      <text x="446" y="50" font-size="11" fill="#12181F">월 목표 대비 진행</text>
+      <text x="446" y="70" font-size="10" fill="#7C8894">누적 · 페이스 대비</text>
+      <text x="654" y="50" font-size="11" fill="#12181F">향후 3개월 출고 전망</text>
+      <text x="654" y="70" font-size="10" fill="#7C8894">미출하 주문 기준</text>
+
+      <text x="446" y="104" font-size="11" fill="#12181F">거점 × 시간대 진행</text>
+      <text x="446" y="124" font-size="10" fill="#7C8894">계획 / 실적 — 다섯 거점 나란히</text>
+
+      <text x="446" y="158" font-size="11" fill="#12181F">일자별 추이</text>
+      <text x="446" y="178" font-size="10" fill="#7C8894">목표 · 지시 · 배차 · 출하 네 단계</text>
+
+      <text x="430" y="222" font-size="10.5" fill="#7C8894">거점에 전화해 물어보던 것이 화면 하나로 대체됩니다.</text>
+      <text x="430" y="242" font-size="10.5" fill="#7C8894">같은 데이터에서 나오므로 두 화면의 숫자가 어긋날 수 없습니다.</text>
+    </svg>
+    <figcaption>시간대가 다른 거점을 한 화면에 놓으려면 현지 시각과 공통 간격을 함께 유지해야 합니다. 이 정렬이 없으면 "지금 어디가 늦었나"에 답할 수 없습니다.</figcaption>
+  </figure>
+
+  <div class="ba">
+    <div>
+      <p class="h">현장 보드가 답하는 질문</p>
+      <ul>
+        <li>지금 이 도크에 무엇이 들어오나</li>
+        <li>어느 스테이지를 준비해야 하나</li>
+        <li>이 건이 계획보다 늦었나</li>
+      </ul>
+    </div>
+    <div>
+      <p class="h">사무실 화면이 답하는 질문</p>
+      <ul>
+        <li>이달 목표 대비 어디까지 왔나</li>
+        <li>다섯 거점 중 어디가 밀렸나</li>
+        <li>다음 달 물량이 얼마나 남았나</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Mechanism · Assembly</p>
+    <h2>조립 라인의 상태 흐름</h2>
+    <p>스캔으로 시작해 검사 완료까지의 상태를 라인에서 직접 갱신합니다. <strong>해당 없는 단계는 자동으로 생략됩니다.</strong></p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 880 210" role="img" aria-label="신규 지시에서 스캔, 작업 시작, 로더 장착, 타이어 장착, 검사 대기, 검사 완료, 출하까지 이어지는 상태 흐름에서 로더나 타이어가 없는 건은 해당 단계를 건너뛴다">
+      <defs>
+        <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/></marker>
+        <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/></marker>
+      </defs>
+
+      <g font-size="10.5" fill="#12181F">
+        <rect x="10" y="60" width="94" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="57" y="84" text-anchor="middle">신규 지시</text>
+        <rect x="132" y="60" width="94" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="179" y="84" text-anchor="middle">스캔</text>
+        <rect x="254" y="60" width="94" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="301" y="84" text-anchor="middle">작업 시작</text>
+        <rect x="376" y="60" width="94" height="40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="4 3"/>
+        <text x="423" y="84" text-anchor="middle" fill="#7C8894">로더 장착</text>
+        <rect x="498" y="60" width="94" height="40" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="4 3"/>
+        <text x="545" y="84" text-anchor="middle" fill="#7C8894">타이어 장착</text>
+        <rect x="620" y="60" width="94" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+        <text x="667" y="84" text-anchor="middle">검사 대기</text>
+        <rect x="742" y="60" width="94" height="40" fill="none" stroke="#136B3B" stroke-width="1.3"/>
+        <text x="789" y="84" text-anchor="middle" fill="#136B3B">검사 완료</text>
+      </g>
+
+      <g stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)">
+        <line x1="104" y1="80" x2="126" y2="80"/><line x1="226" y1="80" x2="248" y2="80"/>
+        <line x1="348" y1="80" x2="370" y2="80"/><line x1="470" y1="80" x2="492" y2="80"/>
+        <line x1="592" y1="80" x2="614" y2="80"/><line x1="714" y1="80" x2="736" y2="80"/>
+      </g>
+
+      <!-- skip arcs -->
+      <path d="M348,60 C400,18 470,18 498,58" fill="none" stroke="#0063F9" stroke-width="1.3" marker-end="url(#a4)"/>
+      <text x="423" y="24" text-anchor="middle" font-size="10" fill="#0063F9">로더 없음 → 생략</text>
+      <path d="M470,100 C520,142 590,142 620,102" fill="none" stroke="#0063F9" stroke-width="1.3" marker-end="url(#a4)"/>
+      <text x="545" y="152" text-anchor="middle" font-size="10" fill="#0063F9">타이어 없음 → 생략</text>
+
+      <text x="10" y="188" font-size="10.5" fill="#7C8894">해당 없는 단계는 화면에 나타나지 않습니다 — 작업자는 자기 건에 적용되는 단계만 봅니다.</text>
+    </svg>
+    <figcaption>점선 상자는 조건에 따라 생략되는 단계입니다. 모든 건에 같은 체크리스트를 강제하지 않는 것이 현장에서 지켜지는 이유입니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Result</p>
+    <h2>확정된 변화</h2>
+  </div>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>항목</th><th>변화</th></tr></thead>
+    <tbody>
+      <tr><td>출하 건당 캘린더 수기 갱신</td><td class="v">5회 → 0회</td></tr>
+      <tr><td>도크 처리 인원</td><td class="v">3명 이상 → 1명</td></tr>
+      <tr><td>스테이지 결정</td><td class="v">운전자 판단 → 지정</td></tr>
+      <tr><td>배차·도착 확인</td><td class="v">전화·메일 → 자동 수신</td></tr>
+      <tr><td>도크 상태 입력</td><td class="v">시스템 + 수기 → 시스템</td></tr>
+      <tr><td>거점별 진행 확인</td><td class="v">개별 문의 → 한 화면 집계</td></tr>
+      <tr><td>통합 포털 화면 · 업무군</td><td class="v">39개 · 9군</td></tr>
+      <tr><td>실시간 집계 거점</td><td class="v">5곳 · 3개 시간대</td></tr>
+      <tr><td>트럭 도착 후 상차 시작까지</td><td><span class="fillin">채워넣기</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note">
+    <p class="lab">숫자 취급</p>
+    <p>위 여덟 항목은 구조가 바뀌어 재측정이 필요 없는 사실입니다. 마지막 한 줄만 <span class="fillin">채워넣기</span>로 비워 두었습니다 — 진단 시점 기준선이 문서에 남아 있어 같은 산식으로 값이 나옵니다.</p>
+    <p>일일 처리 건수와 지연 비율은 넣지 않았습니다. 물량이 한가한 시기에는 변화가 드러나지 않아 <strong>측정 자체가 성립하지 않습니다.</strong> 건당 처리 시간은 시작점 정의가 정해지면 추가합니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Next</p>
+    <h2>Phase 2 — 종이의 제거</h2>
+  </div>
+  <div class="body t">
+    <p>여기까지가 Phase 1입니다. 수기 캘린더 층은 없어졌고 상태는 화면에서 공유됩니다. 그런데 <strong>현장에는 아직 종이가 남아 있습니다.</strong> 스캔은 태블릿으로 하는데 작업 지시는 인쇄해서 들고 다닙니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 820 156" role="img" aria-label="현재는 태블릿으로 스캔하지만 작업 지시는 종이로 출력해 사용하며, 다음 단계에서는 작업 목록과 검사까지 태블릿에서 처리한다">
+      <defs>
+        <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/></marker>
+      </defs>
+      <text x="12" y="20" font-size="10.5" font-weight="500" letter-spacing="1.4" fill="#7C8894">Phase 1 — 현재</text>
+      <rect x="12" y="32" width="128" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="76" y="56" text-anchor="middle" font-size="11" fill="#12181F">태블릿 스캔</text>
+      <rect x="152" y="32" width="128" height="40" fill="none" stroke="#B4232A" stroke-width="1.3" stroke-dasharray="5 4"/>
+      <text x="216" y="56" text-anchor="middle" font-size="11" fill="#B4232A">작업 지시 인쇄</text>
+      <rect x="292" y="32" width="128" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="356" y="56" text-anchor="middle" font-size="11" fill="#12181F">종이 보며 작업</text>
+      <rect x="432" y="32" width="128" height="40" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      <text x="496" y="56" text-anchor="middle" font-size="11" fill="#12181F">검사 · 기록</text>
+
+      <text x="12" y="106" font-size="10.5" font-weight="500" letter-spacing="1.4" fill="#0063F9">Phase 2 — 예정</text>
+      <rect x="12" y="112" width="268" height="40" fill="none" stroke="#0063F9" stroke-width="1.4"/>
+      <text x="146" y="136" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0063F9">태블릿에 작업 목록</text>
+      <line x1="280" y1="132" x2="306" y2="132" stroke="#0063F9" stroke-width="1.3" marker-end="url(#a5)"/>
+      <rect x="312" y="112" width="248" height="40" fill="none" stroke="#0063F9" stroke-width="1.4"/>
+      <text x="436" y="136" text-anchor="middle" font-size="11.5" font-weight="600" fill="#0063F9">작업 · 검사 모두 태블릿에서</text>
+      <text x="580" y="136" font-size="11" fill="#7C8894">— 인쇄 단계 제거</text>
+    </svg>
+    <figcaption>남은 종이 한 단계를 없애는 것이 다음 방향입니다. 스캔 장비는 이미 현장에 있으므로 새 장비가 아니라 화면이 필요한 상황입니다.</figcaption>
+  </figure>
+
+  <div class="body t">
+    <p class="quiet">Phase 1과 같은 성격의 일입니다 — 기능을 더하는 것이 아니라 남은 수기 단계를 없애는 것.</p>
+  </div>
+</section>
+
+
+<section>
+  <div class="head">
+    <p class="lab">Summary</p>
+    <h2>정리</h2>
+  </div>
+  <div class="sum">
+    <p><b>1</b>시스템은 이미 연동되어 있었고, 문제는 그 사이에 사람이 유지하던 층이었습니다.</p>
+    <p><b>2</b>그 층을 개선하지 않고 제거했습니다. 더 나은 수기 도구를 만들면 수기가 남습니다.</p>
+    <p><b>3</b>숙련도에 의존했던 판단을 화면이 대신하므로, 사람을 더 뽑지 않고도 처리 속도가 균일해집니다.</p>
+  </div>
+  <div class="next">
+    <p class="lab">다음 한 가지</p>
+    <p>지금 어느 프로세스에 손이 가장 많이 가는지 한 줄로 알려주시면 됩니다. 그 한 줄로 진단 범위가 정해집니다.</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="w">
+    <p>고객사·고용주·업종·거점명과 경영 지표는 포함하지 않았습니다. 도형의 번호와 수치는 구조를 보이기 위한 예시입니다.</p>
+    <p class="quiet">사례 04 · Phase 1 정착 — 사례 01 · 02 · 03과 함께 읽는 문서</p>
+  </div>
+</footer>

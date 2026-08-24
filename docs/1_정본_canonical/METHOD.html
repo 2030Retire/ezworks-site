@@ -1,0 +1,423 @@
+<title>진단 · 요구정의 · 구축</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FDFDFC; --ink:#12181F; --body:#3D4853; --mute:#7C8894; --hair:#E4E7EA;
+  --hair-hi:#CDD2D8; --wash:#F5F6F7; --accent:#0063F9; --accent-soft:#EDF3FF;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+}}
+:root[data-theme="dark"]{
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF; --accent-soft:#131F33;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:16.5px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.w{max-width:900px;margin:0 auto;padding:0 28px}
+.t{max-width:62ch}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+
+nav{border-bottom:1px solid var(--hair)}
+nav .w{display:flex;align-items:baseline;gap:20px;padding:20px 28px;
+  font-size:14.5px}
+nav a{border:none;color:var(--mute)}
+nav a:hover{color:var(--ink)}
+nav .here{color:var(--ink);font-weight:500}
+nav .sp{margin-left:auto}
+
+header{padding:76px 0 50px;border-bottom:1px solid var(--hair)}
+h1{font-size:clamp(1.62rem,3.5vw,2.16rem);line-height:1.44;max-width:26ch}
+header p{margin-top:24px;max-width:56ch}
+
+section{padding:62px 0;border-top:1px solid var(--hair)}
+.head{display:flex;flex-direction:column;gap:15px;max-width:60ch}
+h2{font-size:clamp(1.16rem,2.4vw,1.38rem);line-height:1.5}
+.body{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+.body.t{max-width:62ch}
+
+figure{margin:38px 0 0}
+figure svg{width:100%;height:auto;display:block;color:var(--hair-hi)}
+figcaption{margin-top:16px;font-size:.88rem;color:var(--mute);max-width:58ch}
+
+.blk{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.blk > .b{border-top:1px solid var(--hair-hi);padding:28px 0 30px}
+.blk > .b:first-child{border-top:none;padding-top:0}
+.bh{display:flex;flex-wrap:wrap;align-items:baseline;gap:14px}
+.bh .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;color:var(--mute)}
+.bh h3{font-size:1.2rem}
+.bmeta{margin-top:7px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--mute)}
+.bcols{margin-top:20px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px}
+.bcols h4{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.bcols ul{margin-top:13px}
+@media(max-width:660px){.bcols{grid-template-columns:1fr;gap:20px}}
+.out{margin-top:20px;padding:15px 17px;background:var(--wash);
+  border-left:2px solid var(--hair-hi);font-size:.94rem;max-width:58ch}
+.out b{color:var(--ink);font-weight:500}
+.exit{margin-top:18px;padding:16px 18px;border:1px solid var(--accent);
+  background:var(--accent-soft);max-width:58ch}
+.exit .e{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent)}
+.exit p{margin-top:9px;font-size:.94rem;color:var(--ink)}
+
+.rules{margin-top:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 34px}
+.rules > div{padding:20px 0;border-top:1px solid var(--hair)}
+.rules b{color:var(--ink);font-weight:500;font-size:.99rem;display:block}
+.rules p{margin-top:8px;font-size:.93rem}
+@media(max-width:700px){.rules{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:collapse;margin-top:30px;font-size:.92rem}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);text-align:left;padding:0 14px 11px 0;
+  border-bottom:1px solid var(--hair-hi);white-space:nowrap}
+td{padding:15px 14px 15px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:500;white-space:nowrap}
+.scroll{overflow-x:auto}.scroll table{min-width:560px}
+
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ul li{padding-left:19px;position:relative;font-size:.93rem}
+ul li::before{content:"";position:absolute;left:0;top:13px;width:7px;height:1px;background:var(--hair-hi)}
+.quiet{color:var(--mute);font-size:.9rem}
+footer{border-top:1px solid var(--hair);padding:46px 0 82px}
+footer p{font-size:.86rem;color:var(--mute);max-width:62ch}
+
+.abs{margin-top:34px;border:1px solid var(--accent);background:var(--accent-soft);padding:26px 28px}
+.abs .crit{color:var(--ink);font-size:1.08rem;line-height:1.62;max-width:54ch;font-weight:500}
+.abs .g{margin-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--hair-hi)}
+.abs .g > div{background:var(--paper);padding:17px 18px}
+.abs .g h4{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.abs .g p{margin-top:10px;font-size:.93rem;line-height:1.62}
+.abs .g b{color:var(--ink);font-weight:600}
+@media(max-width:660px){.abs .g{grid-template-columns:1fr}}
+.sum{margin-top:30px;display:flex;flex-direction:column;gap:15px;max-width:60ch}
+.sum > p{padding-left:30px;position:relative;font-size:1rem;line-height:1.7}
+.sum > p > b{position:absolute;left:0;top:0;color:var(--accent);font-weight:600;
+  font-family:"IBM Plex Mono",monospace;font-size:.9rem}
+.nx{margin-top:34px;border-top:1px solid var(--hair-hi);padding-top:24px;max-width:58ch}
+.nx .lab{color:var(--accent)}
+.nx p{margin-top:11px;font-size:1rem;color:var(--ink);line-height:1.66}
+body{text-wrap:pretty}
+</style>
+
+<nav>
+  <div class="w">
+    <a href="https://claude.ai/code/artifact/c1810e0d-1d6b-4044-8933-8399778e3f8a">전체 구성</a>
+    <a href="https://claude.ai/code/artifact/67dd8f00-7279-4a9b-8583-e0bcb6cf3bf3">홈</a>
+    <span class="here">진행 방식</span>
+    <a href="https://claude.ai/code/artifact/1a0282c4-d327-414a-93ec-bf3f503ce6f8">사례</a>
+    <span class="sp"></span>
+    <span class="lab">시안</span>
+  </div>
+</nav>
+
+<header>
+  <div class="w">
+    <p class="lab">진행 방식</p>
+    <h1 style="margin-top:18px">진단 · 요구정의 · 구축, 그리고 두 개의 종료 지점</h1>
+    <p>프로젝트를 한 덩어리로 계약하면 중간에 아니라는 판단이 서도 멈추기 어려워집니다. 구간을 셋으로 나누고, 앞의 두 구간이 끝나는 자리를 정식 종료 지점으로 두었습니다.</p>
+  </div>
+</header>
+
+<div class="w">
+  <div class="abs">
+    <p class="crit">프로젝트를 시작하기 전에 요건을 정리해 두셨는가. <strong>정리할 수 없는 상태가 정상</strong>이며, 그 상태를 전제로 구간을 나눕니다.</p>
+    <div class="g">
+      <div>
+        <h4>문제</h4>
+        <p>한 덩어리로 계약하면 중간에 아니라는 판단이 서도 멈추기 어렵습니다. <b>요건을 못 쓴다고 반환하는 방식</b>도 시작 자체를 막습니다.</p>
+      </div>
+      <div>
+        <h4>구조</h4>
+        <p>진단 → 요구정의 → 구축·이행. <b>앞의 두 구간이 끝나는 자리가 정식 종료 지점</b>입니다. 계약이 구간별로 끊깁니다.</p>
+      </div>
+      <div>
+        <h4>효과</h4>
+        <p>진단은 정액 2주. 잘못 골랐을 때 잃는 것이 <b>미리 정해져 있습니다.</b> 구간 2까지의 산출물은 다른 곳에 맡겨도 그대로 쓰입니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w">
+
+<section>
+  <div class="head">
+    <p class="lab">Structure</p>
+    <h2>구간과 종료 지점</h2>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 720 300" role="img" aria-label="진단, 요구정의, 구축 세 구간이 순서대로 이어지고, 진단 뒤와 요구정의 뒤에 각각 종료 지점이 있으며, 구축이 끝나면 다음 프로세스의 진단으로 돌아간다">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="ahx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/>
+        </marker>
+      </defs>
+
+      <!-- blocks -->
+      <rect x="25" y="30" width="150" height="64" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="100" y="58" text-anchor="middle" font-size="14" font-weight="600" fill="#12181F">진단</text>
+      <text x="100" y="78" text-anchor="middle" font-size="11" fill="#7C8894">2주 · 정액</text>
+
+      <rect x="285" y="30" width="150" height="64" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="360" y="58" text-anchor="middle" font-size="14" font-weight="600" fill="#12181F">요구정의</text>
+      <text x="360" y="78" text-anchor="middle" font-size="11" fill="#7C8894">범위 확정</text>
+
+      <rect x="545" y="30" width="150" height="64" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="620" y="58" text-anchor="middle" font-size="14" font-weight="600" fill="#12181F">구축 · 이행</text>
+      <text x="620" y="78" text-anchor="middle" font-size="11" fill="#7C8894">프로세스 1건</text>
+
+      <!-- forward arrows -->
+      <line x1="175" y1="62" x2="279" y2="62" stroke="currentColor" stroke-width="1.2" marker-end="url(#ah)"/>
+      <text x="227" y="50" text-anchor="middle" font-size="11" fill="#7C8894">계약</text>
+      <line x1="435" y1="62" x2="539" y2="62" stroke="currentColor" stroke-width="1.2" marker-end="url(#ah)"/>
+      <text x="487" y="50" text-anchor="middle" font-size="11" fill="#7C8894">계약</text>
+
+      <!-- exits -->
+      <line x1="100" y1="94" x2="100" y2="146" stroke="#0063F9" stroke-width="1.4" marker-end="url(#ahx)"/>
+      <text x="100" y="166" text-anchor="middle" font-size="12" font-weight="600" fill="#0063F9">종료 지점 1</text>
+      <text x="100" y="184" text-anchor="middle" font-size="11" fill="#7C8894">진단서를 받고 종료</text>
+
+      <line x1="360" y1="94" x2="360" y2="146" stroke="#0063F9" stroke-width="1.4" marker-end="url(#ahx)"/>
+      <text x="360" y="166" text-anchor="middle" font-size="12" font-weight="600" fill="#0063F9">종료 지점 2</text>
+      <text x="360" y="184" text-anchor="middle" font-size="11" fill="#7C8894">정의서를 받고 종료</text>
+
+      <!-- loop back -->
+      <path d="M620,94 V252 H14 V62 H19" fill="none" stroke="currentColor" stroke-width="1.2"
+            stroke-dasharray="4 4" marker-end="url(#ah)"/>
+      <text x="330" y="272" text-anchor="middle" font-size="11" fill="#7C8894">첫 프로세스가 정착된 뒤, 다음 프로세스</text>
+    </svg>
+    <figcaption>앞 두 구간의 끝은 중단이 아니라 정식 종료 지점입니다. 구축이 끝나면 다음 프로세스의 진단으로 돌아갑니다 — 여러 프로세스를 한 번에 계약하지 않습니다.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Premise</p>
+    <h2>요건이 없는 상태에서의 착수</h2>
+  </div>
+  <div class="body t">
+    <p>일반적인 진행 방식은 필요한 것을 정리해 접수하는 데서 출발하고, 정리가 미흡하면 요청을 되돌려 보냅니다. 그 방식은 요건을 문서로 쓸 수 있는 조직에서만 작동합니다.</p>
+    <p>프로세스가 사람에게만 있는 회사에서는 첫 단계부터 성립하지 않습니다. 되돌려 보낼 상대가 없고, 그 상태로 진행하면 만드는 쪽이 추측으로 빈칸을 채우게 됩니다.</p>
+  </div>
+
+  <figure>
+    <svg viewBox="0 0 700 190" role="img" aria-label="일반적인 방식은 요건이 미흡하면 요청을 반환하지만, 요건을 쓸 수 없는 회사에서는 반환할 곳이 없어 요구정의 자체를 별도 구간으로 둔다">
+      <!-- top: standard -->
+      <text x="14" y="26" font-size="10.5" font-weight="500" letter-spacing="1.4" fill="#7C8894">일반적인 방식</text>
+      <rect x="14" y="38" width="120" height="42" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="74" y="64" text-anchor="middle" font-size="12" fill="#12181F">요건 접수</text>
+      <line x1="134" y1="59" x2="228" y2="59" stroke="currentColor" stroke-width="1.2" marker-end="url(#ah2)"/>
+      <text x="181" y="49" text-anchor="middle" font-size="10.5" fill="#7C8894">미흡</text>
+      <rect x="234" y="38" width="120" height="42" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="294" y="64" text-anchor="middle" font-size="12" fill="#12181F">반환</text>
+      <text x="374" y="64" font-size="11" fill="#7C8894">— 정리해 오면 다시 받는다</text>
+
+      <defs>
+        <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="currentColor"/>
+        </marker>
+        <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/>
+        </marker>
+      </defs>
+
+      <line x1="14" y1="104" x2="686" y2="104" stroke="currentColor" stroke-width="1" stroke-dasharray="3 4"/>
+
+      <!-- bottom: ours -->
+      <text x="14" y="130" font-size="10.5" font-weight="500" letter-spacing="1.4" fill="#0063F9">요건을 쓸 수 없는 회사</text>
+      <rect x="14" y="142" width="120" height="42" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="74" y="168" text-anchor="middle" font-size="12" fill="#12181F">요건 없음</text>
+      <line x1="134" y1="163" x2="228" y2="163" stroke="#0063F9" stroke-width="1.4" marker-end="url(#ah3)"/>
+      <rect x="234" y="142" width="146" height="42" fill="none" stroke="#0063F9" stroke-width="1.4"/>
+      <text x="307" y="168" text-anchor="middle" font-size="12" font-weight="600" fill="#0063F9">요구정의 구간</text>
+      <text x="400" y="168" font-size="11" fill="#7C8894">— 반환할 곳이 없으므로 구간으로 둔다</text>
+    </svg>
+    <figcaption>반환이라는 선택지가 없을 때 남는 방법은 하나입니다. 요건을 만드는 일을 별도 구간으로 인정하고 값을 매기는 것.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Blocks</p>
+    <h2>구간별 내용</h2>
+  </div>
+
+  <div class="blk">
+
+    <div class="b">
+      <div class="bh"><span class="k">01</span><h3>진단</h3></div>
+      <p class="bmeta">2주 · 정액 · 담당자 주 3시간</p>
+      <div class="bcols">
+        <div>
+          <h4>수행</h4>
+          <ul>
+            <li>대상 업무의 실제 처리 경로 확인</li>
+            <li>시스템 내부 처리와 시스템 밖 수작업의 분리</li>
+            <li>재사용 가능한 기존 자산 식별</li>
+          </ul>
+        </div>
+        <div>
+          <h4>산출</h4>
+          <ul>
+            <li>현재 상태 판정</li>
+            <li>병목 세 가지</li>
+            <li>즉시 · 후속 · <strong>제외</strong> 항목</li>
+          </ul>
+        </div>
+      </div>
+      <p class="out"><b>남는 것 —</b> 진단서. 이후 진행이 없어도 이 문서는 귀사에 남습니다.</p>
+      <div class="exit">
+        <p class="e">종료 지점 1</p>
+        <p>판정이 “현 시점에서는 착수 부적합”으로 나오는 경우가 있습니다. 그 결론을 받고 종료하는 것도 이 구간의 정상적인 결말입니다. 다음 구간으로 진행하실 경우 진단 비용은 전액 차감됩니다.</p>
+      </div>
+    </div>
+
+    <div class="b">
+      <div class="bh"><span class="k">02</span><h3>요구정의</h3></div>
+      <p class="bmeta">기간은 진단 결과로 산정</p>
+      <div class="bcols">
+        <div>
+          <h4>수행</h4>
+          <ul>
+            <li>실제 흐름과 단계별 입력·출력 확정</li>
+            <li>단정문 확인 — 가부로만 회신받음</li>
+            <li>실제 값이 채워진 예시 확보</li>
+          </ul>
+        </div>
+        <div>
+          <h4>산출</h4>
+          <ul>
+            <li>변경 범위와 개수</li>
+            <li><strong>불변 목록</strong></li>
+            <li>완료 판정 기준</li>
+          </ul>
+        </div>
+      </div>
+      <p class="out"><b>남는 것 —</b> 요구사항 정의서. 이 구간만으로 프로세스가 문서화되고 인수인계가 가능해집니다.</p>
+      <div class="exit">
+        <p class="e">종료 지점 2</p>
+        <p>정의서를 다른 개발 주체에 전달하셔도 됩니다. 저희만 구현할 수 있는 형태로 작성하지 않습니다.</p>
+      </div>
+    </div>
+
+    <div class="b">
+      <div class="bh"><span class="k">03</span><h3>구축 · 이행</h3></div>
+      <p class="bmeta">한 번에 프로세스 1건</p>
+      <div class="bcols">
+        <div>
+          <h4>수행</h4>
+          <ul>
+            <li>정의된 범위 구현</li>
+            <li>판정 기준·정책값은 변경 가능한 위치에</li>
+            <li>완료 기준 전건 검증 · 불변 목록 회귀 확인</li>
+          </ul>
+        </div>
+        <div>
+          <h4>이행</h4>
+          <ul>
+            <li>설정값 · 권한 · 사용 설명 인도</li>
+            <li>실사용 초기 기간 동행</li>
+          </ul>
+        </div>
+      </div>
+      <p class="out"><b>완료 조건 —</b> 담당자가 저희 없이 설정을 변경할 수 있는 상태. 그 전에는 인도가 끝난 것이 아닙니다.</p>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Rules</p>
+    <h2>구간과 무관하게 적용되는 규칙</h2>
+    <p>기업 IT 조직에서 표준으로 운영하며 축적된 규칙입니다. 각 항목이 사고를 겪고 생긴 것이라 임의로 조정하지 않았습니다.</p>
+  </div>
+  <div class="rules">
+    <div>
+      <b>확인은 가부로 받습니다</b>
+      <p>열린 질문은 회신이 오지 않거나, 회신을 저희가 다시 해석하게 됩니다. 단정문으로 기술하고 맞는지 틀린지만 받습니다.</p>
+    </div>
+    <div>
+      <b>변경 범위를 개수로 고정합니다</b>
+      <p>“화면 개선”이 아니라 “화면 2건 수정, 기능 1건 추가”. 초과분은 저희 산정 오류이며 추가 청구 사유가 아닙니다.</p>
+    </div>
+    <div>
+      <b>불변 목록을 문서화합니다</b>
+      <p>만들 것만 적으면 나머지의 안전을 아무도 확인하지 않습니다. 구현 종료 시 이 목록의 회귀 여부를 확인합니다.</p>
+    </div>
+    <div>
+      <b>정책값을 코드에 두지 않습니다</b>
+      <p>금액 기준·승인 한도·분류 항목은 담당자가 변경 가능한 위치에 둡니다. 삭제하지 않고 사용 중지로 처리합니다 — 과거 기록이 참조하던 값이 사라지면 그 기록이 깨집니다.</p>
+    </div>
+    <div>
+      <b>정산·연동 항목은 증적을 남깁니다</b>
+      <p>화면 확인으로 종료하지 않습니다. 설정값을 직접 확인하고, 실환경이 아닌 곳에서 통과시킨 결과를 기록합니다.</p>
+    </div>
+    <div>
+      <b>자동 판정은 단계적으로 적용합니다</b>
+      <p>판정만 기록하는 상태 → 유예 시간을 둔 상태 → 즉시 실행. 사람의 결정과 대조한 뒤에 권한을 올립니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Deliverables</p>
+    <h2>구간별 산출 문서</h2>
+    <p>구두 합의는 다음 달에 서로 다르게 기억됩니다.</p>
+  </div>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>구간</th><th>문서</th><th>핵심 항목</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td>진단서</td><td>현재 상태 · 병목 3건 · 즉시 / 후속 / <strong>제외</strong></td></tr>
+      <tr><td>02</td><td>확인 그리드</td><td>가부 회신 · 결정 항목과 미결 항목의 분리</td></tr>
+      <tr><td>02</td><td>요구사항 정의서</td><td>범위와 개수 · <strong>불변 목록</strong> · 정책값 항목 · 권한 · 완료 판정 기준 · 실제 예시</td></tr>
+      <tr><td>03</td><td>인도 문서</td><td>검증 결과 · 설정값(수치 포함) · 권한 · 사용 설명</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="body t">
+    <p class="quiet">네 종입니다. 작은 회사에서 문서가 늘어나면 읽히지 않고, 읽히지 않는 문서는 합의가 아닙니다.</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Summary</p>
+    <h2>정리</h2>
+  </div>
+  <div class="sum">
+    <p><b>1</b>구간을 셋으로 나누고, 앞의 두 구간이 끝나는 자리를 정식 종료 지점으로 두었습니다.</p>
+    <p><b>2</b>요건을 쓸 수 없는 상태를 전제로 시작합니다. 반환하는 단계가 없고, 구간 2가 그 일을 대신합니다.</p>
+    <p><b>3</b>구간과 무관하게 적용되는 규칙 여섯 개는 계약 크기와 상관없이 같습니다.</p>
+  </div>
+  <div class="nx">
+    <p class="lab">다음 한 가지</p>
+    <p>어느 프로세스에 손이 가장 많이 가는지 한 줄로 알려주시면 됩니다. 그 한 줄로 진단 범위가 정해집니다.</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="w">
+    <p>진행 방식만 다룹니다. 특정 고객사나 프로젝트의 내용은 포함하지 않습니다.</p>
+  </div>
+</footer>

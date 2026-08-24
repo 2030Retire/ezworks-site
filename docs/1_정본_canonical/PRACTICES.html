@@ -1,0 +1,335 @@
+<title>판정을 켜는 순서</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#FDFDFC; --ink:#12181F; --body:#3D4853; --mute:#7C8894; --hair:#E4E7EA;
+  --hair-hi:#CDD2D8; --wash:#F5F6F7; --accent:#0063F9;
+  --warn:#8A5A00; --warn-bg:#FDF8EF; --warn-line:#E8D7B4;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF;
+  --warn:#DEB776; --warn-bg:#1A1610; --warn-line:#3A301D;
+}}
+:root[data-theme="dark"]{
+  --paper:#0D1114; --ink:#EDF0F2; --body:#B6BFC7; --mute:#79848E; --hair:#1E252B;
+  --hair-hi:#2C353D; --wash:#131920; --accent:#6BA3FF;
+  --warn:#DEB776; --warn-bg:#1A1610; --warn-line:#3A301D;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  font-size:16.5px;line-height:1.8;word-break:keep-all;-webkit-font-smoothing:antialiased}
+.w{max-width:880px;margin:0 auto;padding:0 28px}
+.t{max-width:62ch}
+h1,h2,h3{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid currentColor}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+code{font-family:"IBM Plex Mono",monospace;font-size:.88em;background:var(--wash);
+  padding:1px 6px;border:1px solid var(--hair)}
+.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+
+header{padding:86px 0 56px;border-bottom:1px solid var(--hair)}
+h1{font-size:clamp(1.65rem,3.6vw,2.25rem);line-height:1.44;max-width:26ch}
+header p{margin-top:26px;max-width:56ch}
+
+section{padding:64px 0;border-top:1px solid var(--hair)}
+.head{display:flex;flex-direction:column;gap:15px;max-width:60ch}
+h2{font-size:clamp(1.16rem,2.4vw,1.4rem);line-height:1.5}
+.body{margin-top:30px;display:flex;flex-direction:column;gap:18px}
+.body.t{max-width:62ch}
+.ask{font-family:"IBM Plex Mono",monospace;font-size:.86rem;color:var(--mute);
+  padding:11px 0 0}
+
+.stage{margin-top:32px;display:flex;flex-direction:column}
+.stage > div{padding:22px 0;border-top:1px solid var(--hair);
+  display:grid;grid-template-columns:98px 1fr;gap:0 24px}
+.stage > div:first-child{border-top:none;padding-top:0}
+.stage .m{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink);
+  font-weight:500;padding-top:5px}
+.stage b{color:var(--ink);font-weight:500;font-size:.99rem}
+.stage p{margin-top:7px;font-size:.94rem;max-width:56ch}
+@media(max-width:620px){.stage > div{grid-template-columns:1fr;gap:8px}.stage .m{padding-top:0}}
+
+.rule{margin-top:30px;display:flex;flex-direction:column}
+.rule > div{padding:19px 0;border-top:1px solid var(--hair)}
+.rule > div:first-child{border-top:none;padding-top:0}
+.rule h3{font-size:.99rem}
+.rule p{margin-top:8px;font-size:.94rem;max-width:60ch}
+
+table{width:100%;border-collapse:collapse;margin-top:28px;font-size:.92rem}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);text-align:left;padding:0 14px 11px 0;
+  border-bottom:1px solid var(--hair-hi);white-space:nowrap}
+td{padding:14px 14px 14px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td:first-child{color:var(--ink);font-weight:500}
+.scroll{overflow-x:auto}
+.scroll table{min-width:560px}
+
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+ul li{padding-left:20px;position:relative;font-size:.95rem;max-width:60ch}
+ul li::before{content:"";position:absolute;left:0;top:14px;width:8px;height:1px;background:var(--hair-hi)}
+.quiet{color:var(--mute);font-size:.9rem}
+blockquote{margin:0;padding:22px 0 22px 24px;border-left:1px solid var(--hair-hi);max-width:56ch}
+blockquote p{color:var(--ink);font-size:1.02rem;line-height:1.7}
+.note{margin-top:28px;border:1px solid var(--warn-line);background:var(--warn-bg);padding:20px 22px}
+.note .lab{color:var(--warn)}
+.note p{margin-top:10px;font-size:.93rem;max-width:58ch}
+footer{border-top:1px solid var(--hair);padding:50px 0 84px}
+footer p{font-size:.86rem;color:var(--mute);max-width:62ch;margin-bottom:9px}
+
+nav{border-bottom:1px solid var(--hair)}
+nav .w{display:flex;align-items:baseline;gap:20px;padding:20px 28px;font-size:14.5px;flex-wrap:wrap}
+nav a{border:none;color:var(--mute);text-decoration:none} nav a:hover{color:var(--ink)}
+nav .here{color:var(--ink);font-weight:500} nav .sp{margin-left:auto}
+.abs{margin-top:34px;border:1px solid var(--accent);background:#EDF3FF;padding:26px 28px}
+.abs .crit{color:var(--ink);font-size:1.08rem;line-height:1.62;max-width:54ch;font-weight:500}
+.abs .g{margin-top:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;
+  background:var(--hair-hi)}
+.abs .g > div{background:var(--paper);padding:17px 18px}
+.abs .g h4{margin:0;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.abs .g p{margin-top:10px;font-size:.93rem;line-height:1.62}
+.abs .g b{color:var(--ink);font-weight:600}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .abs{background:#131F33} }
+:root[data-theme="dark"] .abs{background:#131F33}
+@media(max-width:660px){.abs .g{grid-template-columns:1fr}}
+.sum{margin-top:30px;display:flex;flex-direction:column;gap:15px;max-width:60ch}
+.sum > p{padding-left:30px;position:relative;font-size:1rem;line-height:1.7}
+.sum > p > b{position:absolute;left:0;top:0;color:var(--accent);font-weight:600;
+  font-family:"IBM Plex Mono",monospace;font-size:.9rem}
+.nx{margin-top:34px;border-top:1px solid var(--hair-hi);padding-top:24px;max-width:58ch}
+.nx .lab{color:var(--accent)}
+.nx p{margin-top:11px;font-size:1rem;color:var(--ink);line-height:1.66}
+figure{margin:36px 0 0}
+figure svg{width:100%;height:auto;display:block;color:var(--hair-hi)}
+figcaption{margin-top:15px;font-size:.88rem;color:var(--mute);max-width:58ch}
+body{text-wrap:pretty}
+</style>
+
+<nav>
+  <div class="w">
+    <a href="https://claude.ai/code/artifact/c1810e0d-1d6b-4044-8933-8399778e3f8a">전체 구성</a>
+    <a href="https://claude.ai/code/artifact/67dd8f00-7279-4a9b-8583-e0bcb6cf3bf3">홈</a>
+    <a href="https://claude.ai/code/artifact/f2a8fd85-73d5-4f78-b52b-134d65df77f7">진행 방식</a>
+    <a href="https://claude.ai/code/artifact/1a0282c4-d327-414a-93ec-bf3f503ce6f8">사례 04</a>
+    <span class="here">운영 규율</span>
+    <span class="sp"></span><span class="lab">시안</span>
+  </div>
+</nav>
+<header>
+  <div class="w">
+    <p class="lab">운영 규율</p>
+    <h1 style="margin-top:20px">자동 판정을 켜는 순서</h1>
+    <p>"AI가 잘못 판단하면 어떻게 되나"가 자동화 도입에서 가장 흔한 질문입니다. 답은 보증이 아니라 순서로 합니다. 아래는 실제 프로젝트에서 쓴 방식이며, 고객사와 업종은 밝히지 않습니다.</p>
+  </div>
+</header>
+
+<div class="w">
+  <div class="abs">
+    <p class="crit">「AI가 잘못 판단하면 어떻게 되나」에 보증으로 답할 수는 없습니다. <strong>순서로 답합니다.</strong></p>
+    <div class="g">
+      <div>
+        <h4>문제</h4>
+        <p>자동 판정을 켜는 결정은 되돌리기 비쌉니다. 잘못 승인된 건은 이미 지급되었거나 이미 출하되었습니다. <b>보증은 사고를 막지 못합니다.</b></p>
+      </div>
+      <div>
+        <h4>해결</h4>
+        <p>판정 로직을 그대로 두고 <b>실행 권한만 세 단계로 올립니다.</b> 기록만 &#8594; 유예 후 확정 &#8594; 즉시 확정.</p>
+      </div>
+      <div>
+        <h4>효과</h4>
+        <p>켜는 시점이 <b>합의가 아니라 데이터</b>로 정해집니다. 사람 결정과의 일치, 개입 빈도가 조건입니다.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w">
+
+<section>
+  <div class="head">
+    <p class="lab">Rollout</p>
+    <h2>세 단계 — 로직 고정, 권한만 상승</h2>
+    <p>같은 판정 로직을 그대로 두고 <strong>실행 권한만</strong> 단계적으로 올립니다. 코드를 바꾸지 않고 설정 한 줄로 단계를 옮깁니다.</p>
+  </div>
+  <figure>
+  <svg viewBox="0 0 840 238" role="img" aria-label="같은 판정 로직을 고정한 채 실행 권한만 기록 전용, 유예 후 자동 확정, 즉시 확정의 세 단계로 올리며 단계마다 넘어가는 조건이 정해져 있다">
+    <defs>
+      <marker id="mpa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+        <path d="M0,1 L9,5 L0,9 z" fill="#0063F9"/></marker>
+    </defs>
+    <rect x="14" y="26" width="812" height="40" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="5 4"/>
+    <text x="420" y="51" text-anchor="middle" font-size="12" font-weight="600" fill="#12181F">판정 로직 &#8212; 세 단계에서 동일. 바뀌지 않습니다.</text>
+    <g font-size="11">
+      <rect x="14" y="96" width="248" height="76" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="32" y="120" font-family="'IBM Plex Mono',monospace" font-size="10" letter-spacing="1.2" fill="#7C8894">1단계</text>
+      <text x="32" y="142" font-size="13" font-weight="600" fill="#12181F">기록만</text>
+      <text x="32" y="161" font-size="10.5" fill="#7C8894">업무 영향 없음 · 사람 결정과 대조</text>
+      <rect x="296" y="96" width="248" height="76" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <text x="314" y="120" font-family="'IBM Plex Mono',monospace" font-size="10" letter-spacing="1.2" fill="#7C8894">2단계</text>
+      <text x="314" y="142" font-size="13" font-weight="600" fill="#12181F">유예 후 자동 확정</text>
+      <text x="314" y="161" font-size="10.5" fill="#7C8894">사람이 들어와 막을 수 있는 창</text>
+      <rect x="578" y="96" width="248" height="76" fill="none" stroke="#0063F9" stroke-width="1.6"/>
+      <text x="596" y="120" font-family="'IBM Plex Mono',monospace" font-size="10" letter-spacing="1.2" fill="#0063F9">3단계</text>
+      <text x="596" y="142" font-size="13" font-weight="600" fill="#0063F9">즉시 확정</text>
+      <text x="596" y="161" font-size="10.5" fill="#7C8894">개입이 거의 없어진 뒤</text>
+    </g>
+    <line x1="262" y1="134" x2="290" y2="134" stroke="#0063F9" stroke-width="1.4" marker-end="url(#mpa)"/>
+    <line x1="544" y1="134" x2="572" y2="134" stroke="#0063F9" stroke-width="1.4" marker-end="url(#mpa)"/>
+    <text x="276" y="196" text-anchor="middle" font-size="10" fill="#0063F9">조건</text>
+    <text x="276" y="212" text-anchor="middle" font-size="10" fill="#7C8894">사람 결정과 일치</text>
+    <text x="558" y="196" text-anchor="middle" font-size="10" fill="#0063F9">조건</text>
+    <text x="558" y="212" text-anchor="middle" font-size="10" fill="#7C8894">개입 거의 없음</text>
+    <text x="14" y="232" font-size="10.5" fill="#7C8894">올라가는 것은 권한뿐입니다. 판정이 바뀌지 않으므로 1단계에서 측정한 값이 3단계에서도 유효합니다.</text>
+  </svg>
+  <figcaption>로직을 고정하는 것이 이 구조의 핵심입니다. 단계마다 로직도 바꾸면 앞 단계의 측정값이 쓸모없어집니다.</figcaption>
+</figure>
+
+  <div class="stage">
+    <div>
+      <div class="m">1 · shadow</div>
+      <div>
+        <b>판단만 하고 아무것도 실행하지 않습니다</b>
+        <p>매 사이클마다 판정을 내리고 감사 로그에만 남깁니다. 그 기간 동안 <strong>사람의 결정과 시스템의 판정을 나란히 비교</strong>합니다. 어긋나는 건이 나오면 규칙을 고칩니다. 실제 업무에는 영향이 없습니다.</p>
+      </div>
+    </div>
+    <div>
+      <div class="m">2 · staging</div>
+      <div>
+        <b>예비 승인 큐에 넣고 유예 시간을 둡니다</b>
+        <p>판정된 건이 바로 확정되지 않고 큐에 들어갑니다. 정해진 영업시간이 지나면 자동 확정되고, 그 사이 사람이 들어와 막을 수 있습니다. <strong>기본값이 통과이면서 개입 여지가 있는 상태</strong>입니다.</p>
+      </div>
+    </div>
+    <div>
+      <div class="m">3 · live</div>
+      <div>
+        <b>즉시 실행합니다</b>
+        <p>shadow에서 판정이 사람 결정과 충분히 일치하고, staging에서 개입이 거의 발생하지 않게 된 뒤에 켭니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="body t">
+    <p class="ask">묻는 사람: "잘못 승인하면요?" — 답: "몇 주 동안 판단만 시켜 보고, 사람 결정과 얼마나 맞는지 본 다음에 켭니다."</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Rules as Configuration</p>
+    <h2>판정 기준의 위치 — 코드가 아니라 설정</h2>
+    <p>기준이 코드 안에 있으면 숫자 하나 바꿀 때마다 개발자를 불러야 합니다. 그러면 기준은 현실을 못 따라가고, 사람들은 시스템을 우회하기 시작합니다.</p>
+  </div>
+
+  <div class="scroll">
+  <table>
+    <thead><tr><th>바꾸는 것</th><th>누가</th><th>개발 필요</th></tr></thead>
+    <tbody>
+      <tr><td>임계값·허용 범위</td><td>업무 담당자 또는 PM</td><td>없음 — 설정 파일 수정</td></tr>
+      <tr><td>새로운 종류의 판정 규칙</td><td>개발자</td><td>있음 — 규칙 모듈 추가 후 등록</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h3>변경에 붙는 유예 시간과 효력일</h3>
+      <p>규칙 변경은 영업시간 기준 최소 유예를 두고 등록되며, 각 변경에 <strong>언제부터 적용되는지</strong>가 필수 항목입니다. 어제 처리된 건이 오늘 바뀐 기준으로 재평가되지 않게 하기 위한 것입니다.</p>
+    </div>
+    <div>
+      <h3>배포 전 영향 범위 집계</h3>
+      <p>바꾼 기준을 실제 데이터에 <strong>실행하지 않고 통과시켜</strong> 몇 건이 달라지는지 먼저 확인합니다. 숫자를 보고 나서 배포합니다.</p>
+    </div>
+    <div>
+      <h3>이전 버전으로의 즉시 복귀</h3>
+      <p>설정 파일 교체만으로 롤백됩니다. 긴급 변경 경로도 있지만, 그 경우 감사 로그에 별도로 표시됩니다 — 우회했다는 사실 자체가 기록됩니다.</p>
+    </div>
+    <div>
+      <h3>실패 사유 전량 수집</h3>
+      <p>첫 조건에서 걸리면 멈추는 방식과, 모든 조건을 평가하고 실패 사유를 전부 모으는 방식이 있습니다. 후자를 기본으로 씁니다 — 담당자가 <strong>한 번에 전체 사유를 보고</strong> 고칠 수 있어야 하기 때문입니다.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Read-only First</p>
+    <h2>첫 연결은 읽기 전용</h2>
+  </div>
+  <div class="body t">
+    <p>회사의 핵심 데이터가 들어 있는 시스템에 붙을 때, 처음 연결은 <strong>읽기 전용</strong>으로 합니다. 대시보드나 조회 화면은 읽기만으로 전부 만들 수 있고, 그 단계에서 데이터 구조와 실제 값의 의미를 확인합니다.</p>
+    <p>쓰기가 필요해지는 시점에는 이미 그 시스템을 이해한 상태입니다. 그리고 쓰기는 원래 시스템을 고치는 대신 <strong>별도 제어 지점을 추가하는 쪽</strong>을 먼저 봅니다.</p>
+    <p class="ask">묻는 사람: "우리 시스템 망가지면요?" — 답: "처음에는 읽기 권한만 받습니다."</p>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Better Idea Wins</p>
+    <h2>더 나은 안의 수용</h2>
+  </div>
+  <div class="body t">
+    <p>한 프로젝트에서 특정 조건의 주문을 처리 대상에서 <strong>제외하는</strong> 방식으로 설계를 보내고 검토를 요청했습니다. 담당 팀이 다른 방식을 회신했습니다 — 제외하지 말고 정상적으로 흘려보낸 뒤 <strong>다음 단계에서 진행 플래그로 막자</strong>는 안이었습니다.</p>
+    <p>그쪽이 더 나았습니다. 원래 흐름을 건드리지 않고, 제어 지점이 명확하고, 되돌리기도 쉬웠습니다. 아키텍처를 바꿨습니다.</p>
+    <p>기존 요청 문서는 지우지 않고 <strong>보낸 시점의 스냅샷으로 보존</strong>하고, 새 문서에 "이것이 현재 정답지이며 앞 문서를 대체한다"고 명시했습니다. 왜 바뀌었는지가 남아야 나중에 같은 논의를 다시 하지 않습니다.</p>
+    <blockquote>
+      <p>설계를 방어하는 것과 결과를 얻는 것은 다른 일입니다.</p>
+    </blockquote>
+  </div>
+</section>
+
+<section>
+  <div class="head">
+    <p class="lab">Same Discipline</p>
+    <h2>세 제품에 반복된 같은 규율</h2>
+    <p>원칙으로 선언한 것이 아니라, 서로 다른 프로젝트에서 같은 방식으로 결정한 기록입니다.</p>
+  </div>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>어디서</th><th>무엇을 했나</th></tr></thead>
+    <tbody>
+      <tr><td>회원·수납 플랫폼</td><td>청구 규칙이 설계 보증과 충돌하는 것을 발견하고, 화면 단계에서 확정하지 않고 결정 게이트로 올렸다</td></tr>
+      <tr><td>경비·승인 플랫폼</td><td>검증에서 걸린 예외가 남아 있으면 승인 단계로 넘기지 않는다</td></tr>
+      <tr><td>음성 기록 앱</td><td>확인되지 않은 법적 사실 위에는 코드를 올리지 못하게 등급 규약을 두었다</td></tr>
+      <tr><td>심사 자동화</td><td>판정 권한을 세 단계로 나누고, shadow에서 사람 결정과 비교한 뒤에 올린다</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="body t">
+    <p>네 건 모두 같은 규율입니다 — <strong>확실하지 않으면 진행하지 않는다.</strong> 다르게 말하면, 확실하지 않다는 것을 알아차릴 수 있는 장치를 먼저 만들어 둡니다.</p>
+  </div>
+</section>
+
+<div class="note">
+  <p class="lab">서술 범위</p>
+  <p>이 문서의 방식은 실제 프로젝트에서 사용한 것입니다. 고객사·고용주·업종·제품명과 처리 건수 같은 운영 지표는 포함하지 않습니다. 방법에 대한 서술이며 실적에 대한 주장이 아닙니다.</p>
+</div>
+
+</div>
+
+<section>
+  <div class="head">
+    <p class="lab">Summary</p>
+    <h2>정리</h2>
+  </div>
+  <div class="sum">
+    <p><b>1</b>「잘못 판단하면」에 보증으로 답하지 않습니다. 로직을 두고 실행 권한만 세 단계로 올립니다.</p>
+    <p><b>2</b>판정 기준은 코드가 아니라 설정에 둡니다. 담당자가 바꾸고, 유예와 효력일이 붙고, 즉시 되돌릴 수 있습니다.</p>
+    <p><b>3</b>돌아가는 시스템의 첫 연결은 읽기 전용입니다. 쓰기가 필요해질 때는 이미 그 시스템을 이해한 상태입니다.</p>
+  </div>
+  <div class="nx">
+    <p class="lab">다음 한 가지</p>
+    <p>사람이 매번 같은 기준으로 승인하고 있는 업무가 있는지 한 줄로 알려주시면 됩니다.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="w">
+    <p>운영 규율 — 사례 01·02·03과 함께 읽는 문서. 사례는 무엇을 만들었는지를, 이 문서는 어떻게 결정했는지를 다룹니다.</p>
+  </div>
+</footer>
