@@ -443,26 +443,25 @@ export const en = {
       lede: 'There is an order to these. Either way they arrive at the same place.',
       items: [
         {
-          title: 'Groundwork — order and readiness',
-          body: 'Where AI slips, why the four steps are preconditions, and the two axes that set a starting point.',
-          href: '/approach/',
-          linkLabel: 'See the groundwork',
+          title: 'Services — four areas, with the work in each',
+          body: 'Assessment and definition, operational systems, integration and visibility, automatic decisions. Each area carries the work actually done in it.',
+          href: '/services/',
+          linkLabel: 'See the services',
         },
         {
           title: 'How it runs — segments and exits',
-          body: 'Assessment, definition, build. The end of each of the first two is a formal exit. The review is fixed price.',
+          body: 'Assessment, definition, build. The end of each of the first two is a formal exit. The nine deliverables and the fixed review price are here too.',
           href: '/method/',
           linkLabel: 'See how it runs',
         },
         {
-          title: 'Discipline — the order of switching on',
-          body: 'Automatic decisions are not switched on at once. The logic stays fixed; only its authority moves up.',
-          href: '/practices/',
-          linkLabel: 'See the discipline',
+          title: 'Products — a finished starting point',
+          body: 'Built while applying the same procedure to our own work first. They also serve as the first thing adopted after an assessment.',
+          href: '/products/',
+          linkLabel: 'See the products',
         },
       ],
     },
-
     productsSection: {
       eyebrow: 'Products',
       heading: 'What we build and run ourselves',
