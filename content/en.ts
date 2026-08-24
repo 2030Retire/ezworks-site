@@ -21,7 +21,7 @@ import type {
 export const en = {
   site: {
     name: 'EZWorks',
-    tagline: 'Work, Simplified.',
+    tagline: 'Groundwork before automation.',
     description:
       'EZWorks builds practical software and automation for small companies — and the people who run them.',
     url: 'https://ezworks.co',
@@ -771,9 +771,9 @@ export const en = {
   pages: {
     home: {
       meta: {
-        title: 'EZWorks — Work, Simplified.',
+        title: 'EZWorks — Groundwork before automation',
         description:
-          'EZWorks builds practical software and automation for small companies — and the people who run them.',
+          'Define the work, make it leave records, move repeated judgements to the system. AI comes after that.',
       } as PageMeta,
     },
 
