@@ -102,6 +102,52 @@ export type LegalDoc = {
   blocks: LegalBlock[];
 };
 
+/**
+ * The public account-deletion page (`/haru/delete-account/`).
+ *
+ * `blocks` is the static explanation, rendered by the same legal renderer as a
+ * policy document. `widget` is the copy for the interactive part — the Google
+ * sign-in and the confirmation — which is a client component because the page
+ * has to obtain a Google ID token in the browser.
+ *
+ * ⛔ There is no "email us your address" variant of this page. Identity on the
+ * server is a one-way HMAC of the Google `sub` and no email is stored, so an
+ * emailed request cannot be matched to an account. Sign-in is the only route.
+ */
+export type DeleteAccountDoc = {
+  title: string;
+  backHref: string;
+  backLabel: string;
+  blocks: LegalBlock[];
+  widget: {
+    heading: string;
+    body: string;
+    /** Stated before anything third-party loads, because nothing has yet. */
+    scriptNote: string;
+    /** Shown inside <noscript>; names the in-app route as the way through. */
+    noScript: string;
+    startButton: string;
+    loadingScript: string;
+    pressGoogleButton: string;
+    signedInLabel: string;
+    confirmWarning: string;
+    confirmButton: string;
+    cancelButton: string;
+    deleting: string;
+    doneHeading: string;
+    doneBody: string;
+    inAppNote: string;
+    errors: {
+      signIn: string;
+      /** Reaching the service failed — most likely CORS or the network. */
+      network: string;
+      /** The ID token was rejected or has expired. */
+      auth: string;
+      generic: string;
+    };
+  };
+};
+
 export type PageMeta = {
   title: string;
   description: string;

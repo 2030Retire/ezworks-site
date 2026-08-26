@@ -133,6 +133,13 @@ export function Hero({ lang }: { lang: Lang }) {
             linkClassName="font-medium text-white underline underline-offset-4"
           />
         </p>
+        {/* The niche, stated as where we are strongest rather than as a gate.
+            It is the one thing a general US IT vendor cannot claim, and it was
+            buried three pages deep. */}
+        <p className="mt-7 max-w-[52ch] border-l-2 border-white/25 pl-5 text-[0.9375rem] leading-relaxed text-white/70">
+          {hero.niche}
+        </p>
+
         <div className="mt-11">
           <Button href={hero.cta.href}>{hero.cta.label}</Button>
         </div>

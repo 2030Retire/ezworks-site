@@ -1,4 +1,5 @@
 import type {
+  DeleteAccountDoc,
   LegalDoc,
   NavGroup,
   NavItem,
@@ -50,7 +51,6 @@ export const en = {
   nav: {
     primary: [
       { href: '/services/', label: 'Services' },
-      { href: '/products/', label: 'Products' },
       { href: '/method/', label: 'How it runs' },
       { href: '/about/', label: 'About' },
     ] as NavItem[],
@@ -75,6 +75,7 @@ export const en = {
         items: [
           { href: '/privacy/', label: 'Website privacy' },
           { href: '/haru/privacy/', label: 'EZHaru app privacy' },
+          { href: '/haru/delete-account/', label: 'Delete your EZHaru account' },
         ],
       },
     ] as NavGroup[],
@@ -92,6 +93,8 @@ export const en = {
       },
       criterion:
         'Whether AI can be attached is decided by **where the state of the work lives** — not by the tool. Inside a system, or in someone’s head and a spreadsheet.',
+      niche:
+        'Sixteen years inside the US subsidiaries of Korean companies — working the gap between a head-office system and how the work actually runs locally.',
       abstract: [
         {
           label: 'Problem',
@@ -455,7 +458,7 @@ export const en = {
           linkLabel: 'See how it runs',
         },
         {
-          title: 'Products — a finished starting point',
+          title: 'Products — what the procedure produced',
           body: 'Built while applying the same procedure to our own work first. They also serve as the first thing adopted after an assessment.',
           href: '/products/',
           linkLabel: 'See the products',
@@ -1084,7 +1087,7 @@ export const en = {
             'No analytics or measurement product is installed.',
             'No advertising, remarketing or social tracking pixels are present.',
             'No cookies are set for tracking or profiling. The site works without you accepting anything.',
-            'No third-party fonts, stylesheets or scripts are loaded, so visiting this site does not disclose your visit to another company through page assets.',
+            'No third-party fonts, stylesheets or scripts are loaded, so visiting this site does not disclose your visit to another company through page assets. **One page is an exception, and only if you ask for it:** the [EZHaru account deletion page](/haru/delete-account/) has to sign you in with Google to know whose account to delete, so pressing its sign-in button loads Google’s sign-in script. Nothing loads until you press it, and the rest of the site never loads it.',
           ],
         },
         { kind: 'heading', text: 'Hosting' },
@@ -1136,106 +1139,220 @@ export const en = {
      * EZHaru app privacy policy.
      *
      * ⚠️ This URL is submitted to the Play Store — /haru/privacy/ must not
-     * change. The legal wording below is carried over verbatim from the
-     * previously published version. Do not reword.
+     * change.
+     *
+     * ⛔ Rewritten 2026-08-25 from docs/7_스토어_store/PRIVACY_POLICY.md in the
+     * EZVoice repo, which is the canonical source. The previous version said we
+     * operate no server and never receive recordings — both became false when
+     * the summary proxy and the included free allowance shipped. The promise
+     * this version makes is "we do not KEEP your content", which stays true
+     * even if the architecture moves again. Do not reword without changing the
+     * canon first.
      */
     haru: {
       title: 'EZHaru Privacy Policy',
-      effectiveDate: 'August 15, 2026',
+      effectiveDate: 'August 25, 2026',
       backHref: '/haru/',
       backLabel: 'EZHaru',
       blocks: [
         {
           kind: 'callout',
-          text: '**The short version:** EZHaru records audio on your phone and turns it into transcripts and summaries. **We do not operate any server, and we never receive your recordings, transcripts, or personal data.** Your data goes only to places you own or choose: your device, your own cloud storage (Microsoft OneDrive or Google Drive), and the AI service you connect with your own API key.',
+          text: '**The short version:** EZHaru records audio on your phone, turns it into a transcript, and writes a summary. **We do not keep your content.** Audio, transcripts and summaries are used to produce your notes and then dropped. We never use them to train models, and we never sell or share them for advertising.',
         },
-        { kind: 'heading', text: 'What data the app handles, and where it goes' },
+        {
+          kind: 'text',
+          text: 'Your recordings and notes are saved to **your own cloud folder** — your Microsoft OneDrive or your Google Drive. Those files belong to you, in your account, under your control.',
+        },
+        {
+          kind: 'text',
+          text: 'To give you the included free allowance we keep two things and nothing more: a **one-way code** that stands for your account, and **how much of the allowance is left**. We cannot turn that code back into your name or email address.',
+        },
+        { kind: 'heading', text: 'What we keep, and for how long' },
         {
           kind: 'table',
-          headers: ['Data', 'Where it goes', 'Who can access it'],
+          headers: ['What', 'Where', 'How long'],
           rows: [
             [
-              'Voice recordings',
-              'Your device → your own cloud storage, OneDrive or Google Drive (if you connect it) → the transcription service you configured with your own API key',
-              'Only you, via your own accounts',
+              'Your recordings and notes',
+              'Your own cloud folder, and your phone',
+              'Until you delete them',
             ],
             [
-              'Transcripts & summaries (.md notes)',
-              'Your device → your own OneDrive or Google Drive / OneNote (optional)',
-              'Only you',
+              'Audio sent for transcription',
+              'Passes through our service to the AI provider',
+              'Not kept — used for the request, then dropped',
             ],
             [
-              'Location (optional)',
-              'Stored on your device to label where a recording was made. Never sent to us. You can deny the permission; recording works without it',
-              'Only you',
+              'Transcript sent for summarizing',
+              'Passes through our service to the AI provider',
+              'Not kept — used for the request, then dropped',
             ],
             [
-              'Microsoft account sign-in',
-              'An access token is stored encrypted on your device to upload to your own OneDrive. We never see your password or token',
-              'Only you',
+              'A one-way code for your account',
+              'Our server',
+              'Until you delete your account',
             ],
             [
-              'Google account sign-in (optional)',
-              'If you connect Google Drive, an access token is stored encrypted on your device and used only to upload your files to your own Drive. We request the narrow drive.file scope, which grants access solely to files the app itself creates — never to anything else in your Drive. We never see your password or token',
-              'Only you',
+              'How much allowance is left, and when it was used',
+              'Our server',
+              'Until you delete your account',
             ],
             [
-              'API keys you enter',
-              'Stored encrypted on your device. Sent only to the AI vendor you chose',
-              'Only you and your chosen vendor',
+              'The API keys you enter (if you bring your own)',
+              'Encrypted on your phone only',
+              'Until you remove them',
+            ],
+            [
+              'Cloud sign-in tokens (OneDrive / Google Drive)',
+              'Encrypted on your phone only',
+              'Until you disconnect',
             ],
           ],
         },
-        { kind: 'heading', text: 'What we do NOT do' },
+        {
+          kind: 'text',
+          text: '**We do not keep:** audio files, transcripts, summaries, titles, file names, your email address, or your name.',
+        },
+        { kind: 'heading', text: 'How your account code works' },
+        {
+          kind: 'text',
+          text: 'When you sign in with Google, we receive an account identifier from Google. We immediately run it through a **one-way function with a secret only our server holds**, and store only the result.',
+        },
         {
           kind: 'list',
           items: [
-            'We do **not** operate servers that receive your audio, text, or usage data.',
-            'We do **not** collect analytics, advertising identifiers, or crash reports.',
-            'We do **not** sell, share, or have access to any of your data.',
-            'The app creates **no developer-side account** — there is nothing for us to delete because we hold nothing.',
+            'We **cannot** recover your email address or name from it.',
+            'It lets us count your allowance and recognise you on your next request. That is all it is for.',
+            'If you contact us for support, you can share the short version of this code shown in the app so we can find your allowance. That is your choice — we cannot look you up any other way.',
           ],
         },
-        { kind: 'heading', text: 'Third-party services you may connect' },
+        { kind: 'heading', text: 'Where your content goes' },
         {
           kind: 'text',
-          text: "When you connect a service, your data is handled under that service's terms with you: Microsoft OneDrive/OneNote and Google Drive (storage you own) and the transcription/summary AI vendor you configure (for example Groq or Anthropic — using your own API key, under your own agreement with them). Choose vendors whose data-retention terms you are comfortable with; the app works with any compatible provider, including self-hosted ones.",
+          text: '**Recording and saving never involve us.** Audio is captured on your phone and uploaded to your own cloud folder. That works whether or not you are signed in to us.',
+        },
+        {
+          kind: 'text',
+          text: '**Transcription and summarizing use an AI provider.** There are two ways this happens, and you choose:',
+        },
+        {
+          kind: 'list',
+          items: [
+            '**Included allowance (default).** Your audio and transcript pass through our service on the way to the AI provider, and the result comes back to your phone. **We do not keep any of it.** Our providers are contractually barred from using it to train their models.',
+            '**Your own API key.** Your phone talks to the provider directly under your own agreement with them. Nothing passes through us.',
+          ],
+        },
+        {
+          kind: 'text',
+          text: '**Speaker labels** always use your own AssemblyAI key. Read their terms before you enable it — on their free plan your audio may be used to improve their models, and turning that off requires a paid plan with them.',
+        },
+        { kind: 'heading', text: 'What we do not do' },
+        {
+          kind: 'list',
+          items: [
+            'We do **not** keep your audio, transcripts, or summaries.',
+            'We do **not** use your content to train models, and our providers are contractually barred from doing so.',
+            'We do **not** collect analytics, advertising identifiers, or crash reports.',
+            'We do **not** sell your data, and we do **not** share it with anyone other than the AI provider needed to produce your transcript or summary.',
+            'We do **not** store your name, email address, or password.',
+          ],
+        },
+        { kind: 'heading', text: 'Third-party services' },
+        {
+          kind: 'table',
+          headers: ['Service', 'What it receives', 'Why'],
+          rows: [
+            [
+              'Microsoft OneDrive or Google Drive',
+              'Your recordings and notes',
+              'Your own storage — you connect it, you own the files',
+            ],
+            [
+              'AI provider (transcription and summaries)',
+              'Audio and transcript, for the length of the request',
+              'To produce your transcript and summary',
+            ],
+            [
+              'Google Sign-In',
+              'Confirms it is you',
+              'So the included allowance is yours and not someone else’s',
+            ],
+            ['AssemblyAI (optional, your key)', 'Audio', 'Speaker labels'],
+            [
+              'Microsoft OneNote (optional)',
+              'Your notes',
+              'If you turn on mirroring',
+            ],
+          ],
+        },
+        {
+          kind: 'text',
+          text: 'When you connect a service with your own key, your data is handled under **that service’s agreement with you**.',
         },
         { kind: 'heading', text: 'Google user data and Limited Use' },
         {
           kind: 'text',
-          text: "If you choose to connect Google Drive, EZHaru's use of information received from Google APIs adheres to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements.",
+          text: 'EZHaru’s use of information received from Google APIs adheres to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements. Two Google features are involved: Google Sign-In, which confirms it is you, and Google Drive, if you choose it as your cloud folder.',
         },
         {
           kind: 'list',
           items: [
-            'Google user data is used **only** to provide and improve the features you asked for — uploading your recordings and notes to your own Google Drive.',
+            'Google user data is used **only** to provide the features you asked for — recognising your account for the included allowance, and uploading your recordings and notes to your own Google Drive.',
             'We do **not** use Google user data for advertising of any kind.',
             'We do **not** allow humans to read your Google user data, except where you explicitly ask us to for support, where it is necessary for security purposes such as investigating abuse, or where the law requires it.',
             'We do **not** sell, rent, or transfer Google user data to anyone.',
-            'We request the narrowest scope that works: **drive.file**, which can only see and manage the files EZHaru itself creates. The rest of your Drive is never accessible to the app.',
+            'We request the narrowest Drive scope that works: **drive.file**, which can only see and manage the files EZHaru itself creates. The rest of your Drive is never accessible to the app.',
+            'Your Drive files do **not** pass through our service — they travel from your phone to your own Drive, and we hold no copy. From Google Sign-In we keep only the one-way code described above.',
+          ],
+        },
+        { kind: 'heading', text: 'Deleting your data' },
+        {
+          kind: 'text',
+          text: '**On your phone and in your own cloud.** Delete a recording in the app and choose whether the cloud copy goes too. Disconnect your cloud account in Settings to revoke access immediately; you can also revoke Google access at any time from your [Google Account permissions page](https://myaccount.google.com/permissions). Uninstalling removes everything stored locally. Files already in your cloud folder stay yours to manage.',
+        },
+        {
+          kind: 'text',
+          text: '**The account we hold for the included allowance.** You can delete it two ways:',
+        },
+        {
+          kind: 'list',
+          items: [
+            '**In the app:** Settings → your plan → Delete my account.',
+            '**Without installing the app:** [delete your account on this website](/haru/delete-account/).',
           ],
         },
         {
           kind: 'text',
-          text: 'In practice this is straightforward, because the app has no server: Google user data never leaves your device except to travel to your own Google Drive. It does not pass through us, and we hold no copy of it.',
+          text: 'Deleting removes your account code and your allowance balance from our server permanently.',
         },
-        { kind: 'heading', text: 'Data deletion' },
+        { kind: 'text', text: '**What deletion cannot undo, stated plainly:**' },
+        {
+          kind: 'list',
+          items: [
+            'It is **permanent**. Because the code is one-way, we cannot restore it.',
+            '**Any unused free allowance is gone.** Signing in again starts a new account with no balance.',
+            'We keep a **minimal record that an account with that code was deleted** — the code and the date, nothing else. This exists so that deleting and signing in again does not hand out the free allowance repeatedly. It contains no content and cannot be turned back into your identity.',
+          ],
+        },
+        { kind: 'heading', text: 'If you contact us' },
         {
           kind: 'text',
-          text: "Delete recordings in the app (you choose whether the cloud copy is deleted too). Disconnect OneDrive or Google Drive in Settings to revoke the app's access instantly; you can also revoke Google access at any time from your [Google Account permissions page](https://myaccount.google.com/permissions). Uninstalling the app removes all local data. Files already in your own cloud storage, and any data held by your chosen AI vendor, are under your own control through those accounts.",
+          text: 'If you email us — for support, or to ask about your allowance — we will have your email address and whatever you choose to write. That is ordinary correspondence, kept in our mailbox, and it is separate from the app. Please do not paste recordings or transcripts into support email; we do not need them.',
         },
-        { kind: 'heading', text: 'Recording consent' },
+        { kind: 'heading', text: 'Recording other people' },
         {
           kind: 'text',
-          text: 'You are responsible for complying with the recording-consent laws of your location and the policies of your institution when you record other people.',
+          text: 'You are responsible for following the recording-consent laws where you are and the policies of your school or workplace. Laws differ by state and country, and some require everyone’s consent.',
         },
         { kind: 'heading', text: 'Children' },
-        { kind: 'text', text: 'This app is not directed to children under 13.' },
-        { kind: 'heading', text: 'Changes' },
         {
           kind: 'text',
-          text: "If the app's architecture ever changes in a way that affects this policy (for example, introducing an optional server-based plan), we will update this policy and note the change here before it takes effect.",
+          text: 'EZHaru is not directed to children under 13, and we do not knowingly collect data from them.',
+        },
+        { kind: 'heading', text: 'Changes to this policy' },
+        {
+          kind: 'text',
+          text: 'If we change how the app handles your data, we update this page and the app’s Data safety information **in the same release**. The effective date above tells you when this version took effect.',
         },
         { kind: 'heading', text: 'Contact' },
         { kind: 'contactEmail' },
@@ -1245,7 +1362,96 @@ export const en = {
     haruMeta: {
       title: 'EZHaru Privacy Policy',
       description:
-        'EZHaru records audio on your phone and turns it into transcripts and summaries. We operate no server and never receive your recordings, transcripts or personal data.',
+        'EZHaru records audio on your phone and turns it into transcripts and summaries. We do not keep your audio, transcripts or summaries — your recordings and notes live in your own cloud folder.',
+    } as PageMeta,
+
+    /**
+     * Public account-deletion page — Google Play requires a deletion route that
+     * works **without installing the app**, and its URL goes on the Data safety
+     * form. /haru/delete-account/ must not move once submitted.
+     *
+     * ⛔ There is deliberately no "request deletion by email" form. We store no
+     * email address — identity is a one-way HMAC of the Google `sub` — so an
+     * emailed request could not be matched to an account. Signing in with
+     * Google is the only way we can identify the account to delete, which is
+     * why this page is interactive rather than a form.
+     */
+    haruDelete: {
+      title: 'Delete your EZHaru account',
+      backHref: '/haru/privacy/',
+      backLabel: 'EZHaru Privacy Policy',
+      blocks: [
+        {
+          kind: 'callout',
+          text: '**There is nothing to fill in.** We do not store your email address or your name, so the only way we can find your account is for you to sign in with the same Google account you use in EZHaru. Signing in identifies the account; the deletion then runs immediately.',
+        },
+        { kind: 'heading', text: 'What gets deleted' },
+        {
+          kind: 'list',
+          items: [
+            'The **one-way code** that stands for your account on our server.',
+            'Your **remaining free allowance** and the record of what you have used. **Any unused minutes are gone.**',
+            'Our record of the requests your account made.',
+          ],
+        },
+        {
+          kind: 'text',
+          text: 'This is **permanent and cannot be undone.** Because the code is one-way, we have no way to restore it. Signing in again later starts a new account with no balance.',
+        },
+        { kind: 'heading', text: 'What this page cannot delete for you' },
+        {
+          kind: 'list',
+          items: [
+            '**Your recordings and notes are not on our server.** They live on your phone and in your own cloud folder — your Microsoft OneDrive or your Google Drive. Deleting your account here does not touch them. **You delete those yourself**, in the app or in your own cloud folder.',
+            'Anything stored on your phone. Uninstalling EZHaru removes the local copies.',
+            'Files already handled by a service you connected with your own API key. Those are under your own agreement with that service.',
+          ],
+        },
+        {
+          kind: 'text',
+          text: '**One thing is kept on purpose.** After deletion we keep the one-way code and the date, and nothing else, so that deleting and signing in again does not hand out the free allowance over and over. It contains no content of yours and cannot be turned back into your identity.',
+        },
+        { kind: 'heading', text: 'When it happens' },
+        {
+          kind: 'text',
+          text: '**Immediately.** The deletion runs while you wait, and this page tells you when it is done. There is no queue and no waiting period.',
+        },
+      ],
+      widget: {
+        heading: 'Delete my account',
+        body: 'Sign in with the Google account you use in EZHaru. We use the sign-in only to identify the account for this deletion — nothing about it is stored.',
+        scriptNote:
+          'Choosing to continue loads Google’s sign-in script on this page. Nothing is loaded until you do.',
+        noScript:
+          'This page needs JavaScript to sign you in with Google. Please enable it, or delete your account inside the app: Settings → your plan → Delete my account.',
+        startButton: 'Continue with Google',
+        loadingScript: 'Loading Google sign-in…',
+        pressGoogleButton: 'Press the Google button to sign in.',
+        signedInLabel: 'Signed in as',
+        confirmWarning:
+          'This deletes the account above from our server permanently. Your unused free minutes will be gone, and we cannot restore any of it.',
+        confirmButton: 'Permanently delete my account',
+        cancelButton: 'Cancel',
+        deleting: 'Deleting…',
+        doneHeading: 'Your account has been deleted.',
+        doneBody:
+          'The account, its remaining allowance and its request records are gone from our server. Your recordings and notes in your own cloud folder are untouched — delete those yourself if you want them gone.',
+        inAppNote:
+          'You can also do this inside the app: Settings → your plan → Delete my account.',
+        errors: {
+          signIn: 'Google sign-in did not complete. Please try again.',
+          network:
+            'We could not reach the deletion service. Please try again in a few minutes. If it keeps failing, email us — but note that we cannot delete an account from an email alone, because we do not store your email address.',
+          auth: 'That sign-in is no longer valid. Please sign in again.',
+          generic: 'Something went wrong and nothing was deleted. Please try again.',
+        },
+      },
+    } as DeleteAccountDoc,
+
+    haruDeleteMeta: {
+      title: 'Delete your EZHaru account',
+      description:
+        'Delete your EZHaru account and its free allowance from our server, without installing the app. Sign in with Google to identify the account; deletion is immediate and permanent.',
     } as PageMeta,
   },
 };

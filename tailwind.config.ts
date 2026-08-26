@@ -8,6 +8,7 @@ import type { Config } from 'tailwindcss';
  *   blue  #0063F9 on #FFFFFF  →  5.0:1  (link/label safe, AA for normal text)
  *   white #FFFFFF on #0063F9  →  5.0:1
  *   white #FFFFFF on #0B1B2E  → 15.5:1
+ *   white #FFFFFF on #B42318 →  6.5:1  (destructive action)
  * Brand blue is an accent only — never large bodies of blue text on white.
  */
 const config: Config = {
@@ -32,6 +33,12 @@ const config: Config = {
         'line-strong': '#CDD2D8',
         tint: '#F0F5FF',
         surface: '#F7F9FC',
+        // Signal colour. Destructive actions and error messages only — the
+        // brand accent must never stand in for "danger".
+        // white #FFFFFF on #B42318 → 6.5:1
+        state: {
+          danger: '#B42318',
+        },
       },
       fontFamily: {
         sans: [

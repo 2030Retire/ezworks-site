@@ -4,8 +4,9 @@ import { defaultLang, type Lang } from '@/content/types';
  * The eight canonical, locale-neutral routes. English is served at these paths
  * exactly; Korean is served at the same paths under a `/ko` prefix.
  *
- * `/haru/privacy/` is the URL registered with the Google Play Store. It must
- * never move.
+ * `/haru/privacy/` is the URL registered with the Google Play Store, and
+ * `/haru/delete-account/` is the deletion URL on its Data safety form. Neither
+ * may ever move.
  */
 export const routes = [
   '/',
@@ -13,6 +14,7 @@ export const routes = [
   '/products/',
   '/haru/',
   '/haru/privacy/',
+  '/haru/delete-account/',
   '/about/',
   '/contact/',
   '/privacy/',

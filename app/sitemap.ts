@@ -4,8 +4,13 @@ import { locales } from '@/content/types';
 import { localizePath } from '@/lib/routes';
 
 /**
- * All eight published routes, in both locales — 16 URLs. Static export writes
+ * All nine published routes, in both locales — 18 URLs. Static export writes
  * this to /sitemap.xml.
+ *
+ * ⛔ /haru/privacy/ and /haru/delete-account/ must stay indexable and listed:
+ * a Play reviewer, and a user who has uninstalled the app, have to be able to
+ * find them. The noindex rule for public routes applies to unguessable token
+ * URLs, which these are not.
  *
  * Each entry carries `alternates.languages` so search engines see the pair
  * rather than two unrelated pages.
@@ -19,6 +24,7 @@ const routes: { path: string; priority: number }[] = [
   { path: '/contact/', priority: 0.7 },
   { path: '/privacy/', priority: 0.3 },
   { path: '/haru/privacy/', priority: 0.3 },
+  { path: '/haru/delete-account/', priority: 0.3 },
 ];
 
 export const dynamic = 'force-static';

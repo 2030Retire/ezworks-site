@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Container } from './Container';
 import { Inline } from './Inline';
-import type { LegalDoc } from '@/content/types';
+import type { LegalBlock, LegalDoc } from '@/content/types';
 
 /** Shared shell and typography for the policy pages. */
 export function LegalPage({
@@ -12,7 +12,8 @@ export function LegalPage({
   children,
 }: {
   title: string;
-  effectiveDate: string;
+  /** Omitted by the account-deletion page, which is not a dated document. */
+  effectiveDate?: string;
   backHref: string;
   backLabel: string;
   children: React.ReactNode;
@@ -27,7 +28,9 @@ export function LegalPage({
         <h1 className="display mt-8 text-[1.875rem] font-bold  text-ink sm:text-[2.125rem]">
           {title}
         </h1>
-        <p className="mt-2 text-sm text-soft">{effectiveDate}</p>
+        {effectiveDate ? (
+          <p className="mt-2 text-sm text-soft">{effectiveDate}</p>
+        ) : null}
 
         <div className="legal mt-10">{children}</div>
       </div>
@@ -109,7 +112,26 @@ export function LegalDocView({
       backHref={doc.backHref}
       backLabel={doc.backLabel}
     >
-      {doc.blocks.map((block, i) => {
+      <LegalBlocks blocks={doc.blocks} email={email} />
+    </LegalPage>
+  );
+}
+
+/**
+ * The block renderer on its own. The account-deletion page uses it for its
+ * static explanation and then adds an interactive section below, so the two
+ * pages cannot drift in typography.
+ */
+export function LegalBlocks({
+  blocks,
+  email,
+}: {
+  blocks: LegalBlock[];
+  email: string;
+}) {
+  return (
+    <>
+      {blocks.map((block, i) => {
         switch (block.kind) {
           case 'notice':
             return <LegalNotice key={i} text={block.text} />;
@@ -189,6 +211,6 @@ export function LegalDocView({
             );
         }
       })}
-    </LegalPage>
+    </>
   );
 }
