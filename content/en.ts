@@ -1151,13 +1151,13 @@ export const en = {
      */
     haru: {
       title: 'EZHaru Privacy Policy',
-      effectiveDate: 'August 25, 2026',
+      effectiveDate: 'August 28, 2026',
       backHref: '/haru/',
       backLabel: 'EZHaru',
       blocks: [
         {
           kind: 'callout',
-          text: '**The short version:** EZHaru records audio on your phone, turns it into a transcript, and writes a summary. **We do not keep your content.** Audio, transcripts and summaries are used to produce your notes and then dropped. We never use them to train models, and we never sell or share them for advertising.',
+          text: '**The short version:** EZHaru records audio on your phone, turns it into a transcript, and writes a summary. **We do not store your content.** Your audio, transcripts and summaries are used to produce your notes and are not saved on our servers. The AI provider that does the transcribing and summarising may hold a copy **for up to 30 days**, only to detect abuse and fix faults — and is contractually barred from training on it. We never use your content to train models, and we never sell or share it for advertising.',
         },
         {
           kind: 'text',
@@ -1180,12 +1180,12 @@ export const en = {
             [
               'Audio sent for transcription',
               'Passes through our service to the AI provider',
-              'Not kept — used for the request, then dropped',
+              '**Not stored by us.** The provider may hold it **up to 30 days** for abuse detection and troubleshooting',
             ],
             [
               'Transcript sent for summarizing',
               'Passes through our service to the AI provider',
-              'Not kept — used for the request, then dropped',
+              '**Not stored by us.** The provider may hold it **up to 30 days** for abuse detection and troubleshooting',
             ],
             [
               'A one-way code for your account',
