@@ -1246,15 +1246,25 @@ export const en = {
           kind: 'text',
           text: '**Speaker labels** always use your own AssemblyAI key. Read their terms before you enable it — on their free plan your audio may be used to improve their models, and turning that off requires a paid plan with them.',
         },
+        { kind: 'heading', text: 'Your account' },
+        {
+          kind: 'text',
+          text: 'When you sign in with Google we keep your **email address** and **name** so we can tell accounts apart and answer you if you write to us. Deleting your account deletes them.',
+        },
+        { kind: 'heading', text: 'Diagnostic reports' },
+        {
+          kind: 'text',
+          text: 'If the app runs into a problem it writes a short technical report — the type of error and where it happened. **It stays on your phone.** Nothing is sent automatically. You can choose to send one to us, with a comment, and only then do we receive it. The report never contains your recordings, transcripts, or summaries; please do not paste them into the comment.',
+        },
         { kind: 'heading', text: 'What we do not do' },
         {
           kind: 'list',
           items: [
             'We do **not** keep your audio, transcripts, or summaries.',
             'We do **not** use your content to train models, and our providers are contractually barred from doing so.',
-            'We do **not** collect analytics, advertising identifiers, or crash reports.',
+            'We do **not** collect analytics or advertising identifiers, and nothing is sent automatically when the app has a problem.',
             'We do **not** sell your data, and we do **not** share it with anyone other than the AI provider needed to produce your transcript or summary.',
-            'We do **not** store your name, email address, or password.',
+            'We do **not** store your password. Signing in with Google is handled by Google.',
           ],
         },
         { kind: 'heading', text: 'Third-party services' },
