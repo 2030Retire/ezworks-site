@@ -1401,7 +1401,7 @@ export const en = {
       blocks: [
         {
           kind: 'callout',
-          text: '**There is nothing to fill in.** We do not store your email address or your name, so the only way we can find your account is for you to sign in with the same Google account you use in EZHaru. Signing in identifies the account; the deletion then runs immediately.',
+          text: '**There is nothing to fill in.** Sign in with the same Google account you use in EZHaru. Signing in is what proves the account is yours — we will not delete an account on the strength of an email alone. Once you have signed in, the deletion runs immediately.',
         },
         { kind: 'heading', text: 'What gets deleted' },
         {
@@ -1460,7 +1460,7 @@ export const en = {
         errors: {
           signIn: 'Google sign-in did not complete. Please try again.',
           network:
-            'We could not reach the deletion service. Please try again in a few minutes. If it keeps failing, email us — but note that we cannot delete an account from an email alone, because we do not store your email address.',
+            'We could not reach the deletion service. Please try again in a few minutes. If it keeps failing, email us — but note that we cannot delete an account from an email alone: deletion needs you to sign in, so that we know the request is really yours.',
           auth: 'That sign-in is no longer valid. Please sign in again.',
           generic: 'Something went wrong and nothing was deleted. Please try again.',
         },
