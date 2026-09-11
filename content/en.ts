@@ -1165,7 +1165,7 @@ export const en = {
         },
         {
           kind: 'text',
-          text: 'To give you the included free allowance we keep two things and nothing more: a **one-way code** that stands for your account, and **how much of the allowance is left**. We cannot turn that code back into your name or email address.',
+          text: 'To give you the included free allowance we keep a **one-way code** that stands for your account, **how much of the allowance is left**, and the **email address and name** from your Google sign-in so we can tell accounts apart and answer you if you write to us. Nothing else.',
         },
         { kind: 'heading', text: 'What we keep, and for how long' },
         {
@@ -1211,7 +1211,7 @@ export const en = {
         },
         {
           kind: 'text',
-          text: '**We do not keep:** audio files, transcripts, summaries, titles, file names, your email address, or your name.',
+          text: '**We do not keep:** audio files, transcripts, summaries, titles, or file names.',
         },
         { kind: 'heading', text: 'How your account code works' },
         {
@@ -1221,15 +1221,15 @@ export const en = {
         {
           kind: 'list',
           items: [
-            'We **cannot** recover your email address or name from it.',
+            'The code itself cannot be turned back into your Google account identifier. Your email address and name are kept separately — see **Your account** below.',
             'It lets us count your allowance and recognise you on your next request. That is all it is for.',
-            'If you contact us for support, you can share the short version of this code shown in the app so we can find your allowance. That is your choice — we cannot look you up any other way.',
+            'If you contact us for support, you can share the short version of this code shown in the app so we can find your allowance quickly.',
           ],
         },
         { kind: 'heading', text: 'Where your content goes' },
         {
           kind: 'text',
-          text: '**Recording and saving never involve us.** Audio is captured on your phone and uploaded to your own cloud folder. That works whether or not you are signed in to us.',
+          text: '**Recording and saving never involve us.** Audio is captured on your phone and uploaded to your own cloud folder — it does not pass through our server. You do need to be signed in to use the app, and once you are, recording and playback keep working offline.',
         },
         {
           kind: 'text',
@@ -1309,10 +1309,10 @@ export const en = {
           items: [
             'Google user data is used **only** to provide the features you asked for — recognising your account for the included allowance, and uploading your recordings and notes to your own Google Drive.',
             'We do **not** use Google user data for advertising of any kind.',
-            'We do **not** allow humans to read your Google user data, except where you explicitly ask us to for support, where it is necessary for security purposes such as investigating abuse, or where the law requires it.',
+            'No human reads your **content** — your recordings, transcripts or notes. Your account email address and name are visible to our administrator in an internal view, used only to tell accounts apart and to answer you if you ask for support. Beyond that, access happens only where security requires it, such as investigating abuse, or where the law requires it.',
             'We do **not** sell, rent, or transfer Google user data to anyone.',
             'We request the narrowest Drive scope that works: **drive.file**, which can only see and manage the files EZHaru itself creates. The rest of your Drive is never accessible to the app.',
-            'Your Drive files do **not** pass through our service — they travel from your phone to your own Drive, and we hold no copy. From Google Sign-In we keep only the one-way code described above.',
+            'Your Drive files do **not** pass through our service — they travel from your phone to your own Drive, and we hold no copy. From Google Sign-In we keep the one-way code described above, together with your email address and name.',
           ],
         },
         { kind: 'heading', text: 'Deleting your data' },
