@@ -1408,6 +1408,7 @@ export const en = {
           kind: 'list',
           items: [
             'The **one-way code** that stands for your account on our server.',
+            'Your **email address and name**, and which optional features were turned on for your account.',
             'Your **remaining free allowance** and the record of what you have used. **Any unused minutes are gone.**',
             'Our record of the requests your account made.',
           ],
