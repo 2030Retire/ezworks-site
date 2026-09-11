@@ -1233,6 +1233,14 @@ export const en = {
         },
         {
           kind: 'text',
+          text: '**What goes with a summary request.** To make the summary useful, the request carries context alongside the transcript: the category and any background you wrote, the meeting topic, the **title of a calendar event** that matches the recording time, and a **place label** if you turned locations on. It goes to the AI provider with the transcript and is **not stored by us**.',
+        },
+        {
+          kind: 'text',
+          text: '**Maps.** If you open the map to pin a place, your phone fetches map images from **OpenStreetMap**. That request goes from your phone to them and does not pass through us. We send no identifier with it beyond the app name their policy requires.',
+        },
+        {
+          kind: 'text',
           text: '**Transcription and summarizing use an AI provider.** There are two ways this happens, and you choose:',
         },
         {
