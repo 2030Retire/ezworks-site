@@ -1020,7 +1020,7 @@ export const en = {
     interests: [
       { value: 'services', label: 'Services — automation, integration or implementation' },
       { value: 'haru', label: 'EZHaru' },
-      { value: 'expense', label: 'EZExpense by EZHaru' },
+      { value: 'expense', label: 'EZExpense' },
       { value: 'other', label: 'Something else' },
     ],
     nameLabel: 'Your name',

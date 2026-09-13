@@ -774,7 +774,7 @@ export const ko: Dictionary = {
       meta: {
         title: '제품',
         description:
-          'EZHaru가 직접 만들어 운영하는 소프트웨어입니다. 다지점 회원·수납 EZClass, 음성 기록 EZHaru, 경비·승인 EZExpense.',
+          '저희가 직접 만들어 운영하는 소프트웨어입니다. 다지점 회원·수납 EZClass, 음성 기록 EZHaru, 경비·승인 EZExpense.',
         ogTitle: 'EZHaru 제품',
         ogDescription: '직접 만들어 운영하는 것들 — EZClass · EZHaru · EZExpense.',
       } as PageMeta,
@@ -978,7 +978,7 @@ export const ko: Dictionary = {
           { label: '음성', value: '휴대폰 → 사용자 본인의 OneDrive' },
           { label: '전사', value: '사용자가 본인 API 키로 연결한 AI 서비스' },
           { label: '노트', value: '사용자 폴더 안의 마크다운 파일' },
-          { label: 'EZHaru', value: '서버 없음, 계정 없음, 사본 없음' },
+          { label: '저희', value: '서버 없음, 계정 없음, 사본 없음' },
         ],
       },
       statusHeading: '시작하기 전에 알아두실 것',
@@ -1006,7 +1006,7 @@ export const ko: Dictionary = {
     interests: [
       { value: 'services', label: '서비스 — 자동화, 연동, 도입 지원' },
       { value: 'haru', label: 'EZHaru' },
-      { value: 'expense', label: 'EZExpense by EZHaru' },
+      { value: 'expense', label: 'EZExpense' },
       { value: 'other', label: '그 외' },
     ],
     nameLabel: '이름',
