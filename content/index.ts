@@ -67,7 +67,7 @@ export const organizationJsonLd = {
   '@type': 'Organization',
   name: en.site.name,
   url: en.site.url,
-  logo: `${en.site.url}/ezworks-logo.png`,
+  logo: `${en.site.url}/haru/ezharu-logo.png`,
   email: en.site.email,
   slogan: en.site.tagline,
   description: en.site.description,

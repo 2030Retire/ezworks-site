@@ -28,10 +28,10 @@ import type { DeleteAccountDoc } from '@/content/types';
  *
  * ⚠️ Two things outside this repository have to be true for the call to
  * succeed, and neither can be verified from here:
- *  1. The proxy must send CORS headers for https://ezworks.co on
+ *  1. The proxy must send CORS headers for https://ezharu.co on
  *     POST /v1/account/delete, including an OPTIONS preflight that allows the
  *     Authorization header.
- *  2. https://ezworks.co must be an authorised JavaScript origin on the Google
+ *  2. https://ezharu.co must be an authorised JavaScript origin on the Google
  *     OAuth **web** client below, or Google refuses to issue a token here.
  * When either is missing the user sees `errors.network`, never a silent
  * failure.

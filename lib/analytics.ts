@@ -3,7 +3,7 @@
  *
  * No provider is wired up, and none may be hardcoded here. This module only
  * names the events and dispatches them as a DOM CustomEvent, so a provider can
- * be attached later by listening for `ezworks:track` — without touching any
+ * be attached later by listening for `ezharu:track` — without touching any
  * component.
  */
 
@@ -16,7 +16,7 @@ export const analyticsEvents = {
 export type AnalyticsEvent =
   (typeof analyticsEvents)[keyof typeof analyticsEvents];
 
-export const TRACK_EVENT_NAME = 'ezworks:track';
+export const TRACK_EVENT_NAME = 'ezharu:track';
 
 export function track(
   event: AnalyticsEvent,
