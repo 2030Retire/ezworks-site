@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { getContent } from '@/content';
 import type { Lang } from '@/content/types';
@@ -11,16 +12,14 @@ export function Footer({ lang }: { lang: Lang }) {
       <div className="mx-auto max-w-content px-5 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            {/* Text wordmark, matching the header — see the note there. */}
-            <p className="text-2xl font-extrabold leading-none tracking-tight text-ink">
-              {site.name.startsWith('EZ') ? (
-                <>
-                  EZ<span className="text-brand">{site.name.slice(2)}</span>
-                </>
-              ) : (
-                site.name
-              )}
-            </p>
+            {/* Same cropped lockup as the header — see the note there. */}
+            <Image
+              src="/ezharu-wordmark.png"
+              alt={site.name}
+              width={894}
+              height={318}
+              className="h-12 w-auto"
+            />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-soft">
               {ui.footerBlurb}
             </p>

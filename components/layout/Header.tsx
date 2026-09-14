@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -50,21 +51,20 @@ export function Header({
           className="flex shrink-0 items-center gap-2.5"
           aria-label={strings.homeAriaLabel}
         >
-          {/* A text wordmark, set in the site's own typography. The only
-              EZHaru artwork we hold is the app icon, which is square and
-              carries its own small "Haru" lettering — at this size that
-              lettering is a smudge. Text stays legible at any font scale, and
-              it is the site name from the dictionary rather than a second copy
-              of it baked into a PNG. */}
-          <span className="text-[1.375rem] font-extrabold leading-none tracking-tight text-ink sm:text-2xl">
-            {siteName.startsWith('EZ') ? (
-              <>
-                EZ<span className="text-brand">{siteName.slice(2)}</span>
-              </>
-            ) : (
-              siteName
-            )}
-          </span>
+          {/* The company lockup with the "Making every workday easier." line
+              cropped off. That line is not the site's tagline — the copy says
+              "Groundwork before automation." — and a tagline must not re-enter
+              through the logo, which is how the retired "Work, Simplified."
+              kept coming back. Alt is empty because the link already carries
+              an accessible name. */}
+          <Image
+            src="/ezharu-wordmark.png"
+            alt=""
+            width={894}
+            height={318}
+            className="h-9 w-auto sm:h-10"
+            priority
+          />
         </Link>
 
         <nav aria-label={strings.primaryNavLabel} className="ml-auto hidden md:block">
