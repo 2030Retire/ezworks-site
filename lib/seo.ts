@@ -48,7 +48,7 @@ export function pageMetadata(lang: Lang, route: string, meta: PageMeta): Metadat
   const { site } = getContent(lang);
   return {
     // The home page title already contains the site name. English escapes the
-    // layout's `%s · EZHaru` template by sharing a segment with the layout;
+    // layout's `%s · EZWorks` template by sharing a segment with the layout;
     // Korean sits one segment deeper, so it has to opt out explicitly for the
     // two locales to render the same shape.
     title: route === '/' ? { absolute: meta.title } : meta.title,

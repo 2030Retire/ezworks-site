@@ -12,13 +12,12 @@ export function Footer({ lang }: { lang: Lang }) {
       <div className="mx-auto max-w-content px-5 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            {/* Same cropped lockup as the header — see the note there. */}
             <Image
-              src="/ezharu-wordmark.png"
+              src="/ezworks-logo.png"
               alt={site.name}
-              width={1230}
-              height={401}
-              className="h-12 w-auto"
+              width={490}
+              height={143}
+              className="h-11 w-auto"
             />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-soft">
               {ui.footerBlurb}

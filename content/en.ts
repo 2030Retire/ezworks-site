@@ -21,12 +21,12 @@ import type {
  */
 export const en = {
   site: {
-    name: 'EZHaru',
+    name: 'EZWorks',
     tagline: 'Groundwork before automation.',
     description:
-      'EZHaru builds practical software and automation for small companies — and the people who run them.',
-    url: 'https://ezharu.co',
-    email: 'Help@ezharu.co',
+      'EZWorks builds practical software and automation for small companies — and the people who run them.',
+    url: 'https://ezworks.co',
+    email: 'Help@ezworks.co',
     /** Country only. Never a street, city, postal code or phone number. */
     country: 'United States',
     copyrightYear: 2026,
@@ -35,7 +35,7 @@ export const en = {
   /** Chrome that appears on every page. */
   ui: {
     skipToContent: 'Skip to content',
-    homeAriaLabel: 'EZHaru home',
+    homeAriaLabel: 'EZWorks home',
     primaryNavLabel: 'Primary',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
@@ -84,7 +84,7 @@ export const en = {
   /** Narrative content for the home page, in the order it is rendered. */
   home: {
     hero: {
-      eyebrow: 'EZHaru · United States',
+      eyebrow: 'EZWorks · United States',
       headline: 'Groundwork before AI',
       image: {
         src: '/photo/hero.jpg',
@@ -579,7 +579,7 @@ export const en = {
     },
     {
       slug: 'expense',
-      name: 'EZExpense by EZHaru',
+      name: 'EZWorks Expense',
       tagline: 'Receipts in. Bookkeeping done.',
       description:
         'A receipt and expense workflow for companies that still move numbers by hand: capture, read, route for approval, and hand off to accounting.',
@@ -606,7 +606,7 @@ export const en = {
         },
       ],
       cta: { label: 'Get in touch about Expense', href: '/contact/?interest=expense' },
-      seoTitle: 'EZExpense by EZHaru — receipt and expense workflow for small companies',
+      seoTitle: 'EZWorks Expense — receipt and expense workflow for small companies',
       seoDescription:
         'Capture receipts, read them automatically, route approvals by your own rules, and hand off to accounting. Get in touch about putting it to work.',
     },
@@ -774,7 +774,7 @@ export const en = {
   pages: {
     home: {
       meta: {
-        title: 'EZHaru — Groundwork before automation',
+        title: 'EZWorks — Groundwork before automation',
         description:
           'Define the work, make it leave records, move repeated judgements to the system. AI comes after that.',
       } as PageMeta,
@@ -784,9 +784,9 @@ export const en = {
       meta: {
         title: 'Products',
         description:
-          'Software we build and run ourselves. EZClass for multi-site membership and billing, EZHaru for voice records, EZExpense for expenses and approval.',
-        ogTitle: 'EZHaru products',
-        ogDescription: 'What we build and run ourselves — EZClass · EZHaru · EZExpense.',
+          'Software we build and run ourselves. EZClass for multi-site membership and billing, EZHaru for voice records, EZWorks Expense for expenses and approval.',
+        ogTitle: 'EZWorks products',
+        ogDescription: 'What we build and run ourselves — EZClass · EZHaru · EZWorks Expense.',
       } as PageMeta,
       eyebrow: 'Products',
       title: 'Built while applying the procedure to our own work.',
@@ -813,7 +813,7 @@ export const en = {
         title: 'Services — assessment, systems, integration, automatic decisions',
         description:
           'Assessment and definition, operational systems, integration and visibility, automatic decisions. Each area carries the work actually done in it.',
-        ogTitle: 'EZHaru services',
+        ogTitle: 'EZWorks services',
         ogDescription:
           'Four areas, each with the work actually done in it. What we can do and what we have done, in the same place.',
       } as PageMeta,
@@ -838,8 +838,8 @@ export const en = {
       meta: {
         title: 'About',
         description:
-          'EZHaru is an independent software studio building practical tools and automation for small companies — and for the people who run them.',
-        ogTitle: 'About EZHaru',
+          'EZWorks is an independent software studio building practical tools and automation for small companies — and for the people who run them.',
+        ogTitle: 'About EZWorks',
         ogDescription:
           'An independent software studio building practical tools and automation for small companies without an IT department.',
       } as PageMeta,
@@ -850,7 +850,7 @@ export const en = {
         subject: 'About photograph — a workspace or site, a person may appear. 3:2, 1400px wide or more',
       },
       title: 'We start with defining the work.',
-      lede: 'EZHaru is a software studio in Georgia, United States. For organisations whose procedure lives in people rather than documents, we run the work to one standard — from definition through to a system that operates.',
+      lede: 'EZWorks is a software studio in Georgia, United States. For organisations whose procedure lives in people rather than documents, we run the work to one standard — from definition through to a system that operates.',
       factsTitle: 'At a glance',
       facts: [
         { term: 'Based in', detail: 'Georgia, United States' },
@@ -932,7 +932,7 @@ export const en = {
         title: 'Contact',
         description:
           'Tell us about the process that costs you the most time. We read every message ourselves.',
-        ogTitle: 'Contact EZHaru',
+        ogTitle: 'Contact EZWorks',
         ogDescription:
           'Tell us about the process that costs you the most time.',
       } as PageMeta,
@@ -1020,7 +1020,7 @@ export const en = {
     interests: [
       { value: 'services', label: 'Services — automation, integration or implementation' },
       { value: 'haru', label: 'EZHaru' },
-      { value: 'expense', label: 'EZExpense' },
+      { value: 'expense', label: 'EZWorks Expense' },
       { value: 'other', label: 'Something else' },
     ],
     nameLabel: 'Your name',
@@ -1064,12 +1064,12 @@ export const en = {
   },
 
   legal: {
-    /** Website privacy policy — covers ezharu.co itself. */
+    /** Website privacy policy — covers ezworks.co itself. */
     website: {
       title: 'Website Privacy',
       effectiveDate: 'August 14, 2026',
       backHref: '/',
-      backLabel: 'EZHaru',
+      backLabel: 'EZWorks',
       blocks: [
         {
           kind: 'callout',
@@ -1078,7 +1078,7 @@ export const en = {
         { kind: 'heading', text: 'Scope' },
         {
           kind: 'text',
-          text: 'This policy covers the ezharu.co website. Our EZHaru mobile app is covered by its own separate policy — [read the EZHaru privacy policy](/haru/privacy/).',
+          text: 'This policy covers the ezworks.co website. Our EZHaru mobile app is covered by its own separate policy — [read the EZHaru privacy policy](/haru/privacy/).',
         },
         { kind: 'heading', text: 'What this site does not do' },
         {
@@ -1132,7 +1132,7 @@ export const en = {
     websiteMeta: {
       title: 'Website Privacy',
       description:
-        'How ezharu.co handles data: no analytics, no tracking scripts, no advertising cookies, and no third-party fonts. The only personal data we receive is what you send us.',
+        'How ezworks.co handles data: no analytics, no tracking scripts, no advertising cookies, and no third-party fonts. The only personal data we receive is what you send us.',
     } as PageMeta,
 
     /**

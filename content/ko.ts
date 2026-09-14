@@ -24,19 +24,19 @@ import type {
  */
 export const ko: Dictionary = {
   site: {
-    name: 'EZHaru',
+    name: 'EZWorks',
     tagline: '자동화 이전의 기초 공사.',
     description:
       '업무를 정의하고, 기록이 남게 만들고, 반복되는 판단을 시스템으로 넘깁니다. AI는 그다음입니다.',
-    url: 'https://ezharu.co',
-    email: 'Help@ezharu.co',
+    url: 'https://ezworks.co',
+    email: 'Help@ezworks.co',
     country: '미국',
     copyrightYear: 2026,
   },
 
   ui: {
     skipToContent: '본문 바로가기',
-    homeAriaLabel: 'EZHaru 홈',
+    homeAriaLabel: 'EZWorks 홈',
     primaryNavLabel: '주요 메뉴',
     openMenu: '메뉴 열기',
     closeMenu: '메뉴 닫기',
@@ -83,7 +83,7 @@ export const ko: Dictionary = {
 
   home: {
     hero: {
-      eyebrow: 'EZHaru · 미국',
+      eyebrow: 'EZWorks · 미국',
       headline: 'AI 이전의 기초 공사',
       image: {
         src: '/photo/hero.jpg',
@@ -577,7 +577,7 @@ export const ko: Dictionary = {
     },
     {
       slug: 'expense',
-      name: 'EZExpense by EZHaru',
+      name: 'EZWorks Expense',
       tagline: '영수증만 넣으면 장부까지.',
       description:
         '아직 숫자를 손으로 옮기는 회사를 위한 영수증·경비 처리입니다. 찍고, 판독하고, 규칙대로 결재를 올리고, 회계로 넘깁니다.',
@@ -604,7 +604,7 @@ export const ko: Dictionary = {
         },
       ],
       cta: { label: 'Expense 문의', href: '/contact/?interest=expense' },
-      seoTitle: 'EZExpense by EZHaru — 작은 회사를 위한 영수증·경비 처리',
+      seoTitle: 'EZWorks Expense — 작은 회사를 위한 영수증·경비 처리',
       seoDescription:
         '영수증을 찍으면 자동으로 판독하고, 회사 규칙대로 결재를 올리고, 회계로 넘깁니다. 도입 문의는 연락 주시면 됩니다.',
     },
@@ -764,7 +764,7 @@ export const ko: Dictionary = {
   pages: {
     home: {
       meta: {
-        title: 'EZHaru — 자동화 이전의 기초 공사',
+        title: 'EZWorks — 자동화 이전의 기초 공사',
         description:
           '업무를 정의하고, 기록이 남게 만들고, 반복되는 판단을 시스템으로 넘깁니다. AI는 그다음입니다.',
       } as PageMeta,
@@ -774,9 +774,9 @@ export const ko: Dictionary = {
       meta: {
         title: '제품',
         description:
-          '저희가 직접 만들어 운영하는 소프트웨어입니다. 다지점 회원·수납 EZClass, 음성 기록 EZHaru, 경비·승인 EZExpense.',
-        ogTitle: 'EZHaru 제품',
-        ogDescription: '직접 만들어 운영하는 것들 — EZClass · EZHaru · EZExpense.',
+          'EZWorks가 직접 만들어 운영하는 소프트웨어입니다. 다지점 회원·수납 EZClass, 음성 기록 EZHaru, 경비·승인 EZWorks Expense.',
+        ogTitle: 'EZWorks 제품',
+        ogDescription: '직접 만들어 운영하는 것들 — EZClass · EZHaru · EZWorks Expense.',
       } as PageMeta,
       eyebrow: '제품',
       title: '절차를 우리 업무에 적용하며 만든 것들.',
@@ -803,7 +803,7 @@ export const ko: Dictionary = {
         title: '서비스 — 진단 · 시스템 구축 · 연동 · 자동 판정',
         description:
           '진단과 요구정의, 업무 시스템 구축, 연동과 운영 가시성, 자동 판정 도입. 각 영역마다 실제로 진행한 사례를 함께 적었습니다.',
-        ogTitle: 'EZHaru 서비스',
+        ogTitle: 'EZWorks 서비스',
         ogDescription:
           '네 영역과 각 영역의 실제 사례. 무엇을 할 수 있는지와 무엇을 했는지를 같은 자리에 적었습니다.',
       } as PageMeta,
@@ -828,14 +828,14 @@ export const ko: Dictionary = {
       meta: {
         title: '회사 소개',
         description:
-          'EZHaru는 미국 조지아에 있는 소프트웨어 스튜디오입니다. 업무 정의에서 시작해 데이터가 쌓이는 구조까지, 그리고 반복되는 판단을 시스템으로 넘기는 일까지 맡습니다.',
-        ogTitle: 'EZHaru 소개',
+          'EZWorks는 미국 조지아에 있는 소프트웨어 스튜디오입니다. 업무 정의에서 시작해 데이터가 쌓이는 구조까지, 그리고 반복되는 판단을 시스템으로 넘기는 일까지 맡습니다.',
+        ogTitle: 'EZWorks 소개',
         ogDescription:
           '미국 조지아. 업무 정의에서 시작해 데이터가 쌓이는 구조까지.',
       } as PageMeta,
       eyebrow: '회사 소개',
       title: '업무를 정의하는 일부터 맡습니다.',
-      lede: 'EZHaru는 미국 조지아에 있는 소프트웨어 스튜디오입니다. 업무 절차가 문서가 아니라 사람에게 있는 조직을 위해, 정의에서 시작해 동작하는 시스템까지 같은 기준으로 진행합니다.',
+      lede: 'EZWorks는 미국 조지아에 있는 소프트웨어 스튜디오입니다. 업무 절차가 문서가 아니라 사람에게 있는 조직을 위해, 정의에서 시작해 동작하는 시스템까지 같은 기준으로 진행합니다.',
       image: {
         src: '/photo/about.jpg',
         alt: '현장에서 업무 흐름을 확인하며 메모하는 모습',
@@ -920,7 +920,7 @@ export const ko: Dictionary = {
         title: '문의',
         description:
           '가장 많은 시간을 잡아먹는 업무를 알려주시면 됩니다. 모든 메시지를 저희가 직접 읽습니다.',
-        ogTitle: 'EZHaru 문의',
+        ogTitle: 'EZWorks 문의',
         ogDescription:
           '가장 많은 시간을 잡아먹는 업무를 알려주시면 됩니다.',
       } as PageMeta,
@@ -978,7 +978,7 @@ export const ko: Dictionary = {
           { label: '음성', value: '휴대폰 → 사용자 본인의 OneDrive' },
           { label: '전사', value: '사용자가 본인 API 키로 연결한 AI 서비스' },
           { label: '노트', value: '사용자 폴더 안의 마크다운 파일' },
-          { label: '저희', value: '서버 없음, 계정 없음, 사본 없음' },
+          { label: 'EZWorks', value: '서버 없음, 계정 없음, 사본 없음' },
         ],
       },
       statusHeading: '시작하기 전에 알아두실 것',
@@ -1006,7 +1006,7 @@ export const ko: Dictionary = {
     interests: [
       { value: 'services', label: '서비스 — 자동화, 연동, 도입 지원' },
       { value: 'haru', label: 'EZHaru' },
-      { value: 'expense', label: 'EZExpense' },
+      { value: 'expense', label: 'EZWorks Expense' },
       { value: 'other', label: '그 외' },
     ],
     nameLabel: '이름',
@@ -1047,7 +1047,7 @@ export const ko: Dictionary = {
       title: '웹사이트 개인정보처리방침',
       effectiveDate: '2026년 8월 14일',
       backHref: '/',
-      backLabel: 'EZHaru',
+      backLabel: 'EZWorks',
       blocks: [
         {
           kind: 'notice',
@@ -1060,7 +1060,7 @@ export const ko: Dictionary = {
         { kind: 'heading', text: '적용 범위' },
         {
           kind: 'text',
-          text: '이 방침은 ezharu.co 웹사이트에 적용됩니다. EZHaru 모바일 앱에는 별도의 방침이 적용됩니다 — [EZHaru 개인정보처리방침 보기](/haru/privacy/).',
+          text: '이 방침은 ezworks.co 웹사이트에 적용됩니다. EZHaru 모바일 앱에는 별도의 방침이 적용됩니다 — [EZHaru 개인정보처리방침 보기](/haru/privacy/).',
         },
         { kind: 'heading', text: '이 사이트가 하지 않는 것' },
         {
@@ -1114,7 +1114,7 @@ export const ko: Dictionary = {
     websiteMeta: {
       title: '웹사이트 개인정보처리방침',
       description:
-        'ezharu.co의 데이터 처리 방식입니다. 분석 도구, 추적 스크립트, 광고 쿠키, 외부 폰트를 사용하지 않습니다. 저희가 받는 개인정보는 직접 보내주신 내용뿐입니다.',
+        'ezworks.co의 데이터 처리 방식입니다. 분석 도구, 추적 스크립트, 광고 쿠키, 외부 폰트를 사용하지 않습니다. 저희가 받는 개인정보는 직접 보내주신 내용뿐입니다.',
     } as PageMeta,
 
     /**

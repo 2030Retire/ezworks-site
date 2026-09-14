@@ -51,18 +51,16 @@ export function Header({
           className="flex shrink-0 items-center gap-2.5"
           aria-label={strings.homeAriaLabel}
         >
-          {/* The company lockup with the "Making every workday easier." line
-              cropped off. That line is not the site's tagline — the copy says
-              "Groundwork before automation." — and a tagline must not re-enter
-              through the logo, which is how the retired "Work, Simplified."
-              kept coming back. Alt is empty because the link already carries
-              an accessible name. */}
+          {/* The full lockup, with the old "Work, Simplified." tagline cropped
+              off — that line was replaced in the copy and should not come back
+              through the logo. Alt is empty because the link already carries an
+              accessible name. */}
           <Image
-            src="/ezharu-wordmark.png"
+            src="/ezworks-wordmark.png"
             alt=""
-            width={1230}
-            height={401}
-            className="h-9 w-auto sm:h-10"
+            width={486}
+            height={143}
+            className="h-7 w-auto sm:h-8"
             priority
           />
         </Link>
