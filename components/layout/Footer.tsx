@@ -16,8 +16,8 @@ export function Footer({ lang }: { lang: Lang }) {
             <Image
               src="/ezharu-wordmark.png"
               alt={site.name}
-              width={894}
-              height={318}
+              width={1230}
+              height={401}
               className="h-12 w-auto"
             />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-soft">

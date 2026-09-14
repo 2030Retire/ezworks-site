@@ -60,8 +60,8 @@ export function Header({
           <Image
             src="/ezharu-wordmark.png"
             alt=""
-            width={894}
-            height={318}
+            width={1230}
+            height={401}
             className="h-9 w-auto sm:h-10"
             priority
           />
