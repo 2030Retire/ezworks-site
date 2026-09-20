@@ -1,0 +1,22 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "/ko/haru/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "https://ezharu.co/ko/products/recorder/$1"
+      }
+    },
+    {
+      "src": "/haru/(.*)",
+      "status": 301,
+      "headers": {
+        "Location": "https://ezharu.co/products/recorder/$1"
+      }
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}
