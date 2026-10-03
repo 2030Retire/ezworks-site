@@ -1,0 +1,88 @@
+{
+    "hooks":  {
+                  "SessionStart":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "python C:/Users/Hoon/.claude/hooks/rule_lint.py C:/Users/Hoon/.claude/CLAUDE.md"
+                                                         }
+                                                     ]
+                                       }
+                                   ],
+                  "UserPromptSubmit":  [
+                                           {
+                                               "hooks":  [
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "python C:/Users/Hoon/.claude/hooks/turn_start.py"
+                                                             },
+                                                             {
+                                                                 "type":  "command",
+                                                                 "command":  "python C:/Users/Hoon/.claude/hooks/secret_guard.py"
+                                                             }
+                                                         ]
+                                           }
+                                       ],
+                  "PreToolUse":  [
+                                     {
+                                         "matcher":  "Write|Edit|NotebookEdit|Bash|PowerShell|mcp__.*",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python C:/Users/Hoon/.claude/hooks/path_gate.py"
+                                                       }
+                                                   ]
+                                     },
+                                     {
+                                         "matcher":  "Write|Edit",
+                                         "hooks":  [
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python C:/Users/Hoon/.claude/hooks/secret_guard.py"
+                                                       },
+                                                       {
+                                                           "type":  "command",
+                                                           "command":  "python C:/Users/Hoon/.claude/hooks/decision_guard.py"
+                                                       }
+                                                   ]
+                                     }
+                                 ],
+                  "Stop":  [
+                               {
+                                   "hooks":  [
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "python C:/Users/Hoon/.claude/hooks/stop_gate.py"
+                                                 },
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "python C:/Users/Hoon/.claude/hooks/verify_gate.py"
+                                                 },
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "python C:/Users/Hoon/.claude/hooks/mockup_gate.py"
+                                                 },
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "python C:/Users/Hoon/.claude/hooks/report_lint.py"
+                                                 },
+                                                 {
+                                                     "type":  "command",
+                                                     "command":  "python C:/Users/Hoon/.claude/hooks/board.py"
+                                                 }
+                                             ]
+                               }
+                           ],
+                  "SubagentStop":  [
+                                       {
+                                           "hooks":  [
+                                                         {
+                                                             "type":  "command",
+                                                             "command":  "python C:/Users/Hoon/.claude/hooks/subagent_gate.py"
+                                                         }
+                                                     ]
+                                       }
+                                   ]
+              }
+}
