@@ -1,0 +1,22 @@
+node_modules/
+.next/
+.next-dev/
+.next-stale/
+out/
+*.png.tmp
+home-desktop.png
+home-mobile.png
+class-desktop.png
+review-check.png
+*-check.png
+.edge-check*/
+
+.vercel
+.env*
+
+# 2026-11-01 git 편입 때 추가 — 확인용 캡처·배포 점검 파일·빌드 산출물
+/*.png
+.vercel-*
+.next-stale/
+tsconfig.tsbuildinfo
+/s.src*

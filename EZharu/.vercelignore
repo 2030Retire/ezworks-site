@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.next-dev/
+.next-stale/
+out/
+.edge-check*/
+/*.png
+/.vercel-preview-*.html
+.env*
