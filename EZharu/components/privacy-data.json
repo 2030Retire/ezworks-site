@@ -1,7 +1,7 @@
 {
   "en": {
     "title": "EZHaru Privacy Policy",
-    "effectiveDate": "August 28, 2026",
+    "effectiveDate": "November 1, 2026",
     "backHref": "/haru/",
     "backLabel": "EZHaru",
     "blocks": [
@@ -68,7 +68,7 @@
       },
       {
         "kind": "text",
-        "text": "**We do not keep:** audio files, transcripts, summaries, titles, or file names."
+        "text": "**We do not keep:** audio files, transcripts, summaries, **photos**, **attached files**, titles, or file names."
       },
       {
         "kind": "heading",
@@ -118,6 +118,14 @@
         "text": "**Speaker labels** always use your own AssemblyAI key. Read their terms before you enable it — on their free plan your audio may be used to improve their models, and turning that off requires a paid plan with them."
       },
       {
+        "kind": "text",
+        "text": "**Photos you take in the app stay on your phone unless you choose otherwise.** Photos are saved to your device's shared Pictures folder. They are **not** included in a summary by default. If you turn on *Include photos* for a recording, those images pass through our service to the AI provider along with the transcript, and the result comes back to your phone. **We do not keep them.** The originals stay on your phone and remain yours to delete."
+      },
+      {
+        "kind": "text",
+        "text": "**Files you attach to a summary pass through us to the AI provider.** When you attach a document — a PDF, a slide deck, meeting notes — its contents are sent with the transcript so the summary can use them. If a document is mostly images (scanned pages, slides), the app sends those pages as images so their content can be read. **We do not keep attachments.** They pass through in memory and are gone when the request finishes. The AI provider may hold them briefly — see *Third-party services* below for how long."
+      },
+      {
         "kind": "heading",
         "text": "Your account"
       },
@@ -140,7 +148,7 @@
       {
         "kind": "list",
         "items": [
-          "We do **not** keep your audio, transcripts, or summaries.",
+          "We do **not** keep your audio, transcripts, summaries, photos, or attached files.",
           "We do **not** use your content to train models, and our providers are contractually barred from doing so.",
           "We do **not** collect analytics or advertising identifiers, and nothing is sent automatically when the app has a problem.",
           "We do **not** sell your data, and we do **not** share it with anyone other than the AI provider needed to produce your transcript or summary.",
@@ -288,7 +296,7 @@
       {
         "kind": "list",
         "items": [
-          "**In the app:** Settings → your plan → Delete my account.",
+          "**In the app:** Settings → your plan → Delete my account data.",
           "**Without installing the app:** [delete your account on this website](/haru/delete-account/)."
         ]
       },
@@ -351,7 +359,7 @@
   },
   "ko": {
     "title": "EZHaru 개인정보처리방침",
-    "effectiveDate": "2026년 8월 28일",
+    "effectiveDate": "2026년 11월 1일",
     "backHref": "/ko/haru/",
     "backLabel": "EZHaru",
     "blocks": [
@@ -422,7 +430,7 @@
       },
       {
         "kind": "text",
-        "text": "**저희가 보관하지 않는 것:** 음성 파일, 전사본, 요약, 제목, 파일명."
+        "text": "**저희가 보관하지 않는 것:** 음성 파일, 전사본, 요약, **사진**, **첨부 파일**, 제목, 파일명."
       },
       {
         "kind": "heading",
@@ -472,6 +480,14 @@
         "text": "**화자 구분**은 항상 사용자 본인의 AssemblyAI 키를 사용합니다. 켜기 전에 해당 서비스의 약관을 확인하세요. 무료 요금제에서는 음성이 모델 개선에 사용될 수 있고, 이를 끄려면 해당 서비스의 유료 요금제가 필요합니다."
       },
       {
+        "kind": "text",
+        "text": "**앱에서 찍은 사진은 사용자가 따로 선택하지 않는 한 휴대폰에만 있습니다.** 사진은 기기의 공용 사진(Pictures) 폴더에 저장됩니다. 요약에는 **기본적으로 포함되지 않습니다.** 녹음에서 *사진 포함* 을 켜시면 그 사진이 전사본과 함께 저희 서비스를 거쳐 AI 제공자에게 전달되고, 결과가 휴대폰으로 돌아옵니다. **저희는 사진을 저장하지 않습니다.** 원본은 휴대폰에 남으며 언제든 직접 지우실 수 있습니다."
+      },
+      {
+        "kind": "text",
+        "text": "**요약에 첨부한 파일은 저희를 거쳐 AI 제공자에게 전달됩니다.** PDF·슬라이드·회의 자료 같은 문서를 첨부하시면 요약이 그 내용을 쓸 수 있도록 전사본과 함께 보냅니다. 문서가 대부분 이미지(스캔 페이지·슬라이드)라면 내용을 읽을 수 있도록 그 페이지를 이미지로 보냅니다. **저희는 첨부 파일을 저장하지 않습니다.** 요청을 처리하는 동안 메모리에만 있다가 끝나면 사라집니다. AI 제공자가 잠시 보관할 수 있으며, 기간은 아래 *제3자 서비스* 를 참고하세요."
+      },
+      {
         "kind": "heading",
         "text": "계정 정보"
       },
@@ -494,7 +510,7 @@
       {
         "kind": "list",
         "items": [
-          "음성, 전사본, 요약을 **보관하지 않습니다**.",
+          "음성, 전사본, 요약, 사진, 첨부 파일을 **보관하지 않습니다**.",
           "사용자 콘텐츠를 모델 학습에 **사용하지 않으며**, 제공자도 계약상 그렇게 할 수 없습니다.",
           "분석 도구와 광고 식별자를 **수집하지 않으며**, 앱에 문제가 생겨도 자동으로 전송되는 것은 없습니다.",
           "데이터를 **판매하지 않으며**, 전사와 요약을 만드는 데 필요한 AI 제공자 외의 누구와도 **공유하지 않습니다**.",
@@ -642,7 +658,7 @@
       {
         "kind": "list",
         "items": [
-          "**앱에서:** 설정 → 요금제 → 계정 삭제.",
+          "**앱에서:** 설정(Settings) → 요금제(your plan) → Delete my account data.",
           "**앱을 설치하지 않고:** [이 웹사이트에서 계정 삭제](/ko/haru/delete-account/)."
         ]
       },
