@@ -1,0 +1,165 @@
+<!--
+  EZHaru form template.
+  Source: form_loan_borrower_intake.html (bundled in the app)
+  sha256: 85710c75e39d8d4b0b71199d54bf1b68e9ece2a8f65e6698d192b9951fbe8a1a
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Borrower intake</title>
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --gap:#93321f; --gapbg:#fbf0ec;
+    --legal:#1f5133; --legalbg:#eef5f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+  .legal{margin:24px 0 4px;padding:15px 17px;background:var(--legalbg);
+         border:1px solid var(--rule);border-left:4px solid var(--legal)}
+  .legal .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                 color:var(--legal);font-weight:700;display:block;margin-bottom:6px}
+  .legal .vval{font-size:18px;font-weight:700}
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+  .blockers .item{background:var(--gapbg);border-left:3px solid var(--gap);
+                  padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .blockers .c{color:var(--gap);font-weight:700}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="docmeta">
+    <span>Borrower intake</span>
+    <span>EZHaru</span>
+  </div>
+
+  <h1>{{borrower_name|Borrower}}</h1>
+
+  <!-- ⛔⛔ **SSN·생년월일 전체·계좌번호 칸을 만들지 않았다** (설계 §3.2 · 2026-09-20).
+       말해진 것을 지울 수는 없지만, 그것을 구조화된 필드로 옮겨 적어 **카드·요약·클라우드
+       `.md` 에 한 번 더 복제하는 일**은 하지 않을 수 있다. ▶ 칸이 없으면 복제도 없다.
+       ⚠️ 연락처는 __human__ 이다 — 말소리에서 받아적은 숫자가 틀리면 다음 녹음이 다른
+         차주에게 붙는다(고객카드와 같은 판단). -->
+  <dl class="grid">
+    <div class="f"><dt>Borrower</dt><dd>{{borrower_name|Borrower}}</dd></div>
+  <!-- ★★★ **연락처는 채워 주고 사람이 확인한다** (2026-11-16 Hoon 정정 · 리얼터와 같은 규율).
+       ⛔⛔ 종전에는 `__human__` 이라 들린 번호를 버렸다. 그러면 사람이 녹음을 다시 들어
+         받아적어야 한다 — 빈 칸이 나은 일이 아니다.
+       ▶ 가르는 선은 *"채울 것인가"* 가 아니라 **그 값을 대조 열쇠로 쓸 것인가** 다:
+         ① 통화 녹음 파일 이름의 번호 · ② 사람이 친 것 → ✅ 열쇠
+         ③ 녹음에서 들린 것 → 카드에는 적되 ⛔ `clients.phone_norm` 에는 확인 후 -->
+    <div class="f"><dt>Phone</dt><dd>{{phone|Phone number as spoken — leave blank if not said}}</dd></div>
+    <div class="f"><dt>Email</dt><dd>{{email|Email as spoken — leave blank if not said}}</dd></div>
+    <div class="f"><dt>Date</dt><dd>{{consult_date|Date of this conversation}}</dd></div>
+  </dl>
+
+  <h2>Loan</h2>
+  <dl class="grid">
+    <div class="f"><dt>Purpose</dt>
+      <dd>{{purpose|Loan purpose|Purchase|Refinance|Cash-out refinance|Not discussed}}</dd></div>
+    <div class="f"><dt>Occupancy</dt>
+      <dd>{{occupancy|Occupancy|Primary residence|Second home|Investment|Not discussed}}</dd></div>
+    <div class="f"><dt>Price range they stated</dt><dd>{{price_band|Price range they stated}}</dd></div>
+    <div class="f"><dt>Down payment they stated</dt><dd>{{down_payment|Down payment they stated}}</dd></div>
+    <div class="f"><dt>Target monthly payment</dt><dd>{{monthly_target|Target monthly payment}}</dd></div>
+    <div class="f"><dt>Timeline they stated</dt><dd>{{timeline|Timeline they stated}}</dd></div>
+  </dl>
+
+  <h2>Income and funds</h2>
+  <p class="hint">What they said, in their words. Amounts as spoken — nothing is calculated here.</p>
+  <dl class="grid">
+    <div class="f"><dt>Income type</dt>
+      <dd>{{income_type|Income type|W-2 employee|Self-employed|Both|Retired|Other|Not discussed}}</dd></div>
+    <div class="f"><dt>Income as stated</dt><dd>{{income_stated|Income as stated}}</dd></div>
+    <div class="f"><dt>Source of down payment</dt>
+      <dd>{{funds_source|Source of funds|Savings|Gift|Sale of asset|Retirement|Other|Not discussed}}</dd></div>
+    <div class="f"><dt>Other debts they mentioned</dt><dd>{{debts|Other debts they mentioned}}</dd></div>
+    <div class="f wide"><dt>Credit — what they said about it</dt>
+      <dd>{{credit_notes|What the borrower said about their credit}}</dd></div>
+  </dl>
+
+  <!-- ⛔⛔ **이 칸은 값이 아니라 "어디까지 확인됐나" 다** (설계 §3 · TRID 6항목 카운터).
+       그리고 ⛔ **SSN 은 유무조차 칸으로 두지 않았다** — 그 칸이 있으면 누군가는 숫자를 적는다.
+       ⚠️ 신청 완성 판정은 **우리가 하지 않는다**(§1.3) — 그래서 __human__ 이다. -->
+  <div class="legal">
+    <span class="vlabel">Application status
+      <span style="font-weight:400;letter-spacing:0;text-transform:none">— the loan officer fills this in</span></span>
+    <span class="vval">{{app_status|Application status __human__|Not started|Information gathered, not submitted|Application taken}}</span>
+    <div style="margin-top:6px;font-size:13.5px;color:var(--ink2)">
+      Pre-approval: {{preapproval|Pre-approval status __human__|Not requested|Requested|Issued}}
+    </div>
+  </div>
+
+  <h2>What they asked</h2>
+  <p class="hint">Every question the borrower asked, and what was said in reply.</p>
+  {{#questions|Questions the borrower asked and the answers given|max=20}}
+  <div class="item">
+    <div class="c">{{question|Question}}</div>
+    <div class="ev">{{answer|Answer given}}</div>
+  </div>
+  {{/questions}}
+
+  <h2>Concerns and obstacles</h2>
+  <p class="hint">What could get in the way. A record with only positives cannot guide the next call.</p>
+  <div class="blockers">
+  {{#concerns|What the borrower raised as a worry or obstacle|max=10}}
+    <div class="item">
+      <div class="c">{{concern|Concern}}</div>
+      <div class="ev">{{response|How it was addressed}}</div>
+    </div>
+  {{/concerns}}
+  </div>
+
+  <h2>Anything else that came up</h2>
+  <p class="hint">One row per topic. Every borrower brings up something the fields above do not cover.</p>
+  {{#other|Anything discussed that no section above covers — one row per topic, with a quote|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="ev">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>{{notes|Free notes — anything that does not fit a row above|lines=6}}</dd></div>
+
+  <h2>Next step</h2>
+  <div class="f wide"><dd>{{next_step|Agreed next step|lines=2}}</dd></div>
+
+  <footer>
+    EZHaru filled this in from the recording. Blank fields mean it was not discussed —
+    nothing here is invented. Fields marked for the loan officer are never filled automatically.
+    <b>Social Security numbers, full dates of birth and account numbers are not captured in this form.</b>
+  </footer>
+
+</div>
+</body>
+</html>

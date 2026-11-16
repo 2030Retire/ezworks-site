@@ -1,0 +1,153 @@
+<!--
+  EZHaru form template.
+  Source: form_loan_file_status.html (bundled in the app)
+  sha256: 04e1b36f47d6b0e6753b0a5e3e5f17209ec8beabc09fc4790fb462e5fc7cf101
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loan file status</title>
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --gap:#93321f; --gapbg:#fbf0ec;
+    --ok:#1f5133; --okbg:#eef5f0;
+    --wait:#8a6d1f; --waitbg:#faf3e2;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink)}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+  .got .item{background:var(--okbg);border-left:3px solid var(--ok);
+             padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .waiting .item{background:var(--waitbg);border-left:3px solid var(--wait);
+                 padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .waiting .c{color:var(--wait);font-weight:700}
+  .cond .item{background:var(--gapbg);border-left:3px solid var(--gap);
+              padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .cond .c{color:var(--gap);font-weight:700}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="docmeta">
+    <span>Loan file status</span>
+    <span>EZHaru</span>
+  </div>
+
+  <h1>{{borrower_name|Borrower}}</h1>
+
+  <!-- ⛔ 주소·대출번호는 파일에서 온다(말소리에서 받아적으면 다른 건에 붙는다) → __human__.
+       ⚠️ 이 양식은 **계약 후 진행** 단계용이다. 서류와 조건이 같은 구간에 섞여 일어나므로
+         설계 §3 의 Document Collection / In Process 를 한 장으로 합쳤다. -->
+  <dl class="grid">
+    <div class="f"><dt>Borrower</dt><dd>{{borrower_name|Borrower}}</dd></div>
+    <div class="f"><dt>Property</dt><dd>{{address|Property address __human__}}</dd></div>
+    <div class="f"><dt>Loan number</dt><dd>{{loan_number|Loan number __human__}}</dd></div>
+    <div class="f"><dt>Date</dt><dd>{{call_date|Date of this conversation}}</dd></div>
+  </dl>
+
+  <h2>Numbers as stated</h2>
+  <p class="hint">Exactly as said in the conversation. Nothing here is calculated.</p>
+  <dl class="grid">
+    <div class="f"><dt>Rate lock</dt>
+      <dd>{{rate_lock|Rate lock|Locked|Floating|Not discussed}}</dd></div>
+    <div class="f"><dt>Rate / lock expiry as stated</dt><dd>{{rate_stated|Rate and expiry as stated}}</dd></div>
+    <div class="f"><dt>Appraisal</dt>
+      <dd>{{appraisal|Appraisal|Not ordered|Ordered|Received|Not discussed}}</dd></div>
+    <div class="f"><dt>Appraisal result as stated</dt><dd>{{appraisal_note|Appraisal value or gap, as stated}}</dd></div>
+    <div class="f"><dt>DTI / LTV as stated</dt><dd>{{ratios|DTI or LTV, only if spoken}}</dd></div>
+    <div class="f"><dt>Deadlines as stated</dt><dd>{{deadlines|Deadlines, exactly as spoken}}</dd></div>
+  </dl>
+
+  <h2>Documents received</h2>
+  <div class="got">
+  {{#received|Documents the borrower has already sent — name them as spoken|max=25}}
+    <div class="item">
+      <div class="c">{{doc|Document}}</div>
+      <div class="ev">{{note|What was said about it}}</div>
+    </div>
+  {{/received}}
+  </div>
+
+  <h2>Still outstanding</h2>
+  <p class="hint">⛔ What has been asked for but has not arrived. This is the section the next call runs on.</p>
+  <div class="waiting">
+  {{#outstanding|Documents requested but not yet received|max=25}}
+    <div class="item">
+      <div class="c">{{doc|Document}}</div>
+      <div class="ev">{{note|Who is getting it, by when — as spoken}}</div>
+    </div>
+  {{/outstanding}}
+  </div>
+
+  <h2>Conditions</h2>
+  <p class="hint">What must be satisfied. Say whether each one is cleared or still open — as stated, not judged.</p>
+  <div class="cond">
+  {{#conditions|Conditions on the file and whether each was said to be cleared|max=25}}
+    <div class="item">
+      <div class="c">{{condition|Condition}}</div>
+      <div class="ev">{{state|What was said about its status}}</div>
+    </div>
+  {{/conditions}}
+  </div>
+
+  <h2>What the borrower asked</h2>
+  {{#questions|Questions the borrower asked and the answers given|max=20}}
+  <div class="item">
+    <div class="c">{{question|Question}}</div>
+    <div class="ev">{{answer|Answer given}}</div>
+  </div>
+  {{/questions}}
+
+  <h2>Anything else that came up</h2>
+  <p class="hint">One row per topic.</p>
+  {{#other|Anything discussed that no section above covers — one row per topic, with a quote|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="ev">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>{{notes|Free notes — anything that does not fit a row above|lines=6}}</dd></div>
+
+  <h2>Next step</h2>
+  <div class="f wide"><dd>{{next_step|Agreed next step|lines=2}}</dd></div>
+
+  <footer>
+    EZHaru filled this in from the recording. Blank fields mean it was not discussed —
+    nothing here is invented. Fields marked for the loan officer are never filled automatically.
+    <b>Social Security numbers and account numbers are not captured in this form.</b>
+  </footer>
+
+</div>
+</body>
+</html>

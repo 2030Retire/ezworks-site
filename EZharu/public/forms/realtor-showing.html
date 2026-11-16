@@ -1,0 +1,182 @@
+<!--
+  EZHaru form template.
+  Source: form_realtor_showing.html (bundled in the app)
+  sha256: 38b82bef9fad5dfeccaaf045bcb93a3eec4342c81d427d800a1ba4627b4955b3
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Showing record</title>
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --gap:#93321f; --gapbg:#fbf0ec;
+    --legal:#1f5133; --legalbg:#eef5f0;
+    --shift:#5a3d7a; --shiftbg:#f4f0f8;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 6px}
+  .sub{color:var(--ink3);font-size:13.5px;margin:0 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  .legal{margin:24px 0 4px;padding:15px 17px;background:var(--legalbg);
+         border:1px solid var(--rule);border-left:4px solid var(--legal)}
+  .legal .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                 color:var(--legal);font-weight:700;display:block;margin-bottom:6px}
+  .legal .vval{font-size:18px;font-weight:700}
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+
+  .concerns .item{background:var(--gapbg);border-left:3px solid var(--gap);
+                  padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .concerns .c{color:var(--gap);font-weight:700}
+
+  .shift{margin:12px 0;padding:15px 17px;background:var(--shiftbg);
+         border:1px solid var(--rule);border-left:4px solid var(--shift)}
+  .shift .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                 color:var(--shift);font-weight:700;display:block;margin-bottom:6px}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="docmeta">
+    <span>Showing record</span>
+    <span>EZHaru</span>
+  </div>
+
+  <!-- ⛔⛔ **이것은 바이어측 기록이다 — 매도인에게 보내는 피드백이 아니다** (설계 §2.1).
+       조사가 잡은 가장 중요한 함정이다. ShowingTime 피드백 6문항은 *리스팅 에이전트가
+       매도인에게 보고할 말* 이고, Inman 은 **바이어측이 그것을 제공하는 것 자체를 고객 불이익**
+       으로 본다(우리 고객의 관심도·예산 여력이 매도인에게 새어 나간다).
+       ▶ 그래서 이 양식에는 "seller feedback" 섹션이 **없다.** 나중에 요청이 와도 기본값은 거부다.
+       ✅ 여기 있는 것은 전부 *내 고객이 무엇을 좋아했고 왜 거절했나* 다. -->
+
+  <h1>{{address|Property address __human__}}</h1>
+  <p class="sub">Showing record — kept for the buyer, not for the seller.</p>
+
+  <!-- ⛔ 주소·MLS 번호는 **매물 카드에서 온다**(URL 슬러그 파싱 · 트랙 B). 녹음에서 뽑지 않는다 —
+       말소리에서 받아적은 주소 한 글자가 틀리면 다른 매물의 기록이 된다. -->
+  <dl class="grid">
+    <div class="f"><dt>Property</dt><dd>{{address|Property address __human__}}</dd></div>
+    <div class="f"><dt>MLS #</dt><dd>{{mls|MLS number __human__}}</dd></div>
+    <div class="f"><dt>Date</dt><dd>{{showing_date|Date of the showing}}</dd></div>
+    <div class="f"><dt>Client</dt><dd>{{client_name|Client}}</dd></div>
+    <div class="f wide"><dt>Who was there</dt><dd>{{attendees|Who attended}}</dd></div>
+  </dl>
+
+  <!-- ⛔⛔ **2024 NAR 합의 — 집을 보여주기 전에 서면 바이어 계약이 있어야 한다.**
+       설계 정본이 이것을 *"단단한 경계"* 로 적어 뒀다(§169).
+       ⛔ 모델이 대화에서 유추하게 두지 않는다 — 서명 여부는 대화에 없는 사실이고,
+         틀리게 적히면 그 기록이 나중에 에이전트에게 불리한 증거가 된다. -->
+  <div class="legal">
+    <span class="vlabel">Written buyer agreement in place
+      <span style="font-weight:400;letter-spacing:0;text-transform:none">— the agent fills this in</span></span>
+    <span class="vval">{{agreement_ok|Written buyer agreement in place __human__|Yes|No}}</span>
+  </div>
+
+  <!-- ⛔ 결론 버킷은 **판정**이다 — 그래서 사람이 고른다(DEFERRALS V-26 · 설계 §1.3).
+       모델은 아래에서 **고객이 실제로 한 말**을 채운다. 그 둘을 섞으면
+       "관심 있어 보였다" 가 기록이 되고, 그건 사실이 아니라 해석이다. -->
+  <div class="legal" style="--legal:var(--label);background:transparent">
+    <span class="vlabel">Where it landed
+      <span style="font-weight:400;letter-spacing:0;text-transform:none">— the agent fills this in</span></span>
+    <span class="vval">{{outcome|Where it landed __human__|Wants to offer|Still considering|Ruled out}}</span>
+  </div>
+
+  <h2>What they liked</h2>
+  {{#liked|What the client said they liked — quote them|max=10}}
+  <div class="item">
+    <div class="c">{{item|Liked}}</div>
+    <div class="ev">{{quote|What they said}}</div>
+  </div>
+  {{/liked}}
+
+  <h2>Concerns raised</h2>
+  <p class="hint">What gave them pause, and what was said in response. A record with only positives cannot guide the next showing.</p>
+  <div class="concerns">
+  {{#concerns|What gave the client pause — the concern and how it was addressed|max=10}}
+    <div class="item">
+      <div class="c">{{concern|Concern}}</div>
+      <div class="ev">{{response|How it was addressed}}</div>
+    </div>
+  {{/concerns}}
+  </div>
+
+  <h2>If they ruled it out</h2>
+  <div class="f wide"><dd>{{ruled_out_why|The reason the client gave, in their words|lines=3}}</dd></div>
+
+  <!-- ★★ **선호 변화가 이 양식의 값이다** (설계 §169).
+       한 번의 쇼잉 기록보다, *"3번째 집을 보고 예산을 올리기로 했다"* 가 다음 매물 선택을 바꾼다.
+       ⛔ 고객이 **말한 변화**만 적는다 — 반응에서 추론한 변화가 아니다. -->
+  <h2>Did their criteria change</h2>
+  <div class="shift">
+    <span class="vlabel">Change the client stated</span>
+    <div>{{shift|What changed|Nothing changed|Budget|Size|Condition|Location|Layout|Other}}</div>
+    <div style="margin-top:6px;font-size:13.5px;color:var(--ink2)">
+      {{shift_note|What they said about the change|lines=3}}
+    </div>
+  </div>
+
+  <!-- ★★★ **기타 — 고정 칸이 못 담는 것** (Hoon 2026-09-15).
+       ⛔ 이 양식에는 자유 칸이 **아예 없었다.** 쇼잉에서 오가는 말은 매물마다 다르고
+         (이웃·통학로·수리 견적·매도인 사정·일정) 위 섹션 어디에도 안 들어간다.
+       ⛔ 덩어리 글이 아니라 **행으로 쌓는다** — 매물 카드에 여러 고객 반응이 누적될 때
+         항목이어야 합쳐진다(고객카드의 같은 블록과 같은 이유). -->
+  <h2>Anything else that came up</h2>
+  <p class="hint">One row per topic. Every showing turns up something the sections above do not cover.</p>
+  {{#other|Anything discussed that no section above covers — one row per topic, with a quote|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="ev">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Free notes</h2>
+  <p class="hint">Anything that does not fit a row above.</p>
+  <div class="f wide"><dd>{{notes|Free notes — anything that does not fit a row above|lines=6}}</dd></div>
+
+  <h2>Next step</h2>
+  <div class="f wide"><dd>{{next_step|Agreed next step|lines=2}}</dd></div>
+
+  <footer>
+    EZHaru filled this in from the recording. Blank fields mean it was not discussed —
+    nothing here is invented. Fields marked for the agent are never filled automatically.
+    <b>This record is for the buyer side.</b> It is not seller feedback and is not intended to be shared with the listing agent.
+  </footer>
+
+</div>
+</body>
+</html>

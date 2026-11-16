@@ -1,0 +1,94 @@
+<!--
+  EZHaru form template.
+  Source: form_student_lecture.html (bundled in the app)
+  sha256: 8d3202cd9b4d3a175239fb04d08d08aa9e01dbd9742c19b961597e86685861fb
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lecture notes</title>
+<style>
+  body { font-family: Georgia, "Times New Roman", serif; max-width: 760px; margin: 0 auto;
+         padding: 28px 22px; color: #1a1a1a; line-height: 1.5; }
+  h1 { font-size: 21px; margin: 0 0 2px; letter-spacing: .2px; }
+  .sub { color: #666; font-size: 12px; margin-bottom: 16px; }
+  hr { border: 0; border-top: 1px solid #ccc; margin: 18px 0; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .8px; color: #444;
+       margin: 20px 0 8px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+  td { padding: 5px 0; vertical-align: top; }
+  td.k { width: 34%; color: #555; font-size: 13px; }
+  td.v { border-bottom: 1px dotted #bbb; }
+  .cue { background: #f4f6f9; border-left: 3px solid #5b7fa6; padding: 10px 14px;
+         margin: 10px 0; }
+  .flag { background: #fff6e5; border-left: 3px solid #d08700; padding: 10px 14px;
+          margin: 10px 0; }
+  .note { color: #777; font-size: 11px; font-style: italic; }
+</style>
+</head>
+<body>
+
+<h1>{{course|Course}} — {{topic|Today's topic}}</h1>
+<div class="sub">{{date|Date}} · {{instructor|Instructor}}</div>
+
+<hr>
+
+<h2>What was covered</h2>
+{{#covered|In the order it was taught|max=8}}
+  {{point|Point}}
+{{/covered}}
+
+<h2>Definitions and formulas</h2>
+<p class="note">Kept in the words used in class. Not rewritten.</p>
+{{#terms|Term and what it means|max=10}}
+  {{term|Term}}
+  {{meaning|As stated in class}}
+{{/terms}}
+
+<h2>Worked examples</h2>
+{{#examples|Examples and counter-examples|max=6}}
+  {{example|Example}}
+  {{shows|What it demonstrates}}
+{{/examples}}
+
+<div class="flag">
+<h2>Flagged by the instructor</h2>
+<p class="note">Only what was said out loud — "this will be on the exam", "remember this",
+repeated twice. Nothing inferred.</p>
+{{#flagged|Flagged out loud|max=6}}
+  {{item|What}}
+  {{words|How it was said}}
+{{/flagged}}
+</div>
+
+<div class="cue">
+<h2>Questions asked in class</h2>
+{{#questions|Question and answer|max=8}}
+  {{question|Question}}
+  {{answer|Answer given}}
+{{/questions}}
+</div>
+
+<h2>Still unclear to me</h2>
+<p class="note">You fill this in — the recording cannot know what you did not follow.</p>
+{{unclear|What I did not follow|lines=3|__human__}}
+
+<hr>
+
+<h2>Before next class</h2>
+<table>
+  <tr><td class="k">{{reading|Reading}}</td><td class="v"></td></tr>
+  <tr><td class="k">{{assignment|Assignment}}</td><td class="v"></td></tr>
+  <tr><td class="k">{{due|Due}}</td><td class="v"></td></tr>
+  <tr><td class="k">{{next_topic|Next topic announced}}</td><td class="v"></td></tr>
+</table>
+
+<h2>Anything else</h2>
+<p class="note">Whatever did not fit a row above.</p>
+{{other|Free notes|lines=4}}
+
+</body>
+</html>

@@ -2881,3 +2881,35 @@ html[lang='ko'] .page-hero h1 {
 .delete-in-app {
   margin-top: 1.5rem !important;
 }
+
+/* ── 양식 템플릿 페이지 (2026-11-16) ─────────────────────────────────
+   ⛔ `.legal-*` 레이아웃을 그대로 쓴다 — 사이드바 + 본문. 여기는 카드 격자만 더한다. */
+.forms-lede { margin: 14px 0 0; max-width: 46ch; color: #466288; font-size: 1rem; line-height: 1.7; }
+.forms-how { margin: 0 0 10px; font-size: .95rem; font-weight: 800; color: var(--ink); }
+.forms-steps { margin: 0; padding-left: 1.1rem; color: #607796; font-size: .88rem; line-height: 1.7; }
+.forms-steps li + li { margin-top: 8px; }
+.forms-note { margin-top: 14px !important; font-size: .83rem !important; }
+.forms-section + .forms-section { margin-top: 38px; }
+.forms-section > h2 { margin-bottom: 16px; }
+.forms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--soft);
+}
+.form-card h3 { margin: 0; font-size: 1.02rem; font-weight: 800; color: var(--ink); }
+.form-card p { margin: 0; color: #4f678c; font-size: .9rem; line-height: 1.6; }
+.form-meta { font-size: .78rem !important; color: #7b8ca6 !important; font-variant-numeric: tabular-nums; }
+.form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
