@@ -1,0 +1,223 @@
+<!--
+  EZHaru form template.
+  Source: form_dealer_visit.html (bundled in the app)
+  sha256: e1ba828ee8592b27c8103ebe234a7248a0960e6ebd39ce73561031e5c81a2033
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dealer visit report</title>
+<!--
+  ★★★ **제조사 영업이 딜러를 방문하고 쓰는 보고서** (2026-11-22 · 샘플).
+
+  ⛔⛔ **한 양식이다.** 농기계·건설기계·지게차·자동차를 가르지 않는다.
+    2026-11-22 조사가 업종별 차이를 찾아냈지만, 그 차이의 대부분은 **"그 업종 자료에서
+    근거를 못 찾았다"** 였지 **"그 업종에는 없다"** 가 아니었다 — Hoon 이 그 점을 지적했고
+    그 지적이 맞다. 플로어플랜·공동광고비·만족도 조사는 장비 쪽에도 있다.
+  ▶ 그래서 갈라지는 것은 **양식이 아니라 블록**이다. 안 쓰는 절은 비워 두면
+    `확인 안 됨` 으로 남고, 회사가 자기 양식으로 고쳐 쓰면 그만이다.
+
+  ## ⛔ 이 양식이 **안 하는 것**
+  ```
+  ✗ 주문 받기        주문은 그 회사 주문시스템이 한다. 여기는 "주문까지 안 간 것" 까지다
+  ✗ 금액 확정        들린 숫자를 적을 뿐 계산하지 않는다
+  ✗ 판정             "딜러가 부진하다" 는 사람이 쓴다 — 모델이 쓰면 평가 문서가 된다
+  ```
+
+  ## ★ 제품은 **블록**이다 — 이것이 이 양식의 핵심 (Hoon 2026-11-22)
+  > *"특정 모델의 판매동향, 특정 라인업의 시장반응 등... 각 회사에서 그런 것들을
+  >  등록하도록해서 그것별로 서머리가 되어야 하지 않나?"*
+
+  ⛔ 제품마다 **칸**을 만들지 않는다 — 회사마다 라인업이 다르고, 칸으로 박으면
+    제품이 하나 늘 때마다 양식을 고쳐야 한다.
+  ✅ 대신 **행으로 쌓는다**. 그러면 회사가 사전(설정 → 용어)에 모델명을 등록해 두는 것만으로
+    같은 모델이 같은 철자로 적히고, 여러 방문보고서의 같은 모델 행이 **저절로 모인다.**
+  ⚠️ 모아 보여 주는 화면은 아직 없다 — 그건 고객 화면과 같은 모양으로 따로 만든다.
+-->
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --flag:#93321f; --flagbg:#fbf0ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+  .pair{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:4px;font-size:13px;color:var(--ink2)}
+  .pair b{font-weight:600;color:var(--label)}
+
+  .open .item{background:var(--flagbg);border-left:3px solid var(--flag);
+              padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .open .c{color:var(--flag);font-weight:700}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="docmeta">
+    <span>Dealer visit report</span>
+    <span>EZHaru</span>
+  </div>
+
+  <!-- ⛔ 같은 키를 두 번 쓴다(제목 + 아래 칸) — 리얼터 양식과 같은 방식이다.
+       ⚠️ 세로줄을 하나 더 붙이면 **선택지 하나짜리 칸**으로 읽혀 파싱이 실패한다.
+       ⛔⛔ **주석 안에도 표식을 쓰지 마라** — 파서는 주석을 걷어내지 않는다.
+         설명하려고 예시를 적는 순간 그 예시가 진짜 칸이 된다(2026-11-22 실제로 밟았다). -->
+  <h1>{{dealer|Dealer or distributor name}}</h1>
+
+  <dl class="grid">
+    <div class="f"><dt>Dealer</dt><dd>{{dealer|Dealer or distributor name}}</dd></div>
+    <div class="f"><dt>Branch or location</dt><dd>{{branch|Branch or location visited}}</dd></div>
+    <div class="f"><dt>Visit date</dt><dd>{{visit_date|Date of this visit}}</dd></div>
+    <div class="f"><dt>Visit type</dt>
+      <dd>{{visit_type|How this contact happened|In person|Phone|Video call|Trade show|Other}}</dd></div>
+    <div class="f wide"><dt>People met</dt>
+      <dd>{{people_met|Who was in the conversation, with their role if it was said}}</dd></div>
+  </dl>
+
+  <!-- ⛔ 들린 숫자만 적는다. 계산하지 않는다 — 계산은 그 회사 시스템이 이미 한다. -->
+  <h2>How the dealer is doing</h2>
+  <p class="hint">Only what was said in the conversation. Leave anything that was not discussed blank.</p>
+  <dl class="grid">
+    <div class="f"><dt>Period discussed</dt><dd>{{period|Period they talked about, as they said it}}</dd></div>
+    <div class="f"><dt>Target</dt><dd>{{target|Sales target as stated}}</dd></div>
+    <div class="f"><dt>Actual so far</dt><dd>{{actual|Actual sales so far, as stated}}</dd></div>
+    <div class="f"><dt>Market share</dt><dd>{{share|Market share as stated}}</dd></div>
+    <div class="f"><dt>Direction since last visit</dt>
+      <dd>{{share_trend|Whether it moved up or down since last time|Up|Flat|Down|Not discussed}}</dd></div>
+    <div class="f"><dt>Mood in the room</dt>
+      <dd>{{mood|How the dealer sounded about business|Confident|Steady|Cautious|Frustrated|Not clear}}</dd></div>
+  </dl>
+
+  <h2>Stock and ordering</h2>
+  <dl class="grid">
+    <div class="f"><dt>Stock level</dt><dd>{{stock|What they said about how much stock they are holding}}</dd></div>
+    <div class="f"><dt>Ageing or slow movers</dt><dd>{{stock_aging|Units they said are sitting too long}}</dd></div>
+    <div class="f"><dt>Ordering intent</dt>
+      <dd>{{order_intent|Where their ordering stands|Ready to order|Thinking about it|Holding off|Not discussed}}</dd></div>
+    <div class="f"><dt>What they expect to order</dt>
+      <dd>{{order_outlook|What they said they plan to order and roughly when}}</dd></div>
+    <div class="f"><dt>Financing or floor plan</dt>
+      <dd>{{floorplan|Anything said about floor plan, credit lines or working capital}}</dd></div>
+    <div class="f"><dt>Parts and service</dt>
+      <dd>{{aftermarket|Anything said about parts, service or support business}}</dd></div>
+  </dl>
+
+  <!-- ★★★ **제품 블록** — 이 양식의 핵심.
+       ⛔ 모델마다 칸을 만들지 않는다. 행으로 쌓아야 **여러 방문의 같은 모델이 모인다.**
+       ⚠️ 모델 이름은 들린 그대로 적게 한다. 회사가 사전에 등록해 두면 철자가 모아진다. -->
+  <h2>Products and models they talked about</h2>
+  <p class="hint">One row per model or product line. Write the name the way they said it.</p>
+  {{#products|Each product line or model that came up, one row each|max=20}}
+  <div class="item">
+    <div class="c">{{model|Model or product line, as they said it}}</div>
+    <div class="pair">
+      <span><b>How it is selling</b> {{movement|How it is moving|Selling well|Steady|Slow|Not selling|Not discussed}}</span>
+      <span><b>Units mentioned</b> {{units|Any quantity that was said}}</span>
+    </div>
+    <div class="sub">{{reaction|What the dealer or their customers said about it}}</div>
+    <div class="ev">{{quote|What was said, in their words}}</div>
+  </div>
+  {{/products}}
+
+  <h2>What end customers are saying</h2>
+  <p class="hint">What the dealer heard from buyers. One row per theme.</p>
+  {{#customer_voice|Themes the dealer reported hearing from end customers|max=10}}
+  <div class="item">
+    <div class="c">{{theme|Theme}}</div>
+    <div class="ev">{{quote|What was said}}</div>
+  </div>
+  {{/customer_voice}}
+
+  <h2>Competitors</h2>
+  <p class="hint">Only what was actually mentioned. Do not fill this in from general knowledge.</p>
+  {{#competitors|Competitor activity that was mentioned — brand, what they are doing|max=10}}
+  <div class="item">
+    <div class="c">{{competitor|Competitor}}</div>
+    <div class="sub">{{activity|What they were said to be doing}}</div>
+    <div class="ev">{{quote|What was said}}</div>
+  </div>
+  {{/competitors}}
+
+  <h2>Open issues</h2>
+  <p class="hint">Problems the dealer raised that are not settled yet.</p>
+  <div class="open">
+  {{#issues|Unresolved problems the dealer raised|max=10}}
+    <div class="item">
+      <div class="c">{{issue|Issue}}</div>
+      <div class="sub">{{detail|What they said about it}}</div>
+    </div>
+  {{/issues}}
+  </div>
+
+  <!-- ⛔ 액션은 요약이 이미 뽑는다(action_items). 여기는 **합의된 것**만 남긴다 —
+       둘을 한 자리에 섞으면 무엇이 약속이고 무엇이 메모인지 흐려진다. -->
+  <h2>Agreed actions</h2>
+  <p class="hint">What was actually agreed, and who agreed to it.</p>
+  {{#actions|Actions that were agreed in this conversation|max=10}}
+  <div class="item">
+    <div class="c">{{what|What was agreed}}</div>
+    <div class="pair">
+      <span><b>Who</b> {{owner|Who agreed to do it}}</span>
+      <span><b>When</b> {{due|When it is due, as stated}}</span>
+    </div>
+  </div>
+  {{/actions}}
+
+  <h2>Anything else that came up</h2>
+  <p class="hint">One row per topic. Every visit covers something the sections above do not.</p>
+  {{#other|Anything discussed that no section above covers — one row per topic|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="ev">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Next visit</h2>
+  <dl class="grid">
+    <div class="f wide"><dt>Plan</dt>
+      <dd>{{next_visit|What was said about the next visit or next contact|lines=2}}</dd></div>
+  </dl>
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>{{notes|Anything that does not fit a row above|lines=6}}</dd></div>
+
+  <footer>
+    Drafted from a recording. Check it before sending it on.
+  </footer>
+</div>
+</body>
+</html>
