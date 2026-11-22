@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Call record</title>
+
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --flag:#93321f; --flagbg:#fbf0ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .letterhead{display:flex;align-items:center;gap:12px;margin-bottom:18px;min-height:34px}
+  .letterhead .mark img,.letterhead .mark svg{max-height:34px;width:auto;display:block}
+  .letterhead .org{font-weight:700;letter-spacing:-.01em}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+
+  .open .item{background:var(--flagbg);border-left:3px solid var(--flag);
+              padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .open .c{color:var(--flag);font-weight:700}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="letterhead">
+    <span class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 34" height="30" role="img"><rect width="132" height="34" rx="7" fill="#0867f2"/><text x="66" y="23" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#fff">EZHaru</text></svg></span>
+    <span class="org">EZHaru Equipment</span>
+  </div>
+
+  <div class="docmeta">
+    <span>Call record</span>
+    <span>EZHaru Equipment</span>
+  </div>
+
+  <h1>Dale Mercer</h1>
+
+  <dl class="grid">
+    <div class="f"><dt>Caller</dt><dd>Dale Mercer</dd></div>
+    <div class="f"><dt>Company or account</dt><dd>Mercer Grading & Hauling</dd></div>
+    <div class="f"><dt>Phone</dt><dd>(704) 555-0188</dd></div>
+    <div class="f"><dt>Email</dt><dd>Not said</dd></div>
+    <div class="f"><dt>Direction</dt>
+      <dd>Inbound</dd></div>
+    <div class="f"><dt>Handled by</dt><dd>Nina Park</dd></div>
+    
+    <div class="f wide"><dt>Calling on behalf of someone else</dt>
+      <dd>Calling for his foreman, Luis, who is on the jobsite</dd></div>
+  </dl>
+
+  
+  <h2>How the call went</h2>
+  <dl class="grid">
+    <div class="f"><dt>Connection</dt>
+      <dd>Connected</dd></div>
+    <div class="f"><dt>Reason for the call</dt>
+      <dd>Parts order has not shipped and a machine is down</dd></div>
+    <div class="f"><dt>Where it stands now</dt>
+      <dd>Follow-up needed</dd></div>
+    <div class="f"><dt>How they sounded</dt>
+      <dd>Frustrated</dd></div>
+  </dl>
+
+  <h2>What they asked about</h2>
+  <p class="hint">One row per topic. A call usually covers more than one.</p>
+  
+  <div class="item">
+    <div class="c">Parts order not shipped</div>
+    <div class="sub">Order placed eight days ago, still shows processing</div>
+    <div class="ev">I've got a machine sitting and a crew standing around it.</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Shipping address wrong</div>
+    <div class="sub">Order went to the old yard address on Hadley Road</div>
+    <div class="ev">We moved in March. I told somebody back then.</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Asked about a loaner</div>
+    <div class="sub">Wanted to know whether a loaner machine is possible while waiting</div>
+    <div class="ev">If this is another week I need something out there.</div>
+  </div>
+  
+
+  <h2>What was done on the call</h2>
+  <p class="hint">Actions already completed while on the phone.</p>
+  
+  <div class="item">
+    <div class="c">Found the order and confirmed it was held on an address mismatch</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Updated the shipping address on the account to the Sanders Mill yard</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Released the order and sent the tracking number by text</div>
+  </div>
+  
+
+  
+  <h2>Account changes mentioned</h2>
+  <p class="hint">Anything on the account that was changed or agreed to be changed.</p>
+  
+  <div class="item">
+    <div class="c">Shipping address updated</div>
+    <div class="sub">From Hadley Road to 4120 Sanders Mill Rd, confirmed verbally by Dale</div>
+  </div>
+  
+
+  
+  <h2>If this was a sales call</h2>
+  <p class="hint">Leave blank for support calls. Only what the caller actually said.</p>
+  <dl class="grid">
+    <div class="f"><dt>What they are trying to solve</dt><dd></dd></div>
+    <div class="f"><dt>Budget they mentioned</dt><dd></dd></div>
+    <div class="f"><dt>Who decides</dt><dd></dd></div>
+    <div class="f"><dt>Timeline they stated</dt><dd></dd></div>
+    <div class="f"><dt>Comparing against</dt><dd></dd></div>
+    <div class="f"><dt>Agreed next step</dt><dd></dd></div>
+  </dl>
+
+  <h2>Still open</h2>
+  <p class="hint">What is not settled yet.</p>
+  <div class="open">
+  
+    <div class="item">
+      <div class="c">Loaner machine question</div>
+      <div class="sub">Service desk to call back tomorrow</div>
+    </div>
+  
+    <div class="item">
+      <div class="c">Confirm delivery actually lands this week</div>
+      <div class="sub">Nina</div>
+    </div>
+  
+  </div>
+
+  <h2>Anything else that came up</h2>
+  <p class="hint">One row per topic. Every call covers something the sections above do not.</p>
+  
+  <div class="item">
+    <div class="c">Earlier address report</div>
+    <div class="ev">Dale says he reported the move in March — worth checking why it did not take</div>
+  </div>
+  
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>Dale is the owner. Luis is the day-to-day contact on site and should be on the delivery notification.</dd></div>
+
+  <footer>
+    Drafted from a recording. Check it before it goes on the record.
+  </footer>
+</div>
+</body>
+</html>
+

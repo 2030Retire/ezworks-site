@@ -1,0 +1,183 @@
+<!--
+  EZHaru form template.
+  Source: form_warranty_intake.html (bundled in the app)
+  sha256: 529c7988e9b9bf705c546a2de7b8b1c0610af1540c5187726280f80c21d80118
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warranty intake</title>
+
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --quote:#1f3d66; --quotebg:#eef3fa;
+    --legal:#1f5133; --legalbg:#eef5f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .letterhead{display:flex;align-items:center;gap:12px;margin-bottom:18px;min-height:34px}
+  .letterhead .mark img,.letterhead .mark svg{max-height:34px;width:auto;display:block}
+  .letterhead .org{font-weight:700;letter-spacing:-.01em}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  .complaint{margin:22px 0 4px;padding:16px 18px;background:var(--quotebg);
+             border:1px solid var(--rule);border-left:4px solid var(--quote)}
+  .complaint .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                     color:var(--quote);font-weight:700;display:block;margin-bottom:6px}
+  .complaint .vval{font-size:17px;line-height:1.55}
+
+  .legal{margin:24px 0 4px;padding:15px 17px;background:var(--legalbg);
+         border:1px solid var(--rule);border-left:4px solid var(--legal)}
+  .legal .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                 color:var(--legal);font-weight:700;display:block;margin-bottom:6px}
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="letterhead">
+    <span class="mark">{{@company_logo}}</span>
+    <span class="org">{{@company_name}}</span>
+  </div>
+
+  <div class="docmeta">
+    <span>Warranty intake</span>
+    <span>{{@company_name}}</span>
+  </div>
+
+  <h1>{{customer|Customer or company reporting the problem}}</h1>
+
+  <dl class="grid">
+    <div class="f"><dt>Customer</dt><dd>{{customer|Customer or company reporting the problem}}</dd></div>
+    <div class="f"><dt>Person on the call</dt><dd>{{contact|Who was on the phone, and their role if said}}</dd></div>
+    <div class="f"><dt>Phone</dt><dd>{{phone|Phone number as spoken — leave blank if not said}}</dd></div>
+    <div class="f"><dt>Reported on</dt><dd>{{reported_on|Date of this call}}</dd></div>
+  </dl>
+
+  
+  <h2>The machine</h2>
+  <p class="hint">Write what was said. If something was not said, leave it blank.</p>
+  <dl class="grid">
+    <div class="f"><dt>Model</dt><dd>{{model|Model as stated}}</dd></div>
+    <div class="f"><dt>Serial or unit number</dt><dd>{{serial|Serial or unit number as stated}}</dd></div>
+    <div class="f"><dt>Hours or mileage</dt><dd>{{usage|Hour meter or mileage as stated}}</dd></div>
+    <div class="f"><dt>In service since</dt><dd>{{in_service|When it went into service, as stated}}</dd></div>
+    <div class="f"><dt>Failure happened on</dt><dd>{{failure_date|When the problem started, as stated}}</dd></div>
+    <div class="f"><dt>Where the machine is</dt><dd>{{location|Where the machine is now}}</dd></div>
+    <div class="f"><dt>Can it still run</dt>
+      <dd>{{operable|Whether the machine can still be used|Down completely|Runs but limited|Still working|Not clear}}</dd></div>
+    <div class="f"><dt>Purchased from</dt><dd>{{selling_dealer|Dealer they bought it from, if said}}</dd></div>
+  </dl>
+
+  
+  <div class="complaint">
+    <span class="vlabel">The complaint, in the customer's own words</span>
+    <span class="vval">{{complaint|Exactly how the customer described the problem — quote them, do not reword}}</span>
+  </div>
+
+  <h2>What they described</h2>
+  <dl class="grid">
+    <div class="f wide"><dt>When it happens</dt>
+      <dd>{{when_it_happens|The conditions where the problem shows up, as described|lines=2}}</dd></div>
+    <div class="f"><dt>How often</dt>
+      <dd>{{frequency|How often it happens|Every time|Often|Now and then|Once so far|Not clear}}</dd></div>
+    <div class="f"><dt>Started suddenly or gradually</dt>
+      <dd>{{onset|How it started|Suddenly|Gradually|Not clear}}</dd></div>
+  </dl>
+
+  <h2>Warning lights or codes mentioned</h2>
+  <p class="hint">Only codes the caller actually read out.</p>
+  {{#codes|Error codes or warning lights the caller read out|max=10}}
+  <div class="item">
+    <div class="c">{{code|Code or light}}</div>
+    <div class="sub">{{detail|What they said about it}}</div>
+  </div>
+  {{/codes}}
+
+  <h2>What they already tried</h2>
+  {{#tried|Things the customer says they already tried|max=10}}
+  <div class="item">
+    <div class="c">{{what|What they tried}}</div>
+    <div class="sub">{{result|What happened}}</div>
+  </div>
+  {{/tried}}
+
+  <h2>Prior work on this machine</h2>
+  <p class="hint">Only repairs the caller brought up.</p>
+  {{#history|Earlier repairs or claims the caller mentioned|max=10}}
+  <div class="item">
+    <div class="c">{{what|What was done before}}</div>
+    <div class="sub">{{when|When, as stated}}</div>
+  </div>
+  {{/history}}
+
+  
+  <div class="legal">
+    <span class="vlabel">Coverage — the service desk fills this in</span>
+    <div class="f"><dt>Covered</dt>
+      <dd>{{coverage|Warranty coverage decision __human__|Covered|Not covered|Goodwill|Needs review}}</dd></div>
+    <div class="f"><dt>Pre-authorization number</dt>
+      <dd>{{preauth|Pre-authorization number __human__}}</dd></div>
+    <div class="f"><dt>Work authorized — date, time, who, and how</dt>
+      <dd>{{authorization|Who authorized the work, when, and by what method __human__|lines=2}}</dd></div>
+  </div>
+
+  <h2>What happens next</h2>
+  <dl class="grid">
+    <div class="f"><dt>Next step</dt><dd>{{next_step|What was agreed would happen next}}</dd></div>
+    <div class="f"><dt>Who is doing it</dt><dd>{{owner|Who agreed to do it}}</dd></div>
+    <div class="f"><dt>When</dt><dd>{{due|When it was promised, as stated}}</dd></div>
+  </dl>
+
+  <h2>Anything else that came up</h2>
+  {{#other|Anything discussed that no section above covers|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="sub">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>{{notes|Anything that does not fit a row above|lines=5}}</dd></div>
+
+  <footer>
+    Intake only. Cause, correction and parts are added after the machine is inspected.
+  </footer>
+</div>
+</body>
+</html>
+

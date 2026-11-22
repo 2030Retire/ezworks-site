@@ -876,6 +876,406 @@
     "sample": true
   },
   {
+    "slug": "call-record.html",
+    "title": "Call record",
+    "pack": "Phone support",
+    "blurb": "One customer call: who, why, what was done, and what is still open.",
+    "bytes": 7105,
+    "sha256": "08499de530819f72dcfe469eaf054b2b18a7d701767aa81a5959152063ef16e4",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "@company_logo",
+            "repeated": false
+          },
+          {
+            "label": "@company_name",
+            "repeated": false
+          },
+          {
+            "label": "Who called, or who was called",
+            "repeated": false
+          },
+          {
+            "label": "Company or account they belong to",
+            "repeated": false
+          },
+          {
+            "label": "Phone number as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Email as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Who placed the call",
+            "repeated": false
+          },
+          {
+            "label": "Who took or made the call",
+            "repeated": false
+          },
+          {
+            "label": "If they called for another person, who that is",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "How the call went",
+        "fields": [
+          {
+            "label": "Whether the call actually connected",
+            "repeated": false
+          },
+          {
+            "label": "Why they called, in a few words",
+            "repeated": false
+          },
+          {
+            "label": "Where the matter stands at the end of the call",
+            "repeated": false
+          },
+          {
+            "label": "The caller's mood",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they asked about",
+        "fields": [
+          {
+            "label": "Each thing the caller raised, one row each",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What they said about it",
+            "repeated": false
+          },
+          {
+            "label": "What they said, in their words",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What was done on the call",
+        "fields": [
+          {
+            "label": "What was actually done during the call",
+            "repeated": true
+          },
+          {
+            "label": "What was done",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Account changes mentioned",
+        "fields": [
+          {
+            "label": "Changes to the account discussed on this call",
+            "repeated": true
+          },
+          {
+            "label": "What changed",
+            "repeated": false
+          },
+          {
+            "label": "Details as stated",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "If this was a sales call",
+        "fields": [
+          {
+            "label": "The problem they want solved",
+            "repeated": false
+          },
+          {
+            "label": "Any budget or price range stated",
+            "repeated": false
+          },
+          {
+            "label": "Who they said makes the decision",
+            "repeated": false
+          },
+          {
+            "label": "When they said they need it",
+            "repeated": false
+          },
+          {
+            "label": "Anything else they said they are looking at",
+            "repeated": false
+          },
+          {
+            "label": "What was agreed as the next step",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Still open",
+        "fields": [
+          {
+            "label": "Anything left unresolved at the end of the call",
+            "repeated": true
+          },
+          {
+            "label": "What is still open",
+            "repeated": false
+          },
+          {
+            "label": "Who it is waiting on",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      }
+    ],
+    "sample": true
+  },
+  {
+    "slug": "warranty-intake.html",
+    "title": "Warranty intake",
+    "pack": "Service",
+    "blurb": "A machine problem as the customer described it, with the details a claim will need.",
+    "bytes": 7786,
+    "sha256": "529c7988e9b9bf705c546a2de7b8b1c0610af1540c5187726280f80c21d80118",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "@company_logo",
+            "repeated": false
+          },
+          {
+            "label": "@company_name",
+            "repeated": false
+          },
+          {
+            "label": "Customer or company reporting the problem",
+            "repeated": false
+          },
+          {
+            "label": "Who was on the phone, and their role if said",
+            "repeated": false
+          },
+          {
+            "label": "Phone number as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Date of this call",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "The machine",
+        "fields": [
+          {
+            "label": "Model as stated",
+            "repeated": false
+          },
+          {
+            "label": "Serial or unit number as stated",
+            "repeated": false
+          },
+          {
+            "label": "Hour meter or mileage as stated",
+            "repeated": false
+          },
+          {
+            "label": "When it went into service, as stated",
+            "repeated": false
+          },
+          {
+            "label": "When the problem started, as stated",
+            "repeated": false
+          },
+          {
+            "label": "Where the machine is now",
+            "repeated": false
+          },
+          {
+            "label": "Whether the machine can still be used",
+            "repeated": false
+          },
+          {
+            "label": "Dealer they bought it from, if said",
+            "repeated": false
+          },
+          {
+            "label": "Exactly how the customer described the problem — quote them, do not reword",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they described",
+        "fields": [
+          {
+            "label": "The conditions where the problem shows up, as described",
+            "repeated": false
+          },
+          {
+            "label": "How often it happens",
+            "repeated": false
+          },
+          {
+            "label": "How it started",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Warning lights or codes mentioned",
+        "fields": [
+          {
+            "label": "Error codes or warning lights the caller read out",
+            "repeated": true
+          },
+          {
+            "label": "Code or light",
+            "repeated": false
+          },
+          {
+            "label": "What they said about it",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they already tried",
+        "fields": [
+          {
+            "label": "Things the customer says they already tried",
+            "repeated": true
+          },
+          {
+            "label": "What they tried",
+            "repeated": false
+          },
+          {
+            "label": "What happened",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Prior work on this machine",
+        "fields": [
+          {
+            "label": "Earlier repairs or claims the caller mentioned",
+            "repeated": true
+          },
+          {
+            "label": "What was done before",
+            "repeated": false
+          },
+          {
+            "label": "When, as stated",
+            "repeated": false
+          },
+          {
+            "label": "Warranty coverage decision",
+            "repeated": false
+          },
+          {
+            "label": "Pre-authorization number",
+            "repeated": false
+          },
+          {
+            "label": "Who authorized the work, when, and by what method",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What happens next",
+        "fields": [
+          {
+            "label": "What was agreed would happen next",
+            "repeated": false
+          },
+          {
+            "label": "Who agreed to do it",
+            "repeated": false
+          },
+          {
+            "label": "When it was promised, as stated",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      }
+    ],
+    "sample": true
+  },
+  {
     "slug": "student-lecture.html",
     "title": "Lecture notes",
     "pack": "Study",

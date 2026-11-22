@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warranty intake</title>
+
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --quote:#1f3d66; --quotebg:#eef3fa;
+    --legal:#1f5133; --legalbg:#eef5f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .letterhead{display:flex;align-items:center;gap:12px;margin-bottom:18px;min-height:34px}
+  .letterhead .mark img,.letterhead .mark svg{max-height:34px;width:auto;display:block}
+  .letterhead .org{font-weight:700;letter-spacing:-.01em}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  .complaint{margin:22px 0 4px;padding:16px 18px;background:var(--quotebg);
+             border:1px solid var(--rule);border-left:4px solid var(--quote)}
+  .complaint .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                     color:var(--quote);font-weight:700;display:block;margin-bottom:6px}
+  .complaint .vval{font-size:17px;line-height:1.55}
+
+  .legal{margin:24px 0 4px;padding:15px 17px;background:var(--legalbg);
+         border:1px solid var(--rule);border-left:4px solid var(--legal)}
+  .legal .vlabel{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+                 color:var(--legal);font-weight:700;display:block;margin-bottom:6px}
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="letterhead">
+    <span class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 34" height="30" role="img"><rect width="132" height="34" rx="7" fill="#0867f2"/><text x="66" y="23" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#fff">EZHaru</text></svg></span>
+    <span class="org">EZHaru Equipment</span>
+  </div>
+
+  <div class="docmeta">
+    <span>Warranty intake</span>
+    <span>EZHaru Equipment</span>
+  </div>
+
+  <h1>Caldwell Site Services</h1>
+
+  <dl class="grid">
+    <div class="f"><dt>Customer</dt><dd>Caldwell Site Services</dd></div>
+    <div class="f"><dt>Person on the call</dt><dd>Marty Beggs, shop foreman</dd></div>
+    <div class="f"><dt>Phone</dt><dd>(828) 555-0142</dd></div>
+    <div class="f"><dt>Reported on</dt><dd>November 20, 2026</dd></div>
+  </dl>
+
+  
+  <h2>The machine</h2>
+  <p class="hint">Write what was said. If something was not said, leave it blank.</p>
+  <dl class="grid">
+    <div class="f"><dt>Model</dt><dd>CX75 utility</dd></div>
+    <div class="f"><dt>Serial or unit number</dt><dd>CX75-2024-11837</dd></div>
+    <div class="f"><dt>Hours or mileage</dt><dd>412 hours on the meter</dd></div>
+    <div class="f"><dt>In service since</dt><dd>Bought new last March</dd></div>
+    <div class="f"><dt>Failure happened on</dt><dd>Started Tuesday morning</dd></div>
+    <div class="f"><dt>Where the machine is</dt><dd>Their yard off Highway 64</dd></div>
+    <div class="f"><dt>Can it still run</dt>
+      <dd>Runs but limited</dd></div>
+    <div class="f"><dt>Purchased from</dt><dd>Piedmont Equipment Co.</dd></div>
+  </dl>
+
+  
+  <div class="complaint">
+    <span class="vlabel">The complaint, in the customer's own words</span>
+    <span class="vval">It's got no power once it warms up. Twenty minutes in, it just lays down and you can hear it hunting.</span>
+  </div>
+
+  <h2>What they described</h2>
+  <dl class="grid">
+    <div class="f wide"><dt>When it happens</dt>
+      <dd>Only after about twenty minutes of running, worse under load on a grade. Fine when cold.</dd></div>
+    <div class="f"><dt>How often</dt>
+      <dd>Every time</dd></div>
+    <div class="f"><dt>Started suddenly or gradually</dt>
+      <dd>Gradually</dd></div>
+  </dl>
+
+  <h2>Warning lights or codes mentioned</h2>
+  <p class="hint">Only codes the caller actually read out.</p>
+  
+  <div class="item">
+    <div class="c">Amber engine light</div>
+    <div class="sub">Comes on about when it loses power, goes off after a restart</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Said it showed a code starting with P02</div>
+    <div class="sub">Could not read the rest of it over the phone</div>
+  </div>
+  
+
+  <h2>What they already tried</h2>
+  
+  <div class="item">
+    <div class="c">Changed the fuel filter</div>
+    <div class="sub">No difference</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Ran it on a fresh tank from a different supplier</div>
+    <div class="sub">Same thing</div>
+  </div>
+  
+
+  <h2>Prior work on this machine</h2>
+  <p class="hint">Only repairs the caller brought up.</p>
+  
+  <div class="item">
+    <div class="c">Hydraulic hose replaced under warranty</div>
+    <div class="sub">Back in July</div>
+  </div>
+  
+
+  
+  <div class="legal">
+    <span class="vlabel">Coverage — the service desk fills this in</span>
+    <div class="f"><dt>Covered</dt>
+      <dd></dd></div>
+    <div class="f"><dt>Pre-authorization number</dt>
+      <dd></dd></div>
+    <div class="f"><dt>Work authorized — date, time, who, and how</dt>
+      <dd></dd></div>
+  </div>
+
+  <h2>What happens next</h2>
+  <dl class="grid">
+    <div class="f"><dt>Next step</dt><dd>Field tech to come read the codes on site</dd></div>
+    <div class="f"><dt>Who is doing it</dt><dd>Service dispatch</dd></div>
+    <div class="f"><dt>When</dt><dd>Monday morning if possible</dd></div>
+  </dl>
+
+  <h2>Anything else that came up</h2>
+  
+  <div class="item">
+    <div class="c">Machine is on a deadline job</div>
+    <div class="sub">Marty says they have a grading deadline the following week</div>
+  </div>
+  
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>Marty is the one to call back; the owner is out until next week.</dd></div>
+
+  <footer>
+    Intake only. Cause, correction and parts are added after the machine is inspected.
+  </footer>
+</div>
+</body>
+</html>
+
