@@ -1,0 +1,251 @@
+<!--
+  EZHaru form template.
+  Source: form_ezharu_pitch.html (bundled in the app)
+  sha256: 322f7ee4259100394f12a1474e7829fb3fb7bc1524d06321f61012d3b2e77d48
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EZHaru meeting notes</title>
+
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --worry:#93321f; --worrybg:#fbf0ec;
+    --spark:#1f5133; --sparkbg:#eef5f0;
+    --ask:#1f3d66; --askbg:#eef3fa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .letterhead{display:flex;align-items:center;gap:12px;margin-bottom:18px;min-height:34px}
+  .letterhead .mark img,.letterhead .mark svg{max-height:34px;width:auto;display:block}
+  .letterhead .org{font-weight:700;letter-spacing:-.01em}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  .grid.tight{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 28px}
+  .grid.tight .f{display:flex;gap:10px;align-items:baseline;padding:7px 0}
+  .grid.tight .f dt{flex:0 0 40%;margin-bottom:0}
+  .grid.tight .f dd{flex:1;min-height:0}
+  @media(max-width:460px){
+    .grid.tight .f{display:block}
+    .grid.tight .f dt{margin-bottom:4px}
+  }
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+  .pair{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:4px;font-size:13px;color:var(--ink2)}
+  .pair b{font-weight:600;color:var(--label)}
+
+  .worries .item{background:var(--worrybg);border-left:3px solid var(--worry);
+                 padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .worries .c{color:var(--worry);font-weight:700}
+  .sparks .item{background:var(--sparkbg);border-left:3px solid var(--spark);
+                padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .sparks .c{color:var(--spark);font-weight:700}
+  .asks .item{background:var(--askbg);border-left:3px solid var(--ask);
+              padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .asks .c{color:var(--ask);font-weight:700}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="letterhead">
+    <span class="mark">{{@company_logo}}</span>
+    <span class="org">{{@company_name}}</span>
+  </div>
+
+  <div class="docmeta">
+    <span>EZHaru meeting notes</span>
+    <span>{{@company_name}}</span>
+  </div>
+
+  <h1>{{client|The company we met with}}</h1>
+
+  <dl class="grid tight">
+    <div class="f"><dt>Company</dt><dd>{{client|The company we met with}}</dd></div>
+    <div class="f"><dt>What they do</dt><dd>{{industry|Their line of business, as they described it}}</dd></div>
+    <div class="f"><dt>Met on</dt><dd>{{met_on|Date of this conversation}}</dd></div>
+    <div class="f"><dt>Meeting</dt>
+      <dd>{{meeting_type|What kind of conversation this was|First meeting|Demo|Follow-up|Pilot review}}</dd></div>
+    <div class="f wide"><dt>Who was in the room</dt>
+      <dd>{{attendees|Everyone present, with their role if it was said}}</dd></div>
+    <div class="f"><dt>How this came about</dt>
+      <dd>{{origin|How the meeting happened|They reached out|We reached out|Referral|Existing client|Not said}}</dd></div>
+  </dl>
+
+  
+  <h2>How they keep records today</h2>
+  <p class="hint">What they do now after a meeting or a call. Their words, not ours.</p>
+  <dl class="grid">
+    <div class="f wide"><dt>What happens now</dt>
+      <dd>{{current_practice|What they do today to capture a meeting or call|lines=4}}</dd></div>
+    <div class="f"><dt>Who writes it up</dt><dd>{{who_writes|Who does the writing up}}</dd></div>
+    <div class="f"><dt>How often</dt><dd>{{frequency|How often this happens, as stated}}</dd></div>
+    <div class="f"><dt>How long it takes</dt><dd>{{effort|Time it takes, as they said it}}</dd></div>
+    <div class="f"><dt>Where it ends up</dt><dd>{{where_records_go|Where those notes are stored today}}</dd></div>
+    <div class="f"><dt>Anything recorded today</dt>
+      <dd>{{records_today|Whether they already record anything|Already record|Tried before|Never|Not said}}</dd></div>
+  </dl>
+
+  <h2>Where they said they would use it</h2>
+  <p class="hint">Situations they named. One row each.</p>
+  {{#use_cases|Each situation they said they would use this for|max=12}}
+  <div class="item">
+    <div class="c">{{situation|The situation}}</div>
+    <div class="pair"><span><b>Who</b> {{who|Which people would use it there}}</span></div>
+    <div class="ev">{{quote|What they said}}</div>
+  </div>
+  {{/use_cases}}
+
+  
+  <h2>What they reacted to in the demo</h2>
+  <p class="hint">The exact moments that landed, and the ones that did not.</p>
+  <div class="sparks">
+  {{#demo_moments|Each part of the demo they reacted to, good or bad|max=12}}
+    <div class="item">
+      <div class="c">{{moment|What was being shown}}</div>
+      <div class="pair">
+        <span><b>Reaction</b> {{reaction|How they reacted|Lit up|Interested|Neutral|Doubtful|Pushed back}}</span>
+      </div>
+      <div class="ev">{{quote|What they said}}</div>
+    </div>
+  {{/demo_moments}}
+  </div>
+
+  
+  <h2>Forms they said they would need</h2>
+  <p class="hint">What they would want filled in automatically, and what goes on it.</p>
+  <div class="asks">
+  {{#forms_wanted|Each form or report they said they would want|max=10}}
+    <div class="item">
+      <div class="c">{{form|What the form is for}}</div>
+      <div class="sub">{{fields|What they said should be on it}}</div>
+      <div class="ev">{{quote|What they said}}</div>
+    </div>
+  {{/forms_wanted}}
+  </div>
+
+  <h2>What worried them</h2>
+  <p class="hint">Concerns they raised. Write them down even if answered on the spot.</p>
+  <div class="worries">
+  {{#worries|Each concern they raised|max=12}}
+    <div class="item">
+      <div class="c">{{worry|The concern}}</div>
+      <div class="pair">
+        <span><b>About</b> {{about|What it is about|Recording consent|Privacy or security|Accuracy|Cost|Change for staff|Something else}}</span>
+        <span><b>Answered on the spot</b> {{answered|Whether it was addressed in the meeting|Yes|Partly|No}}</span>
+      </div>
+      <div class="ev">{{quote|What they said}}</div>
+    </div>
+  {{/worries}}
+  </div>
+
+  
+  <h2>What they work with</h2>
+  <p class="hint">Facts that decide how this would actually run for them.</p>
+  <dl class="grid tight">
+    <div class="f"><dt>Phones the team uses</dt>
+      <dd>{{phones|What phones the people who would use it carry|Android|iPhone|Mixed|Not said}}</dd></div>
+    <div class="f"><dt>Where their files live</dt>
+      <dd>{{cloud|The cloud storage they use|OneDrive|Google Drive|Something else|None|Not said}}</dd></div>
+    <div class="f"><dt>Roughly how many people</dt>
+      <dd>{{seats|How many people would use it, as stated}}</dd></div>
+    <div class="f"><dt>Where they work</dt>
+      <dd>{{where_used|States or regions where it would be used}}</dd></div>
+    <div class="f"><dt>Mostly calls or in person</dt>
+      <dd>{{call_or_person|Which kind of conversation this is for|Phone calls|In person|Both|Not said}}</dd></div>
+    <div class="f"><dt>Language in the room</dt>
+      <dd>{{language|What language the conversations are in}}</dd></div>
+  </dl>
+
+  <h2>What would get in the way</h2>
+  {{#blockers|Each thing they said would make this hard|max=12}}
+  <div class="item">
+    <div class="c">{{blocker|What it is}}</div>
+    <div class="sub">{{detail|What they said about it}}</div>
+  </div>
+  {{/blockers}}
+
+  <h2>How a decision gets made here</h2>
+  <dl class="grid tight">
+    <div class="f"><dt>Who decides</dt><dd>{{decision_maker|Who they said makes the call}}</dd></div>
+    <div class="f"><dt>Who else is involved</dt><dd>{{influencers|Others they said would weigh in}}</dd></div>
+    <div class="f"><dt>Budget they mentioned</dt><dd>{{budget|Any budget stated — leave blank if not said}}</dd></div>
+    <div class="f"><dt>Timing they mentioned</dt><dd>{{timing|When they said they could start}}</dd></div>
+    <div class="f"><dt>Anything else they looked at</dt><dd>{{alternatives|Other tools they mentioned}}</dd></div>
+  </dl>
+
+  <h2>What we said we would do</h2>
+  <p class="hint">Only what was actually promised in the room.</p>
+  {{#commitments|Each thing we committed to|max=10}}
+  <div class="item">
+    <div class="c">{{what|What we said we would do}}</div>
+    <div class="pair">
+      <span><b>Who</b> {{owner|Who on our side}}</span>
+      <span><b>When</b> {{due|When, as stated}}</span>
+    </div>
+  </div>
+  {{/commitments}}
+
+  <h2>Still unclear</h2>
+  {{#open_questions|Questions raised that nobody answered|max=12}}
+  <div class="item">
+    <div class="c">{{question|The question}}</div>
+    <div class="sub">{{who_asked|Who raised it}}</div>
+  </div>
+  {{/open_questions}}
+
+  <h2>Anything else that came up</h2>
+  {{#other|Anything discussed that no section above covers|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="ev">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Next step</h2>
+  <div class="f wide"><dd>{{next_step|What was agreed as the next step|lines=2}}</dd></div>
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>{{notes|Anything that does not fit a row above|lines=5}}</dd></div>
+
+  <footer>
+    This page was drafted from the recording of this meeting. Anything that was not said is left blank.
+  </footer>
+</div>
+</body>
+</html>
+

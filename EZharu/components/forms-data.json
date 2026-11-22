@@ -1556,6 +1556,315 @@
     "sample": true
   },
   {
+    "slug": "ezharu-meeting.html",
+    "title": "EZHaru meeting notes",
+    "pack": "Consulting",
+    "blurb": "A meeting where EZHaru itself is shown: what they record today, what landed in the demo, what worried them.",
+    "bytes": 10777,
+    "sha256": "322f7ee4259100394f12a1474e7829fb3fb7bc1524d06321f61012d3b2e77d48",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "@company_logo",
+            "repeated": false
+          },
+          {
+            "label": "@company_name",
+            "repeated": false
+          },
+          {
+            "label": "The company we met with",
+            "repeated": false
+          },
+          {
+            "label": "Their line of business, as they described it",
+            "repeated": false
+          },
+          {
+            "label": "Date of this conversation",
+            "repeated": false
+          },
+          {
+            "label": "What kind of conversation this was",
+            "repeated": false
+          },
+          {
+            "label": "Everyone present, with their role if it was said",
+            "repeated": false
+          },
+          {
+            "label": "How the meeting happened",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "How they keep records today",
+        "fields": [
+          {
+            "label": "What they do today to capture a meeting or call",
+            "repeated": false
+          },
+          {
+            "label": "Who does the writing up",
+            "repeated": false
+          },
+          {
+            "label": "How often this happens, as stated",
+            "repeated": false
+          },
+          {
+            "label": "Time it takes, as they said it",
+            "repeated": false
+          },
+          {
+            "label": "Where those notes are stored today",
+            "repeated": false
+          },
+          {
+            "label": "Whether they already record anything",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Where they said they would use it",
+        "fields": [
+          {
+            "label": "Each situation they said they would use this for",
+            "repeated": true
+          },
+          {
+            "label": "The situation",
+            "repeated": false
+          },
+          {
+            "label": "Which people would use it there",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they reacted to in the demo",
+        "fields": [
+          {
+            "label": "Each part of the demo they reacted to, good or bad",
+            "repeated": true
+          },
+          {
+            "label": "What was being shown",
+            "repeated": false
+          },
+          {
+            "label": "How they reacted",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Forms they said they would need",
+        "fields": [
+          {
+            "label": "Each form or report they said they would want",
+            "repeated": true
+          },
+          {
+            "label": "What the form is for",
+            "repeated": false
+          },
+          {
+            "label": "What they said should be on it",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What worried them",
+        "fields": [
+          {
+            "label": "Each concern they raised",
+            "repeated": true
+          },
+          {
+            "label": "The concern",
+            "repeated": false
+          },
+          {
+            "label": "What it is about",
+            "repeated": false
+          },
+          {
+            "label": "Whether it was addressed in the meeting",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they work with",
+        "fields": [
+          {
+            "label": "What phones the people who would use it carry",
+            "repeated": false
+          },
+          {
+            "label": "The cloud storage they use",
+            "repeated": false
+          },
+          {
+            "label": "How many people would use it, as stated",
+            "repeated": false
+          },
+          {
+            "label": "States or regions where it would be used",
+            "repeated": false
+          },
+          {
+            "label": "Which kind of conversation this is for",
+            "repeated": false
+          },
+          {
+            "label": "What language the conversations are in",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What would get in the way",
+        "fields": [
+          {
+            "label": "Each thing they said would make this hard",
+            "repeated": true
+          },
+          {
+            "label": "What it is",
+            "repeated": false
+          },
+          {
+            "label": "What they said about it",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "How a decision gets made here",
+        "fields": [
+          {
+            "label": "Who they said makes the call",
+            "repeated": false
+          },
+          {
+            "label": "Others they said would weigh in",
+            "repeated": false
+          },
+          {
+            "label": "Any budget stated — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "When they said they could start",
+            "repeated": false
+          },
+          {
+            "label": "Other tools they mentioned",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What we said we would do",
+        "fields": [
+          {
+            "label": "Each thing we committed to",
+            "repeated": true
+          },
+          {
+            "label": "What we said we would do",
+            "repeated": false
+          },
+          {
+            "label": "Who on our side",
+            "repeated": false
+          },
+          {
+            "label": "When, as stated",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Still unclear",
+        "fields": [
+          {
+            "label": "Questions raised that nobody answered",
+            "repeated": true
+          },
+          {
+            "label": "The question",
+            "repeated": false
+          },
+          {
+            "label": "Who raised it",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Next step",
+        "fields": [
+          {
+            "label": "What was agreed as the next step",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      }
+    ],
+    "sample": true
+  },
+  {
     "slug": "student-lecture.html",
     "title": "Lecture notes",
     "pack": "Study",
