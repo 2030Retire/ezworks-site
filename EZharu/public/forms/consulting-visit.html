@@ -1,0 +1,227 @@
+<!--
+  EZHaru form template.
+  Source: form_ai_consult.html (bundled in the app)
+  sha256: cae0bf2efe67e18ef53bf82edb6d0ef585f5408c1f36adf282c5ccfa20ac8351
+  Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
+  so your own layout, wording and logo survive.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consulting visit notes</title>
+
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --pain:#93321f; --painbg:#fbf0ec;
+    --idea:#1f5133; --ideabg:#eef5f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .letterhead{display:flex;align-items:center;gap:12px;margin-bottom:18px;min-height:34px}
+  .letterhead .mark img,.letterhead .mark svg{max-height:34px;width:auto;display:block}
+  .letterhead .org{font-weight:700;letter-spacing:-.01em}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  .grid.tight{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 28px}
+  .grid.tight .f{display:flex;gap:10px;align-items:baseline;padding:7px 0}
+  .grid.tight .f dt{flex:0 0 38%;margin-bottom:0}
+  .grid.tight .f dd{flex:1;min-height:0}
+  @media(max-width:460px){
+    .grid.tight .f{display:block}
+    .grid.tight .f dt{margin-bottom:4px}
+  }
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+  .pair{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:4px;font-size:13px;color:var(--ink2)}
+  .pair b{font-weight:600;color:var(--label)}
+
+  .pains .item{background:var(--painbg);border-left:3px solid var(--pain);
+               padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .pains .c{color:var(--pain);font-weight:700}
+  .ideas .item{background:var(--ideabg);border-left:3px solid var(--idea);
+               padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .ideas .c{color:var(--idea);font-weight:700}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="letterhead">
+    <span class="mark">{{@company_logo}}</span>
+    <span class="org">{{@company_name}}</span>
+  </div>
+
+  <div class="docmeta">
+    <span>Consulting visit notes</span>
+    <span>{{@company_name}}</span>
+  </div>
+
+  <h1>{{client|The company we met with}}</h1>
+
+  <dl class="grid tight">
+    <div class="f"><dt>Company</dt><dd>{{client|The company we met with}}</dd></div>
+    <div class="f"><dt>What they do</dt><dd>{{industry|Their line of business, as they described it}}</dd></div>
+    <div class="f"><dt>Met on</dt><dd>{{met_on|Date of this conversation}}</dd></div>
+    <div class="f"><dt>Meeting</dt>
+      <dd>{{meeting_type|What kind of conversation this was|First meeting|Follow-up|Workshop|Proposal review}}</dd></div>
+    <div class="f wide"><dt>Who was in the room</dt>
+      <dd>{{attendees|Everyone present, with their role if it was said}}</dd></div>
+    <div class="f"><dt>Roughly how big</dt><dd>{{size|Headcount or scale, if mentioned}}</dd></div>
+    <div class="f"><dt>Who asked for the meeting</dt>
+      <dd>{{origin|How this meeting came about|They reached out|We reached out|Referral|Existing client|Not said}}</dd></div>
+  </dl>
+
+  
+  <h2>How they work today</h2>
+  <p class="hint">The current way, in their words. Not what should change.</p>
+  <dl class="grid">
+    <div class="f wide"><dt>The process we talked about</dt>
+      <dd>{{current_process|The work they walked us through, step by step as they told it|lines=4}}</dd></div>
+    <div class="f"><dt>Who does it</dt><dd>{{who_does_it|Which people or team does this work}}</dd></div>
+    <div class="f"><dt>How often</dt><dd>{{frequency|How often it happens, as stated}}</dd></div>
+    <div class="f"><dt>How long it takes</dt><dd>{{effort|Time or effort they said it takes}}</dd></div>
+  </dl>
+
+  <h2>Systems and tools they named</h2>
+  <p class="hint">Only what was actually named. One row each.</p>
+  {{#systems|Each system, tool or platform they mentioned|max=15}}
+  <div class="item">
+    <div class="c">{{system|System or tool}}</div>
+    <div class="pair">
+      <span><b>Used for</b> {{purpose|What they use it for}}</span>
+      <span><b>How they feel about it</b> {{sentiment|Their attitude toward it|Happy with it|It works|Frustrated|Replacing it|Not said}}</span>
+    </div>
+  </div>
+  {{/systems}}
+
+  <h2>What hurts</h2>
+  <p class="hint">Problems they raised. One row per problem, with what they actually said.</p>
+  <div class="pains">
+  {{#pains|Each problem or frustration they described|max=15}}
+    <div class="item">
+      <div class="c">{{pain|The problem}}</div>
+      <div class="sub">{{who_feels_it|Who it affects}}</div>
+      <div class="sub">{{workaround|How they handle it today}}</div>
+      <div class="ev">{{quote|What they said, in their words}}</div>
+    </div>
+  {{/pains}}
+  </div>
+
+  
+  <h2>What they want to be able to do</h2>
+  <p class="hint">Things they said they wish they could do. Not our assessment of what is possible.</p>
+  <div class="ideas">
+  {{#wants|Each thing they said they would like to be able to do|max=15}}
+    <div class="item">
+      <div class="c">{{want|What they want to be able to do}}</div>
+      <div class="sub">{{why|Why it matters to them, as they put it}}</div>
+      <div class="ev">{{quote|What they said}}</div>
+    </div>
+  {{/wants}}
+  </div>
+
+  <h2>Where their information lives</h2>
+  <p class="hint">What was said about data — where it is, how much, who can reach it.</p>
+  {{#data|Each place their information lives that came up|max=12}}
+  <div class="item">
+    <div class="c">{{where|Where it lives}}</div>
+    <div class="pair">
+      <span><b>What it is</b> {{what|What kind of information}}</span>
+      <span><b>Who can get to it</b> {{access|Who has access, as stated}}</span>
+    </div>
+    <div class="sub">{{concerns|Anything they said about sensitivity or rules around it}}</div>
+  </div>
+  {{/data}}
+
+  <h2>What would get in the way</h2>
+  <p class="hint">Constraints they named — budget, timing, internal approval, rules.</p>
+  {{#constraints|Each constraint or blocker they mentioned|max=12}}
+  <div class="item">
+    <div class="c">{{constraint|The constraint}}</div>
+    <div class="sub">{{detail|What they said about it}}</div>
+  </div>
+  {{/constraints}}
+
+  <h2>How a decision gets made here</h2>
+  <dl class="grid tight">
+    <div class="f"><dt>Who decides</dt><dd>{{decision_maker|Who they said makes the call}}</dd></div>
+    <div class="f"><dt>Who else is involved</dt><dd>{{influencers|Others they said would be involved}}</dd></div>
+    <div class="f"><dt>Budget they mentioned</dt><dd>{{budget|Any budget or range stated — leave blank if not said}}</dd></div>
+    <div class="f"><dt>Timing they mentioned</dt><dd>{{timing|When they said they would want to start}}</dd></div>
+    <div class="f"><dt>Anyone else they are talking to</dt><dd>{{alternatives|Other vendors or approaches they mentioned}}</dd></div>
+  </dl>
+
+  <h2>What we said we would do</h2>
+  <p class="hint">Only what was actually promised in the room.</p>
+  {{#commitments|Each thing we committed to in this meeting|max=10}}
+  <div class="item">
+    <div class="c">{{what|What we said we would do}}</div>
+    <div class="pair">
+      <span><b>Who</b> {{owner|Who on our side}}</span>
+      <span><b>When</b> {{due|When, as stated}}</span>
+    </div>
+  </div>
+  {{/commitments}}
+
+  <h2>Still unclear</h2>
+  <p class="hint">Questions that came up and were not answered.</p>
+  {{#open_questions|Questions raised that nobody answered in the meeting|max=12}}
+  <div class="item">
+    <div class="c">{{question|The question}}</div>
+    <div class="sub">{{who_asked|Who raised it}}</div>
+  </div>
+  {{/open_questions}}
+
+  <h2>Anything else that came up</h2>
+  {{#other|Anything discussed that no section above covers|max=20}}
+  <div class="item">
+    <div class="c">{{topic|Topic}}</div>
+    <div class="ev">{{detail|What was said}}</div>
+  </div>
+  {{/other}}
+
+  <h2>Next step</h2>
+  <div class="f wide"><dd>{{next_step|What was agreed as the next step|lines=2}}</dd></div>
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>{{notes|Anything that does not fit a row above|lines=5}}</dd></div>
+
+  <footer>
+    Drafted from the recording of this meeting. Anything not said is left blank.
+  </footer>
+</div>
+</body>
+</html>
+
