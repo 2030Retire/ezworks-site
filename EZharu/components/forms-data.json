@@ -4,8 +4,8 @@
     "title": "Client card",
     "pack": "Real estate",
     "blurb": "What you learned about a buyer or seller, carried across every call.",
-    "bytes": 9923,
-    "sha256": "146ef1776f7470235da4b6714ee9edf949ebbde1d37dbce5fd4c3019e4e8618f",
+    "bytes": 6913,
+    "sha256": "fa69a564594d7e09c5d0e3782eabd6f7757d95247d685ad8960632e9ed20cfcd",
     "sections": [
       {
         "title": "",
@@ -168,15 +168,16 @@
           }
         ]
       }
-    ]
+    ],
+    "sample": false
   },
   {
     "slug": "realtor-showing.html",
     "title": "Showing record",
     "pack": "Real estate",
     "blurb": "One showing: the property, who came, what they said, what happens next.",
-    "bytes": 9100,
-    "sha256": "38b82bef9fad5dfeccaaf045bcb93a3eec4342c81d427d800a1ba4627b4955b3",
+    "bytes": 6623,
+    "sha256": "2f31dae0af5e5f52a5a4c6eab285f2e790b83c6370e9cab6cd05e417364cbb5b",
     "sections": [
       {
         "title": "",
@@ -302,15 +303,16 @@
           }
         ]
       }
-    ]
+    ],
+    "sample": false
   },
   {
     "slug": "loan-borrower-intake.html",
     "title": "Borrower intake",
     "pack": "Lending",
     "blurb": "A first conversation with a borrower, in the order you actually ask it.",
-    "bytes": 8503,
-    "sha256": "85710c75e39d8d4b0b71199d54bf1b68e9ece2a8f65e6698d192b9951fbe8a1a",
+    "bytes": 6974,
+    "sha256": "bef7c15fd1192c1efda9c41d1024bf81047471b8ae4d9024d6c3dfe66d29d7ff",
     "sections": [
       {
         "title": "",
@@ -464,15 +466,16 @@
           }
         ]
       }
-    ]
+    ],
+    "sample": false
   },
   {
     "slug": "loan-file-status.html",
     "title": "Loan file status",
     "pack": "Lending",
     "blurb": "Where a file stands today and what is still outstanding.",
-    "bytes": 6529,
-    "sha256": "04e1b36f47d6b0e6753b0a5e3e5f17209ec8beabc09fc4790fb462e5fc7cf101",
+    "bytes": 6188,
+    "sha256": "445bafbf132e55771aa01baa1fde631ad9d72bfa36a3b86b80a5f50a08e5c5fd",
     "sections": [
       {
         "title": "",
@@ -627,19 +630,28 @@
           }
         ]
       }
-    ]
+    ],
+    "sample": false
   },
   {
     "slug": "dealer-visit-report.html",
     "title": "Dealer visit report",
     "pack": "Field sales",
     "blurb": "A rep's visit to a dealer: how they are doing, what they talked about ordering, what was agreed.",
-    "bytes": 11071,
-    "sha256": "e1ba828ee8592b27c8103ebe234a7248a0960e6ebd39ce73561031e5c81a2033",
+    "bytes": 8462,
+    "sha256": "900fedadb167ecb3f538bf6d3139d2b5f8ed07a7ed0d61fa9e3fab798c93e07a",
     "sections": [
       {
         "title": "",
         "fields": [
+          {
+            "label": "@company_logo",
+            "repeated": false
+          },
+          {
+            "label": "@company_name",
+            "repeated": false
+          },
           {
             "label": "Dealer or distributor name",
             "repeated": false
@@ -860,7 +872,8 @@
           }
         ]
       }
-    ]
+    ],
+    "sample": true
   },
   {
     "slug": "student-lecture.html",
@@ -1011,6 +1024,7 @@
           }
         ]
       }
-    ]
+    ],
+    "sample": false
   }
 ]

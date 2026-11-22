@@ -1,7 +1,7 @@
 <!--
   EZHaru form template.
   Source: form_realtor_client_card.html (bundled in the app)
-  sha256: 146ef1776f7470235da4b6714ee9edf949ebbde1d37dbce5fd4c3019e4e8618f
+  sha256: fa69a564594d7e09c5d0e3782eabd6f7757d95247d685ad8960632e9ed20cfcd
   Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
   so your own layout, wording and logo survive.
 -->
@@ -73,18 +73,7 @@
 
   <h1>{{client_name|Client}}</h1>
 
-  <!-- ★★★ **연락처는 채워 주고 사람이 확인한다** (2026-11-16 Hoon 정정).
-       > *"전화번호, 이메일은 불러주면.. 받아 적겠지.. 우리가 채워주고 확인하게 하면 되는 거지
-       >  아예 무시하면 안되지.."*
-
-       ⛔⛔ **종전에는 `__human__` 이었고 그것이 과했다.** 들린 번호를 버리면 사람이 녹음을
-         다시 들어 받아적어야 한다 — 그것이 빈 칸보다 나은 일은 아니다.
-       ⚠️ 위험은 그대로다 — 숫자 한 자리가 틀리면 다음 녹음이 **다른 고객에게 붙는다**.
-       ▶ 그래서 가르는 선은 *"채울 것인가"* 가 아니라 **그 값을 대조 열쇠로 쓸 것인가** 다:
-         ① 통화 녹음 파일 이름의 번호  → 시스템이 적었다 → ✅ 열쇠로 쓴다
-         ② 사람이 친 것                → ✅ 열쇠로 쓴다
-         ③ **녹음에서 들린 것**        → 카드에는 적는다. ⛔ `clients.phone_norm` 에는
-                                        사람이 확인해야 들어간다 -->
+  
   <dl class="grid">
     <div class="f"><dt>Name</dt><dd>{{client_name|Client}}</dd></div>
     <div class="f"><dt>Phone</dt><dd>{{phone|Phone number as spoken — leave blank if not said}}</dd></div>
@@ -92,12 +81,7 @@
     <div class="f"><dt>First met</dt><dd>{{first_met|Date of this conversation}}</dd></div>
   </dl>
 
-  <!-- ⛔⛔ **BRRETA — 이 칸은 법적 사실이다** (O.C.G.A. §10-6A · 2024 NAR 합의).
-       조지아에서 client 와 customer 는 **서면 중개계약**으로 갈리고, 구두 합의는 대리관계를
-       만들지 않는다. 그리고 2024 합의 이후 **집을 보여주기 전에** 서면 바이어 계약이 있어야 한다.
-       ⛔ 모델이 대화에서 "계약서 쓰죠" 를 듣고 'Client' 로 적으면 **법적 허위 진술**이다.
-         서명 여부는 대화에 없는 사실이고, 에이전트만 안다.
-       ▶ 그래서 __human__ 이다. 판정 금지 원칙(DEFERRALS V-26)의 가장 뾰족한 사례다. -->
+  
   <div class="legal">
     <span class="vlabel">Brokerage status
       <span style="font-weight:400;letter-spacing:0;text-transform:none">— the agent fills this in</span></span>
@@ -147,11 +131,7 @@
   {{/deal_breakers}}
   </div>
 
-  <!-- ⛔⛔ **Fair Housing 경계** (설계 §2.2 · LAYER_MODEL §4).
-       ✅ 한다   고객이 말한 것을 **사실로 기록** — 원문 인용과 함께
-       ✗ 안 한다  지역 추천 · 학군 기반 매물 제안 · 인구통계 추론
-       ▶ 그래서 라벨이 "Areas the client mentioned" 다. "선호 지역" 이 아니다 —
-         한 단어 차이가 기록과 steering 을 가른다. -->
+  
   <h2>Areas the client mentioned</h2>
   <p class="hint">A record of what the client said, quoted. Not a recommendation and not a search filter.</p>
   {{#areas|Places the client brought up — quote them, do not infer or suggest|max=10}}
@@ -161,15 +141,7 @@
   </div>
   {{/areas}}
 
-  <!-- ★★★ **기타 — 고정 칸이 못 담는 것** (Hoon 2026-09-15).
-       > *"고객마다 동일한 질/답이 오가는 게 아니니까 그 외 내용들은 기타 섹션으로 등록해 둬야"*
-
-       ⛔ **덩어리 글 한 칸이 아니라 행으로 쌓는다.** 이유가 둘이다:
-         ① 카드 마스터에 **누적**되려면 항목이어야 한다. 6줄짜리 덩어리는 다음 대화의
-            덩어리와 합칠 방법이 없다 — 덮어쓰거나 붙이거나뿐이고 둘 다 나쁘다
-         ② 덩어리 칸은 모델을 **요약·판정**으로 끌고 간다. 행 + 인용은 사실만 남긴다
-            (설계 §1.3 · 채용인터뷰의 qa 블록과 같은 규율)
-       ⚠️ 그래도 자유 칸을 남긴다 — 행으로 안 떨어지는 것이 실제로 있다. -->
+  
   <h2>Anything else that came up</h2>
   <p class="hint">One row per topic. Every client talks about something the fixed fields above do not cover.</p>
   {{#other|Anything discussed that no section above covers — one row per topic, with a quote|max=20}}

@@ -1,7 +1,7 @@
 <!--
   EZHaru form template.
   Source: form_loan_file_status.html (bundled in the app)
-  sha256: 04e1b36f47d6b0e6753b0a5e3e5f17209ec8beabc09fc4790fb462e5fc7cf101
+  sha256: 445bafbf132e55771aa01baa1fde631ad9d72bfa36a3b86b80a5f50a08e5c5fd
   Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
   so your own layout, wording and logo survive.
 -->
@@ -64,9 +64,7 @@
 
   <h1>{{borrower_name|Borrower}}</h1>
 
-  <!-- ⛔ 주소·대출번호는 파일에서 온다(말소리에서 받아적으면 다른 건에 붙는다) → __human__.
-       ⚠️ 이 양식은 **계약 후 진행** 단계용이다. 서류와 조건이 같은 구간에 섞여 일어나므로
-         설계 §3 의 Document Collection / In Process 를 한 장으로 합쳤다. -->
+  
   <dl class="grid">
     <div class="f"><dt>Borrower</dt><dd>{{borrower_name|Borrower}}</dd></div>
     <div class="f"><dt>Property</dt><dd>{{address|Property address __human__}}</dd></div>

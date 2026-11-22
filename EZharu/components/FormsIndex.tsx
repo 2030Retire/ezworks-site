@@ -110,22 +110,40 @@ export function FormsIndex({ locale = 'en' }: { locale?: Locale }) {
           {shown.length === 0 ? (
             <p className="forms-none">{t.none}</p>
           ) : (
-            <ul className="forms-list">
-              {shown.map(r => (
-                <li key={r.slug}>
-                  <Link className="form-row" href={localizePath(locale, `/products/recorder/forms/${slugId(r.slug)}/`)}>
-                    <span className="form-row-main">
-                      <strong>{r.title}</strong>
-                      <span className="form-row-blurb">{r.blurb}</span>
-                    </span>
-                    <span className="form-row-meta">
-                      <span className="form-pack">{r.pack}</span>
-                      <span className="form-fields">{t.fieldCount(countFields(r))}</span>
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            /* ⛔ 카드가 아니라 **표**다 (2026-11-22 Hoon: *"엑셀이나 게시판처럼 순수 목록"*).
+                 카드는 한 줄에 둘씩 들어가 눈이 지그재그로 움직인다. 표는 열이 고정이라
+                 스무 개가 되어도 같은 자리를 훑는다. */
+            <div className="forms-table-wrap">
+              <table className="forms-table">
+                <thead>
+                  <tr>
+                    <th scope="col">{t.colName}</th>
+                    <th scope="col">{t.colPack}</th>
+                    <th scope="col" className="num">{t.colFields}</th>
+                    <th scope="col" className="num">{t.colSize}</th>
+                    <th scope="col"><span className="sr-only">{t.download}</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shown.map(r => (
+                    <tr key={r.slug}>
+                      <th scope="row">
+                        <Link href={localizePath(locale, `/products/recorder/forms/${slugId(r.slug)}/`)}>
+                          {r.title}
+                        </Link>
+                        <span className="forms-row-blurb">{r.blurb}</span>
+                      </th>
+                      <td>{r.pack}</td>
+                      <td className="num">{countFields(r)}</td>
+                      <td className="num">{Math.round(r.bytes / 1024)} KB</td>
+                      <td className="act">
+                        <a href={`/forms/${r.slug}`} download>{t.download}</a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>

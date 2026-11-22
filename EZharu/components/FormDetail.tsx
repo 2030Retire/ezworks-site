@@ -27,8 +27,14 @@ export function FormDetail({ slug, locale = 'en' }: { slug: string; locale?: Loc
             <div className="form-actions form-actions-hero">
               {/* ⛔ `download` 속성이 있어야 브라우저가 화면에 그리는 대신 저장한다. */}
               <a className="button button-small" href={`/forms/${row.slug}`} download>{t.download}</a>
+              {/* ★ 채워진 모습 — ⛔ 받는 파일이 아니다. 빈 템플릿을 보여 주면 칸 이름만 보여
+                     무엇을 받는 건지 알 수 없다(2026-11-22 Hoon). */}
+              {row.sample ? (
+                <a className="button secondary button-small" href={`/forms/${row.slug.replace('.html', '-sample.html')}`} target="_blank" rel="noreferrer">{t.sample}</a>
+              ) : null}
               <a className="button secondary button-small" href={`/forms/${row.slug}`} target="_blank" rel="noreferrer">{t.preview}</a>
             </div>
+            {row.sample ? <p className="forms-note" style={{ marginTop: '10px' }}>{t.sampleHint}</p> : null}
           </div>
           <div className="legal-trust-card">
             <span className="legal-shield" aria-hidden="true">✓</span>

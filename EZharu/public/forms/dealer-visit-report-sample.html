@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dealer visit report</title>
+
+<style>
+  :root{
+    --paper:#ffffff; --desk:#eceae6;
+    --ink:#17181a; --ink2:#4a4f57; --ink3:#7c828b;
+    --rule:#dcdfe4; --rule2:#eef0f3;
+    --label:#2f4858; --flag:#93321f; --flagbg:#fbf0ec;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--desk);color:var(--ink);
+       font:15px/1.62 -apple-system,"Segoe UI",sans-serif}
+  .sheet{max-width:840px;margin:0 auto;background:var(--paper);
+         padding-inline:clamp(20px,5vw,52px);padding-block:36px 72px;min-height:100vh}
+
+  .letterhead{display:flex;align-items:center;gap:12px;margin-bottom:18px;min-height:34px}
+  .letterhead .mark img,.letterhead .mark svg{max-height:34px;width:auto;display:block}
+  .letterhead .org{font-weight:700;letter-spacing:-.01em}
+  .letterhead:empty{display:none}
+
+  .docmeta{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;
+           gap:6px 18px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;
+           color:var(--ink3);padding-bottom:10px;border-bottom:2px solid var(--ink)}
+  h1{font-size:clamp(22px,4vw,30px);line-height:1.2;letter-spacing:-.015em;margin:20px 0 22px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:0 32px}
+  .f{padding:11px 0;border-bottom:1px solid var(--rule2)}
+  .f.wide{grid-column:1/-1}
+  .f dt{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+        color:var(--label);font-weight:700;margin-bottom:4px}
+  .f dd{margin:0;min-height:1.6em}
+
+  h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+     display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
+
+  .item{padding:12px 0;border-bottom:1px solid var(--rule2)}
+  .item .c{font-weight:600}
+  .item .sub{margin-top:4px;font-size:13.5px;color:var(--ink2)}
+  .item .ev{margin-top:5px;padding-left:12px;border-left:2px solid var(--rule);
+            font-size:13.5px;color:var(--ink3)}
+  .pair{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:4px;font-size:13px;color:var(--ink2)}
+  .pair b{font-weight:600;color:var(--label)}
+
+  .open .item{background:var(--flagbg);border-left:3px solid var(--flag);
+              padding:12px 14px;border-bottom:0;margin-bottom:7px}
+  .open .c{color:var(--flag);font-weight:700}
+
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--rule);
+         font-size:12px;color:var(--ink3)}
+  @media print{ body{background:#fff} .sheet{max-width:none;padding:0} h2{break-after:avoid} }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  
+  <div class="letterhead">
+    <span class="mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 34" height="30" role="img"><rect width="132" height="34" rx="7" fill="#0867f2"/><text x="66" y="23" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="700" fill="#fff">EZHaru</text></svg></span>
+    <span class="org">EZHaru Equipment</span>
+  </div>
+
+  <div class="docmeta">
+    <span>Dealer visit report</span>
+    <span>EZHaru Equipment</span>
+  </div>
+
+  
+  <h1>Piedmont Equipment Co.</h1>
+
+  <dl class="grid">
+    <div class="f"><dt>Dealer</dt><dd>Piedmont Equipment Co.</dd></div>
+    <div class="f"><dt>Branch or location</dt><dd>Statesville, NC</dd></div>
+    <div class="f"><dt>Visit date</dt><dd>November 19, 2026</dd></div>
+    <div class="f"><dt>Visit type</dt>
+      <dd>In person</dd></div>
+    <div class="f wide"><dt>People met</dt>
+      <dd>Ray Dunlap (owner), Teresa Alvarez (sales manager)</dd></div>
+  </dl>
+
+  
+  <h2>How the dealer is doing</h2>
+  <p class="hint">Only what was said in the conversation. Leave anything that was not discussed blank.</p>
+  <dl class="grid">
+    <div class="f"><dt>Period discussed</dt><dd>Fourth quarter, through last week</dd></div>
+    <div class="f"><dt>Target</dt><dd>48 units</dd></div>
+    <div class="f"><dt>Actual so far</dt><dd>31 units</dd></div>
+    <div class="f"><dt>Market share</dt><dd>About 22 percent in the county</dd></div>
+    <div class="f"><dt>Direction since last visit</dt>
+      <dd>Up</dd></div>
+    <div class="f"><dt>Mood in the room</dt>
+      <dd>Cautious</dd></div>
+  </dl>
+
+  <h2>Stock and ordering</h2>
+  <dl class="grid">
+    <div class="f"><dt>Stock level</dt><dd>Eleven machines on the lot, which Ray called two too many</dd></div>
+    <div class="f"><dt>Ageing or slow movers</dt><dd>Two compact units from the spring order have not moved</dd></div>
+    <div class="f"><dt>Ordering intent</dt>
+      <dd>Thinking about it</dd></div>
+    <div class="f"><dt>What they expect to order</dt>
+      <dd>Wants to place a spring order in January if rates hold</dd></div>
+    <div class="f"><dt>Financing or floor plan</dt>
+      <dd>Floor plan line is getting tight — interest is eating the margin on the aged units</dd></div>
+    <div class="f"><dt>Parts and service</dt>
+      <dd>Parts counter is up; they added a Saturday morning shift</dd></div>
+  </dl>
+
+  
+  <h2>Products and models they talked about</h2>
+  <p class="hint">One row per model or product line. Write the name the way they said it.</p>
+  
+  <div class="item">
+    <div class="c">CX40 compact</div>
+    <div class="pair">
+      <span><b>How it is selling</b> Selling well</span>
+      <span><b>Units mentioned</b> 9 so far this quarter</span>
+    </div>
+    <div class="sub">Buyers like the smaller footprint for orchard work</div>
+    <div class="ev">Every one I bring in is gone inside a month.</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">CX75 utility</div>
+    <div class="pair">
+      <span><b>How it is selling</b> Slow</span>
+      <span><b>Units mentioned</b> 2 on the lot</span>
+    </div>
+    <div class="sub">Price gap against the competitor is the sticking point</div>
+    <div class="ev">People walk over, look at the sticker, and go back across the road.</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">L-series loader attachments</div>
+    <div class="pair">
+      <span><b>How it is selling</b> Steady</span>
+      <span><b>Units mentioned</b> Not said</span>
+    </div>
+    <div class="sub">Mostly sold attached to new machines rather than on their own</div>
+    <div class="ev">Nobody comes in for a loader. They come in for a tractor and leave with one.</div>
+  </div>
+  
+
+  <h2>What end customers are saying</h2>
+  <p class="hint">What the dealer heard from buyers. One row per theme.</p>
+  
+  <div class="item">
+    <div class="c">Waiting on financing</div>
+    <div class="ev">Half my customers are sitting on their hands until rates come down.</div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Parts availability</div>
+    <div class="ev">They remember last year. They ask about parts before they ask about price.</div>
+  </div>
+  
+
+  <h2>Competitors</h2>
+  <p class="hint">Only what was actually mentioned. Do not fill this in from general knowledge.</p>
+  
+  <div class="item">
+    <div class="c">Riverbend Tractor</div>
+    <div class="sub">Running zero percent for 48 months on compact machines</div>
+    <div class="ev">They put a banner across the whole front of the building.</div>
+  </div>
+  
+
+  <h2>Open issues</h2>
+  <p class="hint">Problems the dealer raised that are not settled yet.</p>
+  <div class="open">
+  
+    <div class="item">
+      <div class="c">Warranty claim from September still unpaid</div>
+      <div class="sub">Claim 4482 — Ray says it has been sitting since the ninth</div>
+    </div>
+  
+    <div class="item">
+      <div class="c">Two aged compact units</div>
+      <div class="sub">Asked whether there is any floor plan relief available</div>
+    </div>
+  
+  </div>
+
+  
+  <h2>Agreed actions</h2>
+  <p class="hint">What was actually agreed, and who agreed to it.</p>
+  
+  <div class="item">
+    <div class="c">Chase warranty claim 4482 with the service desk</div>
+    <div class="pair">
+      <span><b>Who</b> Me</span>
+      <span><b>When</b> By Friday</span>
+    </div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Send the January spring order program sheet</div>
+    <div class="pair">
+      <span><b>Who</b> Me</span>
+      <span><b>When</b> Next week</span>
+    </div>
+  </div>
+  
+  <div class="item">
+    <div class="c">Send photos of the two aged units for a trade listing</div>
+    <div class="pair">
+      <span><b>Who</b> Teresa</span>
+      <span><b>When</b> Not said</span>
+    </div>
+  </div>
+  
+
+  <h2>Anything else that came up</h2>
+  <p class="hint">One row per topic. Every visit covers something the sections above do not.</p>
+  
+  <div class="item">
+    <div class="c">New hire</div>
+    <div class="ev">They are interviewing for a second service technician</div>
+  </div>
+  
+
+  <h2>Next visit</h2>
+  <dl class="grid">
+    <div class="f wide"><dt>Plan</dt>
+      <dd>Mid-January, around the spring order deadline</dd></div>
+  </dl>
+
+  <h2>Free notes</h2>
+  <div class="f wide"><dd>Ray is the decision maker but Teresa runs the day to day. Worth copying her on the program sheet.</dd></div>
+
+  <footer>
+    Drafted from a recording. Check it before sending it on.
+  </footer>
+</div>
+</body>
+</html>
+

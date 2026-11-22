@@ -16,6 +16,7 @@ export type FormRow = {
   bytes: number;
   sha256: string;
   sections: FormSection[];
+  sample: boolean;
 };
 
 /** ⛔ 주소에서 `.html` 을 뗀다 — 상세 페이지의 주소는 파일이 아니라 **문서**다. */
@@ -29,8 +30,9 @@ export const formsCopy: Record<Locale, {
   sortLabel: string; sortName: string; sortSize: string;
   count: (n: number, total: number) => string;
   fieldCount: (n: number) => string;
+  colName: string; colPack: string; colFields: string; colSize: string;
   none: string;
-  preview: string; download: string;
+  preview: string; download: string; sample: string; sampleHint: string;
   whatItAsks: string; repeats: string; repeatsHint: string;
   fileFacts: string; size: string; checksum: string;
 }> = {
@@ -57,9 +59,12 @@ export const formsCopy: Record<Locale, {
     sortSize: 'Longest first',
     count: (n, total) => (n === total ? `${total} templates` : `${n} of ${total} templates`),
     fieldCount: n => `${n} fields`,
+    colName: 'Template', colPack: 'Used for', colFields: 'Fields', colSize: 'Size',
     none: 'No templates match what you typed.',
-    preview: 'Open it',
+    preview: 'Open the template',
     download: 'Download',
+    sample: 'See it filled in',
+    sampleHint: 'An example with made-up details, so you can see what a finished one looks like.',
     whatItAsks: 'What it asks for',
     repeats: 'repeats',
     repeatsHint: 'Marked rows repeat — one entry per item, so the same subject gathers across recordings.',
@@ -90,9 +95,12 @@ export const formsCopy: Record<Locale, {
     sortSize: '긴 것부터',
     count: (n, total) => (n === total ? `양식 ${total}개` : `${total}개 중 ${n}개`),
     fieldCount: n => `${n}칸`,
+    colName: '양식', colPack: '쓰는 곳', colFields: '칸', colSize: '크기',
     none: '검색어에 맞는 양식이 없습니다.',
-    preview: '열어 보기',
+    preview: '빈 양식 보기',
     download: '받기',
+    sample: '채워진 모습 보기',
+    sampleHint: '지어낸 내용으로 채운 예시입니다. 완성되면 어떻게 보이는지 볼 수 있습니다.',
     whatItAsks: '무엇을 적는 양식인가',
     repeats: '반복',
     repeatsHint: '반복 표시가 붙은 줄은 항목마다 한 줄씩 쌓입니다 — 그래서 여러 녹음의 같은 대상이 한 줄로 모입니다.',
