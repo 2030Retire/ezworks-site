@@ -1,7 +1,7 @@
 <!--
   EZHaru form template.
   Source: form_dealer_visit.html (bundled in the app)
-  sha256: 900fedadb167ecb3f538bf6d3139d2b5f8ed07a7ed0d61fa9e3fab798c93e07a
+  sha256: f79d9837197cc3888fc9fd7b6ae9617f81e9e796c830790c81d3d838e3917bf2
   Edit freely. The app reads the {{ }} markers and leaves the rest of the HTML alone,
   so your own layout, wording and logo survive.
 -->
@@ -42,6 +42,18 @@
         color:var(--label);font-weight:700;margin-bottom:4px}
   .f dd{margin:0;min-height:1.6em}
 
+  /* ⛔ 머리말은 **줄을 줄인다** (2026-11-22 Hoon). 라벨을 값 위에 올리면 칸마다 두 줄이
+     되고, 머리말만 열 줄을 먹는다. 나란히 놓으면 절반이 된다.
+     ⚠️ 좁은 폭에서는 다시 위아래로 쌓인다 — 한 줄에 욱여넣으면 값이 깨진다. */
+  .grid.tight{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 28px}
+  .grid.tight .f{display:flex;gap:10px;align-items:baseline;padding:7px 0}
+  .grid.tight .f dt{flex:0 0 38%;margin-bottom:0}
+  .grid.tight .f dd{flex:1;min-height:0}
+  @media(max-width:460px){
+    .grid.tight .f{display:block}
+    .grid.tight .f dt{margin-bottom:4px}
+  }
+
   h2{font-size:16px;margin:34px 0 4px;padding-bottom:6px;border-bottom:1px solid var(--ink);
      display:flex;justify-content:space-between;align-items:baseline;gap:12px}
   .hint{font-size:12.5px;color:var(--ink3);margin:8px 0 12px}
@@ -80,7 +92,7 @@
   
   <h1>{{dealer|Dealer or distributor name}}</h1>
 
-  <dl class="grid">
+  <dl class="grid tight">
     <div class="f"><dt>Dealer</dt><dd>{{dealer|Dealer or distributor name}}</dd></div>
     <div class="f"><dt>Branch or location</dt><dd>{{branch|Branch or location visited}}</dd></div>
     <div class="f"><dt>Visit date</dt><dd>{{visit_date|Date of this visit}}</dd></div>

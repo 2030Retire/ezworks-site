@@ -638,8 +638,8 @@
     "title": "Dealer visit report",
     "pack": "Field sales",
     "blurb": "A rep's visit to a dealer: how they are doing, what they talked about ordering, what was agreed.",
-    "bytes": 8462,
-    "sha256": "900fedadb167ecb3f538bf6d3139d2b5f8ed07a7ed0d61fa9e3fab798c93e07a",
+    "bytes": 9138,
+    "sha256": "f79d9837197cc3888fc9fd7b6ae9617f81e9e796c830790c81d3d838e3917bf2",
     "sections": [
       {
         "title": "",
@@ -880,8 +880,8 @@
     "title": "Call record",
     "pack": "Phone support",
     "blurb": "One customer call: who, why, what was done, and what is still open.",
-    "bytes": 7105,
-    "sha256": "08499de530819f72dcfe469eaf054b2b18a7d701767aa81a5959152063ef16e4",
+    "bytes": 7781,
+    "sha256": "07cabb252f0342cb9dcc51bb86bccb774e2435924fda6f2e800df760371721aa",
     "sections": [
       {
         "title": "",
@@ -1076,8 +1076,8 @@
     "title": "Warranty intake",
     "pack": "Service",
     "blurb": "A machine problem as the customer described it, with the details a claim will need.",
-    "bytes": 7786,
-    "sha256": "529c7988e9b9bf705c546a2de7b8b1c0610af1540c5187726280f80c21d80118",
+    "bytes": 8462,
+    "sha256": "94695b14f36188d92a1ce9a5fa6a2c1982eda835b5e3335951bd89ddb3bb746b",
     "sections": [
       {
         "title": "",
