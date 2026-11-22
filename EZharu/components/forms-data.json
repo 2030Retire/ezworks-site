@@ -5,7 +5,170 @@
     "pack": "Real estate",
     "blurb": "What you learned about a buyer or seller, carried across every call.",
     "bytes": 9923,
-    "sha256": "146ef1776f7470235da4b6714ee9edf949ebbde1d37dbce5fd4c3019e4e8618f"
+    "sha256": "146ef1776f7470235da4b6714ee9edf949ebbde1d37dbce5fd4c3019e4e8618f",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "Client",
+            "repeated": false
+          },
+          {
+            "label": "Phone number as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Email as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Date of this conversation",
+            "repeated": false
+          },
+          {
+            "label": "Brokerage status",
+            "repeated": false
+          },
+          {
+            "label": "Buyer agreement signed on",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Financing",
+        "fields": [
+          {
+            "label": "Financing",
+            "repeated": false
+          },
+          {
+            "label": "Lender contact",
+            "repeated": false
+          },
+          {
+            "label": "Target monthly payment",
+            "repeated": false
+          },
+          {
+            "label": "Price range they stated",
+            "repeated": false
+          },
+          {
+            "label": "Must sell current home first",
+            "repeated": false
+          },
+          {
+            "label": "Timeline they stated",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Must-haves",
+        "fields": [
+          {
+            "label": "What the client said they must have — with a short quote",
+            "repeated": true
+          },
+          {
+            "label": "Must-have",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Nice to have",
+        "fields": [
+          {
+            "label": "What the client said would be nice but is not required",
+            "repeated": true
+          },
+          {
+            "label": "Nice-to-have",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Deal-breakers",
+        "fields": [
+          {
+            "label": "What the client said would rule a property out",
+            "repeated": true
+          },
+          {
+            "label": "Deal-breaker",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Areas the client mentioned",
+        "fields": [
+          {
+            "label": "Places the client brought up — quote them, do not infer or suggest",
+            "repeated": true
+          },
+          {
+            "label": "Area mentioned",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers — one row per topic, with a quote",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Free notes — anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Next step",
+        "fields": [
+          {
+            "label": "Agreed next step",
+            "repeated": false
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "realtor-showing.html",
@@ -13,7 +176,133 @@
     "pack": "Real estate",
     "blurb": "One showing: the property, who came, what they said, what happens next.",
     "bytes": 9100,
-    "sha256": "38b82bef9fad5dfeccaaf045bcb93a3eec4342c81d427d800a1ba4627b4955b3"
+    "sha256": "38b82bef9fad5dfeccaaf045bcb93a3eec4342c81d427d800a1ba4627b4955b3",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "Property address",
+            "repeated": false
+          },
+          {
+            "label": "MLS number",
+            "repeated": false
+          },
+          {
+            "label": "Date of the showing",
+            "repeated": false
+          },
+          {
+            "label": "Client",
+            "repeated": false
+          },
+          {
+            "label": "Who attended",
+            "repeated": false
+          },
+          {
+            "label": "Written buyer agreement in place",
+            "repeated": false
+          },
+          {
+            "label": "Where it landed",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they liked",
+        "fields": [
+          {
+            "label": "What the client said they liked — quote them",
+            "repeated": true
+          },
+          {
+            "label": "Liked",
+            "repeated": false
+          },
+          {
+            "label": "What they said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Concerns raised",
+        "fields": [
+          {
+            "label": "What gave the client pause — the concern and how it was addressed",
+            "repeated": true
+          },
+          {
+            "label": "Concern",
+            "repeated": false
+          },
+          {
+            "label": "How it was addressed",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "If they ruled it out",
+        "fields": [
+          {
+            "label": "The reason the client gave, in their words",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Did their criteria change",
+        "fields": [
+          {
+            "label": "What changed",
+            "repeated": false
+          },
+          {
+            "label": "What they said about the change",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers — one row per topic, with a quote",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Free notes — anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Next step",
+        "fields": [
+          {
+            "label": "Agreed next step",
+            "repeated": false
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "loan-borrower-intake.html",
@@ -21,7 +310,161 @@
     "pack": "Lending",
     "blurb": "A first conversation with a borrower, in the order you actually ask it.",
     "bytes": 8503,
-    "sha256": "85710c75e39d8d4b0b71199d54bf1b68e9ece2a8f65e6698d192b9951fbe8a1a"
+    "sha256": "85710c75e39d8d4b0b71199d54bf1b68e9ece2a8f65e6698d192b9951fbe8a1a",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "Borrower",
+            "repeated": false
+          },
+          {
+            "label": "Phone number as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Email as spoken — leave blank if not said",
+            "repeated": false
+          },
+          {
+            "label": "Date of this conversation",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Loan",
+        "fields": [
+          {
+            "label": "Loan purpose",
+            "repeated": false
+          },
+          {
+            "label": "Occupancy",
+            "repeated": false
+          },
+          {
+            "label": "Price range they stated",
+            "repeated": false
+          },
+          {
+            "label": "Down payment they stated",
+            "repeated": false
+          },
+          {
+            "label": "Target monthly payment",
+            "repeated": false
+          },
+          {
+            "label": "Timeline they stated",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Income and funds",
+        "fields": [
+          {
+            "label": "Income type",
+            "repeated": false
+          },
+          {
+            "label": "Income as stated",
+            "repeated": false
+          },
+          {
+            "label": "Source of funds",
+            "repeated": false
+          },
+          {
+            "label": "Other debts they mentioned",
+            "repeated": false
+          },
+          {
+            "label": "What the borrower said about their credit",
+            "repeated": false
+          },
+          {
+            "label": "Application status",
+            "repeated": false
+          },
+          {
+            "label": "Pre-approval status",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What they asked",
+        "fields": [
+          {
+            "label": "Questions the borrower asked and the answers given",
+            "repeated": true
+          },
+          {
+            "label": "Question",
+            "repeated": false
+          },
+          {
+            "label": "Answer given",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Concerns and obstacles",
+        "fields": [
+          {
+            "label": "What the borrower raised as a worry or obstacle",
+            "repeated": true
+          },
+          {
+            "label": "Concern",
+            "repeated": false
+          },
+          {
+            "label": "How it was addressed",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers — one row per topic, with a quote",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Free notes — anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Next step",
+        "fields": [
+          {
+            "label": "Agreed next step",
+            "repeated": false
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "loan-file-status.html",
@@ -29,7 +472,162 @@
     "pack": "Lending",
     "blurb": "Where a file stands today and what is still outstanding.",
     "bytes": 6529,
-    "sha256": "04e1b36f47d6b0e6753b0a5e3e5f17209ec8beabc09fc4790fb462e5fc7cf101"
+    "sha256": "04e1b36f47d6b0e6753b0a5e3e5f17209ec8beabc09fc4790fb462e5fc7cf101",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "Borrower",
+            "repeated": false
+          },
+          {
+            "label": "Property address",
+            "repeated": false
+          },
+          {
+            "label": "Loan number",
+            "repeated": false
+          },
+          {
+            "label": "Date of this conversation",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Numbers as stated",
+        "fields": [
+          {
+            "label": "Rate lock",
+            "repeated": false
+          },
+          {
+            "label": "Rate and expiry as stated",
+            "repeated": false
+          },
+          {
+            "label": "Appraisal",
+            "repeated": false
+          },
+          {
+            "label": "Appraisal value or gap, as stated",
+            "repeated": false
+          },
+          {
+            "label": "DTI or LTV, only if spoken",
+            "repeated": false
+          },
+          {
+            "label": "Deadlines, exactly as spoken",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Documents received",
+        "fields": [
+          {
+            "label": "Documents the borrower has already sent — name them as spoken",
+            "repeated": true
+          },
+          {
+            "label": "Document",
+            "repeated": false
+          },
+          {
+            "label": "What was said about it",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Still outstanding",
+        "fields": [
+          {
+            "label": "Documents requested but not yet received",
+            "repeated": true
+          },
+          {
+            "label": "Document",
+            "repeated": false
+          },
+          {
+            "label": "Who is getting it, by when — as spoken",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Conditions",
+        "fields": [
+          {
+            "label": "Conditions on the file and whether each was said to be cleared",
+            "repeated": true
+          },
+          {
+            "label": "Condition",
+            "repeated": false
+          },
+          {
+            "label": "What was said about its status",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What the borrower asked",
+        "fields": [
+          {
+            "label": "Questions the borrower asked and the answers given",
+            "repeated": true
+          },
+          {
+            "label": "Question",
+            "repeated": false
+          },
+          {
+            "label": "Answer given",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers — one row per topic, with a quote",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Free notes — anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Next step",
+        "fields": [
+          {
+            "label": "Agreed next step",
+            "repeated": false
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "dealer-visit-report.html",
@@ -37,7 +635,232 @@
     "pack": "Field sales",
     "blurb": "A rep's visit to a dealer: how they are doing, what they talked about ordering, what was agreed.",
     "bytes": 11071,
-    "sha256": "e1ba828ee8592b27c8103ebe234a7248a0960e6ebd39ce73561031e5c81a2033"
+    "sha256": "e1ba828ee8592b27c8103ebe234a7248a0960e6ebd39ce73561031e5c81a2033",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "Dealer or distributor name",
+            "repeated": false
+          },
+          {
+            "label": "Branch or location visited",
+            "repeated": false
+          },
+          {
+            "label": "Date of this visit",
+            "repeated": false
+          },
+          {
+            "label": "How this contact happened",
+            "repeated": false
+          },
+          {
+            "label": "Who was in the conversation, with their role if it was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "How the dealer is doing",
+        "fields": [
+          {
+            "label": "Period they talked about, as they said it",
+            "repeated": false
+          },
+          {
+            "label": "Sales target as stated",
+            "repeated": false
+          },
+          {
+            "label": "Actual sales so far, as stated",
+            "repeated": false
+          },
+          {
+            "label": "Market share as stated",
+            "repeated": false
+          },
+          {
+            "label": "Whether it moved up or down since last time",
+            "repeated": false
+          },
+          {
+            "label": "How the dealer sounded about business",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Stock and ordering",
+        "fields": [
+          {
+            "label": "What they said about how much stock they are holding",
+            "repeated": false
+          },
+          {
+            "label": "Units they said are sitting too long",
+            "repeated": false
+          },
+          {
+            "label": "Where their ordering stands",
+            "repeated": false
+          },
+          {
+            "label": "What they said they plan to order and roughly when",
+            "repeated": false
+          },
+          {
+            "label": "Anything said about floor plan, credit lines or working capital",
+            "repeated": false
+          },
+          {
+            "label": "Anything said about parts, service or support business",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Products and models they talked about",
+        "fields": [
+          {
+            "label": "Each product line or model that came up, one row each",
+            "repeated": true
+          },
+          {
+            "label": "Model or product line, as they said it",
+            "repeated": false
+          },
+          {
+            "label": "How it is moving",
+            "repeated": false
+          },
+          {
+            "label": "Any quantity that was said",
+            "repeated": false
+          },
+          {
+            "label": "What the dealer or their customers said about it",
+            "repeated": false
+          },
+          {
+            "label": "What was said, in their words",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What end customers are saying",
+        "fields": [
+          {
+            "label": "Themes the dealer reported hearing from end customers",
+            "repeated": true
+          },
+          {
+            "label": "Theme",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Competitors",
+        "fields": [
+          {
+            "label": "Competitor activity that was mentioned — brand, what they are doing",
+            "repeated": true
+          },
+          {
+            "label": "Competitor",
+            "repeated": false
+          },
+          {
+            "label": "What they were said to be doing",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Open issues",
+        "fields": [
+          {
+            "label": "Unresolved problems the dealer raised",
+            "repeated": true
+          },
+          {
+            "label": "Issue",
+            "repeated": false
+          },
+          {
+            "label": "What they said about it",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Agreed actions",
+        "fields": [
+          {
+            "label": "Actions that were agreed in this conversation",
+            "repeated": true
+          },
+          {
+            "label": "What was agreed",
+            "repeated": false
+          },
+          {
+            "label": "Who agreed to do it",
+            "repeated": false
+          },
+          {
+            "label": "When it is due, as stated",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else that came up",
+        "fields": [
+          {
+            "label": "Anything discussed that no section above covers — one row per topic",
+            "repeated": true
+          },
+          {
+            "label": "Topic",
+            "repeated": false
+          },
+          {
+            "label": "What was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Next visit",
+        "fields": [
+          {
+            "label": "What was said about the next visit or next contact",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Free notes",
+        "fields": [
+          {
+            "label": "Anything that does not fit a row above",
+            "repeated": false
+          }
+        ]
+      }
+    ]
   },
   {
     "slug": "student-lecture.html",
@@ -45,6 +868,149 @@
     "pack": "Study",
     "blurb": "A lecture: the thread of the argument, terms, and what was assigned.",
     "bytes": 2754,
-    "sha256": "8d3202cd9b4d3a175239fb04d08d08aa9e01dbd9742c19b961597e86685861fb"
+    "sha256": "8d3202cd9b4d3a175239fb04d08d08aa9e01dbd9742c19b961597e86685861fb",
+    "sections": [
+      {
+        "title": "",
+        "fields": [
+          {
+            "label": "Course",
+            "repeated": false
+          },
+          {
+            "label": "Today's topic",
+            "repeated": false
+          },
+          {
+            "label": "Date",
+            "repeated": false
+          },
+          {
+            "label": "Instructor",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "What was covered",
+        "fields": [
+          {
+            "label": "In the order it was taught",
+            "repeated": true
+          },
+          {
+            "label": "Point",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Definitions and formulas",
+        "fields": [
+          {
+            "label": "Term and what it means",
+            "repeated": true
+          },
+          {
+            "label": "Term",
+            "repeated": false
+          },
+          {
+            "label": "As stated in class",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Worked examples",
+        "fields": [
+          {
+            "label": "Examples and counter-examples",
+            "repeated": true
+          },
+          {
+            "label": "Example",
+            "repeated": false
+          },
+          {
+            "label": "What it demonstrates",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Flagged by the instructor",
+        "fields": [
+          {
+            "label": "Flagged out loud",
+            "repeated": true
+          },
+          {
+            "label": "What",
+            "repeated": false
+          },
+          {
+            "label": "How it was said",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Questions asked in class",
+        "fields": [
+          {
+            "label": "Question and answer",
+            "repeated": true
+          },
+          {
+            "label": "Question",
+            "repeated": false
+          },
+          {
+            "label": "Answer given",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Still unclear to me",
+        "fields": [
+          {
+            "label": "What I did not follow",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Before next class",
+        "fields": [
+          {
+            "label": "Reading",
+            "repeated": false
+          },
+          {
+            "label": "Assignment",
+            "repeated": false
+          },
+          {
+            "label": "Due",
+            "repeated": false
+          },
+          {
+            "label": "Next topic announced",
+            "repeated": false
+          }
+        ]
+      },
+      {
+        "title": "Anything else",
+        "fields": [
+          {
+            "label": "Free notes",
+            "repeated": false
+          }
+        ]
+      }
+    ]
   }
 ]

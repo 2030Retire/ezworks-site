@@ -2882,34 +2882,72 @@ html[lang='ko'] .page-hero h1 {
   margin-top: 1.5rem !important;
 }
 
-/* ── 양식 템플릿 페이지 (2026-11-16) ─────────────────────────────────
-   ⛔ `.legal-*` 레이아웃을 그대로 쓴다 — 사이드바 + 본문. 여기는 카드 격자만 더한다. */
+/* ── 양식 템플릿 — 목록 + 상세 (2026-11-22) ─────────────────────────
+   ⛔ `.legal-*` 레이아웃을 그대로 쓴다. 여기는 목록 3요소(검색·필터·정렬)와 행만 더한다. */
 .forms-lede { margin: 14px 0 0; max-width: 46ch; color: #466288; font-size: 1rem; line-height: 1.7; }
 .forms-how { margin: 0 0 10px; font-size: .95rem; font-weight: 800; color: var(--ink); }
 .forms-steps { margin: 0; padding-left: 1.1rem; color: #607796; font-size: .88rem; line-height: 1.7; }
 .forms-steps li + li { margin-top: 8px; }
 .forms-note { margin-top: 14px !important; font-size: .83rem !important; }
-.forms-section + .forms-section { margin-top: 38px; }
-.forms-section > h2 { margin-bottom: 16px; }
-.forms-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.form-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-  padding: 20px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--soft);
+
+/* 목록 3요소 */
+.forms-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 14px; }
+.forms-search { flex: 1 1 220px; min-width: 0; }
+.forms-search input {
+  width: 100%; min-height: 48px; padding: 0 14px;
+  border: 1px solid #c3d4e8; border-radius: 10px; background: #fff; color: var(--ink);
 }
-.form-card h3 { margin: 0; font-size: 1.02rem; font-weight: 800; color: var(--ink); }
-.form-card p { margin: 0; color: #4f678c; font-size: .9rem; line-height: 1.6; }
-.form-meta { font-size: .78rem !important; color: #7b8ca6 !important; font-variant-numeric: tabular-nums; }
-.form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
+.forms-search input:focus-visible { outline: 2px solid var(--blue); outline-offset: 1px; }
+.forms-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  min-height: 40px; padding: 0 14px; border-radius: 999px; cursor: pointer;
+  border: 1px solid #c3d4e8; background: #fff; color: #456289;
+  font-size: .86rem; font-weight: 650;
+}
+.chip.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.chip:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.forms-sort { display: flex; align-items: center; gap: 8px; font-size: .86rem; color: #607796; }
+.forms-sort select {
+  min-height: 40px; padding: 0 10px; border-radius: 9px;
+  border: 1px solid #c3d4e8; background: #fff; color: var(--ink);
+}
+.forms-count { margin: 0 0 12px; font-size: .84rem; color: #7b8ca6; font-variant-numeric: tabular-nums; }
+.forms-none { color: #607796; }
+
+.forms-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.form-row {
+  display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: baseline; justify-content: space-between;
+  padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--soft);
+  transition: .15s ease;
+}
+.form-row:hover { border-color: #b8cde8; transform: translateY(-1px); }
+.form-row:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.form-row-main { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1 1 260px; }
+.form-row-main strong { font-size: 1.02rem; color: var(--ink); }
+.form-row-blurb { font-size: .89rem; color: #4f678c; line-height: 1.55; }
+.form-row-meta { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+.form-pack {
+  font-size: .76rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  color: #456289; border: 1px solid #c8d8ec; border-radius: 999px; padding: 2px 10px;
+}
+.form-fields { font-size: .79rem; color: #7b8ca6; font-variant-numeric: tabular-nums; }
+
+/* 상세 */
+.form-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.form-actions-hero { margin-top: 18px; }
+.form-section { margin-bottom: 22px; }
+.form-section h3 { margin: 0 0 8px; font-size: .97rem; font-weight: 800; color: var(--ink); }
+.form-fields-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.form-fields-list li {
+  display: flex; gap: 10px; align-items: baseline; justify-content: space-between;
+  padding: 7px 0; border-bottom: 1px solid var(--line); font-size: .92rem; color: #243e62;
+}
+.form-fields-list li:last-child { border-bottom: none; }
+.form-repeat {
+  flex-shrink: 0; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+  color: #8a5a00; background: #fdf6e3; border-radius: 999px; padding: 1px 9px;
+}

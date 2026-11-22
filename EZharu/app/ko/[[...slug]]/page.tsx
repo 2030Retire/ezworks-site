@@ -4,10 +4,12 @@ import { KoreanAboutPage, KoreanContactPage, KoreanHomePage, KoreanHowPage, Kore
 import type { ProductKey } from '@/components/data';
 import { PrivacyPolicy } from '@/components/PrivacyPolicy';
 import { DeleteAccountPage } from '@/components/DeleteAccountPage';
-import { FormsPage } from '@/components/FormsPage';
+import { FormsIndex } from '@/components/FormsIndex';
+import { FormDetail, formSlugs } from '@/components/FormDetail';
 
 const paths = [
-  [], ['products'], ['products','recorder'], ['products','recorder','privacy'], ['products','recorder','delete-account'], ['products','recorder','forms'], ['products','expense'], ['products','invoice'], ['products','class'],
+  [], ['products'], ['products','recorder'], ['products','recorder','privacy'], ['products','recorder','delete-account'], ['products','recorder','forms'],
+  ...formSlugs().map(s => ['products','recorder','forms', s]), ['products','expense'], ['products','invoice'], ['products','class'],
   ['solutions'], ['how-we-work'], ['about'], ['contact'],
 ];
 
@@ -33,7 +35,9 @@ export default async function KoreanRoute({ params }: { params: Promise<{ slug?:
   if (key === 'contact') return <KoreanContactPage/>;
   if (key === 'products/recorder/privacy') return <PrivacyPolicy locale="ko"/>;
   if (key === 'products/recorder/delete-account') return <DeleteAccountPage locale="ko"/>;
-  if (key === 'products/recorder/forms') return <FormsPage locale="ko"/>;
+  if (key === 'products/recorder/forms') return <FormsIndex locale="ko"/>;
+  const form = key.match(/^products\/recorder\/forms\/(.+)$/);
+  if (form) return <FormDetail slug={form[1]} locale="ko"/>;
   const match = key.match(/^products\/(recorder|expense|invoice|class)$/);
   if (match) return <KoreanProductPage slug={match[1] as ProductKey}/>;
   notFound();
